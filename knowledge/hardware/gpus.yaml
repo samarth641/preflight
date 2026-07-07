@@ -1,0 +1,67 @@
+gpus:
+  - id: rtx-4090
+    name: NVIDIA RTX 4090
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 1008
+    tflops_fp16: 165
+    power_watts: 450
+    training_speed_tier: high
+    architecture: ada
+
+  - id: rtx-4080
+    name: NVIDIA RTX 4080
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 717
+    tflops_fp16: 97
+    power_watts: 320
+    training_speed_tier: high
+    architecture: ada
+
+  - id: a100-80gb
+    name: NVIDIA A100 80GB
+    vendor: nvidia
+    vram_gb: 80
+    memory_bandwidth_gbps: 2039
+    tflops_fp16: 312
+    power_watts: 400
+    training_speed_tier: datacenter
+    architecture: ampere
+
+  - id: h100-80gb
+    name: NVIDIA H100 80GB
+    vendor: nvidia
+    vram_gb: 80
+    memory_bandwidth_gbps: 3350
+    tflops_fp16: 756
+    power_watts: 700
+    training_speed_tier: datacenter
+    architecture: hopper
+
+  - id: mi300x
+    name: AMD MI300X
+    vendor: amd
+    vram_gb: 192
+    memory_bandwidth_gbps: 5300
+    tflops_fp16: 1307
+    power_watts: 750
+    training_speed_tier: datacenter
+    architecture: cdna3
+
+rules:
+  - id: hardware-vram-insufficient
+    title: Insufficient VRAM for Model Size
+    source: NVIDIA CUDA Documentation
+    documentation_url: https://docs.nvidia.com/cuda/cuda-c-programming-guide/
+    category: hardware
+    condition:
+      field: hardware.vram_gb
+      operator: lt
+      value: 8
+    recommendation: Consider a GPU with at least 16GB VRAM or enable model parallelism / quantization.
+    reason: Models requiring more than 8GB VRAM will not fit on consumer entry-level GPUs.
+    confidence: 0.85
+    priority: 7
+    references:
+      - "GPU memory requirements guide"

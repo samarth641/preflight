@@ -1,0 +1,11 @@
+READ.MD
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+*.egg
+.venv/
+venv/
+.env

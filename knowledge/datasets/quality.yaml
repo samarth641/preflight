@@ -1,0 +1,48 @@
+- id: dataset-class-imbalance
+  title: Address Class Imbalance
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/nn.html#torch.nn.CrossEntropyLoss
+  category: dataset
+  condition:
+    field: dataset.class_imbalance_ratio
+    operator: gte
+    value: 5
+  recommendation: Use weighted CrossEntropyLoss, oversampling minority classes, or focal loss.
+  reason: Severe class imbalance causes models to bias toward majority classes, hurting minority recall.
+  confidence: 0.88
+  priority: 8
+  references:
+    - "Focal Loss paper"
+    - "PyTorch CrossEntropyLoss documentation"
+
+- id: dataset-low-resolution
+  title: Increase Image Resolution
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    field: dataset.median_resolution
+    operator: lt
+    value: 224
+  recommendation: Consider upscaling images or using a model pretrained at lower resolution.
+  reason: Images below 224px may lack detail needed for fine-grained classification tasks.
+  confidence: 0.75
+  priority: 5
+  references:
+    - "ImageNet preprocessing standards"
+
+- id: dataset-duplicates
+  title: Remove Duplicate Images
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/index.html
+  category: dataset
+  condition:
+    field: dataset.duplicate_percent
+    operator: gte
+    value: 5
+  recommendation: Run deduplication using perceptual hashing before training to prevent data leakage.
+  reason: Duplicate images in train/val splits inflate metrics and cause overfitting.
+  confidence: 0.86
+  priority: 7
+  references:
+    - "Dataset quality best practices"

@@ -1,0 +1,40 @@
+- id: hf-gradient-checkpointing
+  title: Enable Gradient Checkpointing for Large Models
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/main/en/perf_train_gpu_one
+  category: optimization
+  condition:
+    and:
+      - field: model.parameter_count
+        operator: gte
+        value: 1000000000
+      - field: hardware.vram_gb
+        operator: lt
+        value: 24
+  recommendation: Enable gradient_checkpointing=True in model config to reduce VRAM by 30-50%.
+  reason: Large transformer models exceed consumer GPU VRAM without memory optimization techniques.
+  confidence: 0.91
+  priority: 8
+  references:
+    - "Hugging Face training performance guide"
+
+- id: hf-flash-attention
+  title: Use Flash Attention 2
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/main/en/perf_infer_gpu_one
+  category: optimization
+  condition:
+    and:
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "bert"]
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+  recommendation: Install and enable flash-attn for 2-4x attention speedup and reduced memory.
+  reason: Flash Attention reduces memory complexity from O(n²) to O(n) for sequence length n.
+  confidence: 0.89
+  priority: 7
+  references:
+    - "Flash Attention paper"
+    - "Hugging Face transformers performance docs"

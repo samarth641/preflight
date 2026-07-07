@@ -1,0 +1,20 @@
+- id: deepspeed-zero-stage2
+  title: Use ZeRO Stage 2 for Multi-GPU Training
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/docs/config-json/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: model.parameter_count
+        operator: gte
+        value: 500000000
+  recommendation: Configure DeepSpeed ZeRO Stage 2 to shard optimizer states across GPUs.
+  reason: ZeRO Stage 2 reduces per-GPU memory by partitioning optimizer states, enabling larger models.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "DeepSpeed ZeRO paper"
+    - "DeepSpeed configuration guide"

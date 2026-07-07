@@ -1,0 +1,35 @@
+- id: cuda-memory-fragmentation
+  title: Clear CUDA Cache Between Experiments
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__MEMORY.html
+  category: hardware
+  condition:
+    field: hardware.vram_usage_percent
+    operator: gte
+    value: 90
+  recommendation: Call torch.cuda.empty_cache() and reduce batch size or enable gradient checkpointing.
+  reason: VRAM usage above 90% risks OOM errors and fragmentation during training.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "CUDA Memory Management documentation"
+
+- id: cuda-tensor-cores
+  title: Enable Tensor Core Operations
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#wmma
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_architecture
+        operator: in
+        value: ["ampere", "hopper", "ada"]
+      - field: training.mixed_precision
+        operator: eq
+        value: false
+  recommendation: Enable mixed precision training to utilize Tensor Cores for matrix operations.
+  reason: Tensor Cores provide significant speedup for FP16/BF16 matrix multiply operations.
+  confidence: 0.87
+  priority: 7
+  references:
+    - "CUDA WMMA documentation"

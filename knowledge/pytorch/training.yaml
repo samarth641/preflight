@@ -1,0 +1,60 @@
+- id: pytorch-overfitting-early-stopping
+  title: Enable Early Stopping on Validation Loss Plateau
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    and:
+      - field: training.validation_loss_increasing
+        operator: eq
+        value: true
+      - field: training.epoch
+        operator: gte
+        value: 3
+  recommendation: Enable early stopping with patience of 3-5 epochs monitoring validation loss.
+  reason: Validation loss increasing while training continues is a strong indicator of overfitting.
+  confidence: 0.92
+  priority: 9
+  references:
+    - "PyTorch Optimizer documentation"
+    - "Deep Learning best practices — regularization"
+
+- id: pytorch-mixed-precision-amp
+  title: Use Automatic Mixed Precision (AMP)
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/amp.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+      - field: model.supports_amp
+        operator: eq
+        value: true
+  recommendation: Enable torch.cuda.amp for ~1.5-2x training speedup with minimal accuracy impact.
+  reason: AMP uses Tensor Cores on modern NVIDIA GPUs, reducing memory and increasing throughput.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "PyTorch AMP documentation"
+
+- id: pytorch-dataloader-workers
+  title: Increase DataLoader Workers
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/data.html
+  category: optimization
+  condition:
+    and:
+      - field: training.gpu_utilization
+        operator: lt
+        value: 70
+      - field: training.cpu_utilization
+        operator: lt
+        value: 50
+  recommendation: Increase num_workers in DataLoader and enable pin_memory=True for GPU training.
+  reason: Low GPU utilization often indicates a data loading bottleneck.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "PyTorch DataLoader documentation"

@@ -1,0 +1,19 @@
+- id: rocm-miopen-tuning
+  title: Enable MIOpen Find Mode for Convolution Tuning
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/projects/MIOpen/en/latest/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: model.has_conv_layers
+        operator: eq
+        value: true
+  recommendation: Set MIOPEN_FIND_MODE=1 for automatic convolution algorithm selection on AMD GPUs.
+  reason: MIOpen find mode benchmarks convolution algorithms and selects the fastest for your workload.
+  confidence: 0.83
+  priority: 6
+  references:
+    - "MIOpen convolution documentation"
