@@ -1,0 +1,79 @@
+- id: training-loss-divergence
+  title: Training Loss Diverging
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: training.loss_diverging
+    operator: eq
+    value: true
+  recommendation: Reduce learning rate by 10x or check for data/label issues.
+  reason: Rapidly increasing loss often indicates learning rate is too high or labels are corrupted.
+  confidence: 0.88
+  priority: 9
+  references:
+    - "PyTorch learning rate scheduling"
+
+- id: training-loss-stagnant
+  title: Training Loss Has Plateaued
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: training.train_loss_stagnant
+    operator: eq
+    value: true
+  recommendation: Try learning rate warmup, a different optimizer, or unfreeze more layers.
+  reason: Loss plateau suggests the model stopped learning with the current hyperparameters.
+  confidence: 0.80
+  priority: 6
+  references:
+    - "PyTorch optimizer documentation"
+
+- id: training-overfitting-gap
+  title: Train/Validation Loss Gap Detected
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/nn.html
+  category: training
+  condition:
+    field: training.overfitting_detected
+    operator: eq
+    value: true
+  recommendation: Add dropout, weight decay, or data augmentation to reduce overfitting.
+  reason: Large gap between training and validation loss indicates the model is memorizing training data.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "Regularization best practices"
+
+- id: training-accuracy-plateau
+  title: Accuracy Improvement Has Stalled
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: training.accuracy_plateau
+    operator: eq
+    value: true
+  recommendation: Try a learning rate schedule (cosine or step decay), unfreeze more layers, or add augmentation.
+  reason: Accuracy gains below 0.5% over several epochs indicate diminishing returns from the current setup.
+  confidence: 0.75
+  priority: 5
+  references:
+    - "PyTorch learning rate scheduling"
+
+- id: training-vram-near-limit
+  title: VRAM Usage Near Device Limit
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__MEMORY.html
+  category: training
+  condition:
+    field: training.vram_usage_percent
+    operator: gte
+    value: 90
+  recommendation: Reduce batch size, enable gradient checkpointing, or use mixed precision to lower VRAM usage.
+  reason: VRAM usage above 90% risks out-of-memory errors, especially with variable-length batches.
+  confidence: 0.85
+  priority: 7
+  references:
+    - "CUDA Memory Management documentation"
