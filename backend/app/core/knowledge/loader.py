@@ -107,12 +107,14 @@ class RuleLoader:
     @staticmethod
     def _extract_rule_payloads(raw_content: Any) -> list[dict[str, Any]]:
         if isinstance(raw_content, list):
-            return [item for item in raw_content if isinstance(item, dict)]
+            return [item for item in raw_content if isinstance(item, dict) and "id" in item]
 
         if isinstance(raw_content, dict):
             if "rules" in raw_content and isinstance(raw_content["rules"], list):
                 return [item for item in raw_content["rules"] if isinstance(item, dict)]
-            return [raw_content]
+            if "id" in raw_content:
+                return [raw_content]
+            return []
 
         return []
 

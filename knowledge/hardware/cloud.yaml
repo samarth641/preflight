@@ -1,0 +1,95 @@
+providers:
+  - id: aws
+    name: AWS
+    url: https://aws.amazon.com/ec2/instance-types/
+    offerings:
+      - gpu_id: a100-80gb
+        instance_type: p4d.24xlarge
+        vram_gb: 320
+        gpu_count: 8
+        notes: 8x A100 80GB, ideal for large-scale training
+      - gpu_id: h100-80gb
+        instance_type: p5.48xlarge
+        vram_gb: 640
+        gpu_count: 8
+        notes: 8x H100 80GB, fastest cloud training option
+
+  - id: gcp
+    name: Google Cloud
+    url: https://cloud.google.com/compute/docs/gpus
+    offerings:
+      - gpu_id: a100-80gb
+        instance_type: a2-ultragpu-8g
+        vram_gb: 640
+        gpu_count: 8
+        notes: A2 instances with A100 80GB GPUs
+      - gpu_id: h100-80gb
+        instance_type: a3-highgpu-8g
+        vram_gb: 640
+        gpu_count: 8
+        notes: A3 instances with H100 80GB GPUs
+
+  - id: azure
+    name: Microsoft Azure
+    url: https://azure.microsoft.com/en-us/products/virtual-machines
+    offerings:
+      - gpu_id: a100-80gb
+        instance_type: NC A100 v4
+        vram_gb: 80
+        gpu_count: 1
+        notes: Single A100 80GB for mid-scale workloads
+      - gpu_id: h100-80gb
+        instance_type: ND H100 v5
+        vram_gb: 640
+        gpu_count: 8
+        notes: 8x H100 for enterprise training
+
+  - id: lambda
+    name: Lambda Labs
+    url: https://lambdalabs.com/service/gpu-cloud
+    offerings:
+      - gpu_id: rtx-4090
+        instance_type: gpu_1x_rtx4090
+        vram_gb: 24
+        gpu_count: 1
+        notes: Affordable RTX 4090 for prototyping
+      - gpu_id: a100-80gb
+        instance_type: gpu_8x_a100
+        vram_gb: 640
+        gpu_count: 8
+        notes: 8x A100 SXM4 80GB cluster
+
+  - id: runpod
+    name: RunPod
+    url: https://www.runpod.io/
+    offerings:
+      - gpu_id: rtx-4090
+        instance_type: RTX 4090
+        vram_gb: 24
+        gpu_count: 1
+        notes: On-demand RTX 4090 pods
+      - gpu_id: rtx-4080
+        instance_type: RTX 4080
+        vram_gb: 16
+        gpu_count: 1
+        notes: Budget-friendly 16GB option
+      - gpu_id: a100-80gb
+        instance_type: A100 80GB
+        vram_gb: 80
+        gpu_count: 1
+        notes: Single A100 for fine-tuning large models
+
+  - id: vast
+    name: Vast.ai
+    url: https://vast.ai/
+    offerings:
+      - gpu_id: rtx-4090
+        instance_type: RTX 4090
+        vram_gb: 24
+        gpu_count: 1
+        notes: Marketplace pricing, variable availability
+      - gpu_id: rtx-3090
+        instance_type: RTX 3090
+        vram_gb: 24
+        gpu_count: 1
+        notes: Budget 24GB VRAM option

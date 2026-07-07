@@ -1,13 +1,47 @@
 gpus:
-  - id: rtx-4090
-    name: NVIDIA RTX 4090
+  - id: rtx-3060
+    name: NVIDIA RTX 3060
     vendor: nvidia
-    vram_gb: 24
-    memory_bandwidth_gbps: 1008
-    tflops_fp16: 165
-    power_watts: 450
+    vram_gb: 12
+    memory_bandwidth_gbps: 360
+    tflops_fp16: 51
+    power_watts: 170
+    training_speed_tier: mid
+    architecture: ampere
+    msrp_usd: 329
+
+  - id: rtx-4060
+    name: NVIDIA RTX 4060
+    vendor: nvidia
+    vram_gb: 8
+    memory_bandwidth_gbps: 272
+    tflops_fp16: 49
+    power_watts: 115
+    training_speed_tier: entry
+    architecture: ada
+    msrp_usd: 299
+
+  - id: rtx-4060-ti
+    name: NVIDIA RTX 4060 Ti
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 288
+    tflops_fp16: 88
+    power_watts: 165
+    training_speed_tier: mid
+    architecture: ada
+    msrp_usd: 399
+
+  - id: rtx-4070
+    name: NVIDIA RTX 4070
+    vendor: nvidia
+    vram_gb: 12
+    memory_bandwidth_gbps: 504
+    tflops_fp16: 146
+    power_watts: 200
     training_speed_tier: high
     architecture: ada
+    msrp_usd: 599
 
   - id: rtx-4080
     name: NVIDIA RTX 4080
@@ -18,6 +52,40 @@ gpus:
     power_watts: 320
     training_speed_tier: high
     architecture: ada
+    msrp_usd: 999
+
+  - id: rtx-4090
+    name: NVIDIA RTX 4090
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 1008
+    tflops_fp16: 165
+    power_watts: 450
+    training_speed_tier: high
+    architecture: ada
+    msrp_usd: 1599
+
+  - id: rtx-5090
+    name: NVIDIA RTX 5090
+    vendor: nvidia
+    vram_gb: 32
+    memory_bandwidth_gbps: 1792
+    tflops_fp16: 420
+    power_watts: 575
+    training_speed_tier: enthusiast
+    architecture: blackwell
+    msrp_usd: 1999
+
+  - id: rx-7900-xtx
+    name: AMD RX 7900 XTX
+    vendor: amd
+    vram_gb: 24
+    memory_bandwidth_gbps: 960
+    tflops_fp16: 122
+    power_watts: 355
+    training_speed_tier: high
+    architecture: rdna3
+    msrp_usd: 999
 
   - id: a100-80gb
     name: NVIDIA A100 80GB
@@ -28,6 +96,7 @@ gpus:
     power_watts: 400
     training_speed_tier: datacenter
     architecture: ampere
+    msrp_usd: 15000
 
   - id: h100-80gb
     name: NVIDIA H100 80GB
@@ -38,6 +107,7 @@ gpus:
     power_watts: 700
     training_speed_tier: datacenter
     architecture: hopper
+    msrp_usd: 30000
 
   - id: mi300x
     name: AMD MI300X
@@ -48,6 +118,7 @@ gpus:
     power_watts: 750
     training_speed_tier: datacenter
     architecture: cdna3
+    msrp_usd: 15000
 
 rules:
   - id: hardware-vram-insufficient
@@ -65,3 +136,35 @@ rules:
     priority: 7
     references:
       - "GPU memory requirements guide"
+
+  - id: hardware-large-model-multi-gpu
+    title: Use Multi-GPU or Model Parallelism
+    source: DeepSpeed Documentation
+    documentation_url: https://www.deepspeed.ai/tutorials/zero/
+    category: hardware
+    condition:
+      field: hardware.required_vram_gb
+      operator: gte
+      value: 40
+    recommendation: Consider multi-GPU training with DeepSpeed ZeRO or cloud instances with A100/H100.
+    reason: Models requiring 40GB+ VRAM exceed single consumer GPU capacity.
+    confidence: 0.90
+    priority: 8
+    references:
+      - "DeepSpeed ZeRO documentation"
+
+  - id: hardware-amd-rocm
+    title: Verify ROCm Compatibility
+    source: AMD ROCm Documentation
+    documentation_url: https://rocm.docs.amd.com/
+    category: hardware
+    condition:
+      field: hardware.preferred_vendor
+      operator: eq
+      value: amd
+    recommendation: Verify your model and framework support ROCm before choosing AMD GPUs.
+    reason: Not all PyTorch operations and CUDA-optimized libraries have ROCm equivalents.
+    confidence: 0.82
+    priority: 6
+    references:
+      - "AMD ROCm compatibility matrix"

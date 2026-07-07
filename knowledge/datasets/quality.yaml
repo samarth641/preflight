@@ -46,3 +46,51 @@
   priority: 7
   references:
     - "Dataset quality best practices"
+
+- id: dataset-blur
+  title: Remove or Fix Blurry Images
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    field: dataset.blur_percent
+    operator: gte
+    value: 10
+  recommendation: Filter out blurry images or apply sharpening transforms during preprocessing.
+  reason: Blurry images reduce feature quality and can degrade model convergence and accuracy.
+  confidence: 0.82
+  priority: 6
+  references:
+    - "Image quality assessment best practices"
+
+- id: dataset-missing-labels
+  title: Label All Training Images
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/datasets.html
+  category: dataset
+  condition:
+    field: dataset.missing_label_percent
+    operator: gte
+    value: 5
+  recommendation: Organize images into class folders or provide a labels manifest file.
+  reason: Unlabeled images cannot be used for supervised training and may cause pipeline errors.
+  confidence: 0.90
+  priority: 9
+  references:
+    - "PyTorch ImageFolder documentation"
+
+- id: dataset-small
+  title: Increase Dataset Size
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    field: dataset.image_count
+    operator: lt
+    value: 500
+  recommendation: Use data augmentation, synthetic data generation, or collect more samples.
+  reason: Small datasets increase overfitting risk and limit model generalization.
+  confidence: 0.80
+  priority: 6
+  references:
+    - "Data augmentation best practices"
