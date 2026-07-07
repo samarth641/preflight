@@ -6,7 +6,7 @@ AI Training Intelligence Platform — a rule-based expert system for ML training
 
 **Phase 1 complete:** Foundation architecture, knowledge engine, rule loader, and plugin system.
 
-**Phase 2 complete:** Dataset Analyzer, GPU Recommender.
+**Phase 2 complete:** Dataset Analyzer, GPU Recommender, Training Log Analyzer.
 
 ## Quick Start
 
@@ -16,6 +16,7 @@ pip install -e ".[dev]"
 trainwise doctor
 trainwise analyze-dataset /path/to/your/dataset
 trainwise recommend-gpu --params-billion 7 --mode lora --type transformer
+trainwise analyze-training /path/to/training_log.csv
 pytest ../tests -v
 ```
 
@@ -157,6 +158,60 @@ print(f"Best pick: {result.best_pick.gpu.name}")
 
 ```bash
 pytest ../tests/test_gpu_recommender.py -v
+```
+
+---
+
+## Training Log Analyzer
+
+Reads a training log (CSV/JSON), detects health issues (overfitting, stagnation, bottlenecks), scores
+training health, and returns rule-based recommendations. It is **not** an AI model — every
+recommendation comes from the YAML knowledge engine.
+
+### How it works
+
+1. **Parse** — Reads CSV or JSON logs with flexible column aliases (`loss`/`train_loss`, `acc`/`accuracy`, etc.).
+2. **Trend detection** — Computes signals: validation loss increasing, overfitting gap, loss stagnation,
+   divergence, accuracy plateau, low GPU/CPU utilization, VRAM near limit.
+3. **Score (0–100)** — Starts at 100, subtracts for each detected issue → grade A–F.
+4. **Rule engine** — Signals sent to `knowledge/pytorch/training.yaml` and `knowledge/training/health.yaml`
+   (categories `training`, `optimization`) → warnings + recommendations.
+5. **Output** — Score, metrics, trends, warnings, recommendations, sources.
+
+### CLI usage
+
+```bash
+trainwise analyze-training training_log.csv
+trainwise analyze-training wandb_export.json --format json
+trainwise analyze-training training_log.csv --format markdown
+```
+
+### Expected CSV format
+
+```csv
+epoch,train_loss,val_loss,accuracy,gpu_util,cpu_util,vram_gb,power_w
+1,2.31,2.45,0.42,85,30,8.2,220
+2,1.89,2.10,0.55,88,32,8.4,230
+```
+
+JSON logs use `{"epochs": [{"epoch": 1, "train_loss": 2.31, "val_loss": 2.45}, ...]}` or a plain list.
+
+### Python API
+
+```python
+from app.core.analyzers import TrainingAnalyzer
+
+result = TrainingAnalyzer().analyze("training_log.csv")
+print(f"Health: {result.score}/100 ({result.grade})")
+print(f"Overfitting: {result.metrics.overfitting_detected}")
+for rec in result.recommendations:
+    print(f"  → {rec.recommendation} ({rec.source})")
+```
+
+### Run tests
+
+```bash
+pytest ../tests/test_training_analyzer.py -v
 ```
 
 ---

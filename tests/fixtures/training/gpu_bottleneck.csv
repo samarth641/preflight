@@ -1,0 +1,4 @@
+epoch,train_loss,val_loss,gpu_util,cpu_util
+1,2.0,2.1,45,30
+2,1.8,1.9,42,28
+3,1.6,1.7,40,25

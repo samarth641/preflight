@@ -105,6 +105,60 @@ def _dataset_markdown(result) -> str:
     return "\n".join(lines)
 
 
+@app.command("analyze-training")
+def analyze_training(
+    path: Path = typer.Argument(..., help="Path to training log CSV or JSON", exists=True, dir_okay=False),
+    output_format: OutputFormat = typer.Option(
+        OutputFormat.rich, "--format", "-f", help="Output format"
+    ),
+) -> None:
+    """Analyze a training log for health issues and rule-based recommendations."""
+    from rich.console import Console
+
+    from app.cli.formatters import render_training_analysis, render_training_json
+    from app.core.analyzers import TrainingAnalyzer
+
+    result = TrainingAnalyzer().analyze(path)
+
+    if output_format == OutputFormat.json:
+        typer.echo(render_training_json(result))
+    elif output_format == OutputFormat.markdown:
+        typer.echo(_training_markdown(result))
+    else:
+        render_training_analysis(result, Console())
+
+
+def _training_markdown(result) -> str:
+    m = result.metrics
+    lines = [
+        f"# Training Log Analysis: {result.log_path}",
+        "",
+        f"**Health:** {result.score}/100 ({result.grade})",
+        "",
+        "## Metrics",
+        "",
+        "| Metric | Value |",
+        "|--------|-------|",
+        f"| Epochs | {m.epoch_count} |",
+        f"| Latest Train Loss | {m.latest_train_loss} |",
+        f"| Latest Val Loss | {m.latest_val_loss} |",
+        f"| Best Val Loss | {m.best_val_loss} (epoch {m.best_epoch}) |",
+        f"| Overfitting Gap | {m.overfitting_gap} |",
+        f"| Avg GPU Utilization | {m.avg_gpu_utilization} |",
+        "",
+    ]
+    if result.trends:
+        lines.extend(["## Trends", ""])
+        for trend in result.trends:
+            lines.append(f"- **[{trend.severity}] {trend.name}:** {trend.description}")
+        lines.append("")
+    if result.recommendations:
+        lines.extend(["## Recommendations", ""])
+        for rec in result.recommendations:
+            lines.append(f"- **{rec.title}:** {rec.recommendation}")
+    return "\n".join(lines)
+
+
 @app.command("recommend-gpu")
 def recommend_gpu(
     params_billion: float = typer.Option(..., "--params-billion", "-p", help="Model size in billions"),
