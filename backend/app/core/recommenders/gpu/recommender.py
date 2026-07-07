@@ -30,6 +30,15 @@ class GPURecommender:
         self._gpu_registry = gpu_registry or GPURegistry()
         self._cloud_registry = cloud_registry or CloudRegistry()
         self._engine = engine or KnowledgeEngine()
+        self._cost_calculator = None
+
+    @property
+    def cost_calculator(self):
+        if self._cost_calculator is None:
+            from app.core.calculators.cost.calculator import CostCalculator
+
+            self._cost_calculator = CostCalculator(gpu_registry=self._gpu_registry)
+        return self._cost_calculator
 
     def recommend(self, request: GPURecommendationRequest) -> GPURecommendationResult:
         required_vram = estimate_vram_gb(request)
@@ -52,6 +61,9 @@ class GPURecommender:
         if not ranked and candidates:
             ranked = sorted(candidates, key=lambda c: c.headroom_gb, reverse=True)[:request.max_results]
 
+        if request.include_cost:
+            ranked = self._attach_cost_estimates(ranked, request)
+
         cloud_offerings = self._match_cloud(ranked, required_vram, request)
 
         context = {
@@ -66,11 +78,18 @@ class GPURecommender:
         }
         engine_result = self._engine.evaluate(context, categories=["hardware"])
 
+        cheapest = None
+        if request.include_cost and ranked:
+            with_cost = [c for c in ranked if c.cost_estimate is not None]
+            if with_cost:
+                cheapest = min(with_cost, key=lambda c: c.cost_estimate.total_usd)  # type: ignore[union-attr]
+
         return GPURecommendationResult(
             required_vram_gb=required_vram,
             request=request,
             candidates=ranked,
             best_pick=ranked[0] if ranked else None,
+            cheapest_gpu=cheapest,
             cloud_offerings=cloud_offerings,
             warnings=engine_result.warnings,
             knowledge_recommendations=engine_result.recommendations,
@@ -109,3 +128,45 @@ class GPURecommender:
                 unique.append(offering)
 
         return unique[:5]
+
+    def _attach_cost_estimates(
+        self,
+        candidates: list[GPUCandidate],
+        request: GPURecommendationRequest,
+    ) -> list[GPUCandidate]:
+        from app.core.calculators.cost.models import CostEstimateRequest, DeploymentType
+
+        deployment = DeploymentType(request.deployment)
+        updated: list[GPUCandidate] = []
+
+        for candidate in candidates:
+            cost_request = CostEstimateRequest(
+                parameter_count=request.parameter_count,
+                gpu_id=candidate.gpu.id,
+                epochs=request.epochs,
+                dataset_samples=request.dataset_samples,
+                dataset_size_gb=request.dataset_size_gb,
+                batch_size=request.batch_size,
+                model_type=request.model_type.value,
+                deployment=deployment,
+                cloud_provider=self._default_provider_for_gpu(candidate.gpu.id),
+            )
+            try:
+                cost = self.cost_calculator.estimate(cost_request)
+                candidate.cost_estimate = cost
+                candidate.reasons.append(f"Est. cost: ${cost.total_usd:.2f} ({cost.estimated_hours:.1f}h)")
+            except Exception as exc:
+                logger.warning("Cost estimate failed for %s: %s", candidate.gpu.id, exc)
+            updated.append(candidate)
+
+        return updated
+
+    @staticmethod
+    def _default_provider_for_gpu(gpu_id: str) -> str | None:
+        defaults = {
+            "rtx-4090": "runpod",
+            "rtx-4080": "runpod",
+            "a100-80gb": "runpod",
+            "h100-80gb": "aws",
+        }
+        return defaults.get(gpu_id)

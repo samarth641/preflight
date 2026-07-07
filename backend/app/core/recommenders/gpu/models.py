@@ -6,6 +6,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field, model_validator
 
+from app.core.calculators.cost.models import CostEstimateResult
 from app.core.engine.models import Recommendation, Warning
 
 
@@ -81,6 +82,11 @@ class GPURecommendationRequest(BaseModel):
     preferred_vendor: str | None = Field(default=None, pattern="^(nvidia|amd)$")
     max_results: int = Field(default=5, ge=1, le=20)
     include_cloud: bool = True
+    include_cost: bool = Field(default=True, description="Attach cost estimates per GPU candidate")
+    epochs: int = Field(default=10, ge=1)
+    dataset_samples: int = Field(default=10_000, ge=1)
+    dataset_size_gb: float | None = Field(default=None, ge=0)
+    deployment: str = Field(default="cloud", pattern="^(local|cloud)$")
 
     @model_validator(mode="after")
     def resolve_parameter_count(self) -> GPURecommendationRequest:
@@ -100,6 +106,7 @@ class GPUCandidate(BaseModel):
     vram_utilization: float = Field(description="Required VRAM / GPU VRAM ratio")
     headroom_gb: float
     reasons: list[str] = Field(default_factory=list)
+    cost_estimate: CostEstimateResult | None = None
 
 
 class GPURecommendationResult(BaseModel):
@@ -113,3 +120,4 @@ class GPURecommendationResult(BaseModel):
     warnings: list[Warning] = Field(default_factory=list)
     knowledge_recommendations: list[Recommendation] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
+    cheapest_gpu: GPUCandidate | None = None

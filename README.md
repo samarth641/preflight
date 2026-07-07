@@ -16,7 +16,9 @@ pip install -e ".[dev]"
 trainwise doctor
 trainwise analyze-dataset /path/to/your/dataset
 trainwise recommend-gpu --params-billion 7 --mode lora --type transformer
+trainwise estimate-cost --params-billion 7 --gpu rtx-4090 --epochs 10
 trainwise analyze-training /path/to/training_log.csv
+uvicorn app.main:app --reload --port 8000
 pytest ../tests -v
 ```
 
@@ -32,7 +34,8 @@ preflight/
 └── tests/            # Test suite
 ```
 
-See [docs/architecture.md](docs/architecture.md) for full system design.
+See [docs/architecture.md](docs/architecture.md) for full system design.  
+**API docs:** [docs/api.md](docs/api.md) — REST endpoints + curl examples.
 
 ---
 
@@ -159,6 +162,55 @@ print(f"Best pick: {result.best_pick.gpu.name}")
 ```bash
 pytest ../tests/test_gpu_recommender.py -v
 ```
+
+---
+
+## Cost Calculator
+
+Estimates training time and cost (cloud, electricity, storage, bandwidth). **Integrated into GPU Recommender** — each ranked GPU includes a `cost_estimate`.
+
+### CLI
+
+```bash
+trainwise estimate-cost --params-billion 7 --gpu rtx-4090 --epochs 10 --provider runpod
+trainwise recommend-gpu -p 7 --mode lora --epochs 10   # includes cost per GPU
+```
+
+### Python API
+
+```python
+from app.core.calculators import CostCalculator, CostEstimateRequest
+from app.core.calculators.cost.models import DeploymentType
+
+result = CostCalculator().estimate(CostEstimateRequest(
+    parameter_count_billion=7.0,
+    gpu_id="rtx-4090",
+    epochs=10,
+    deployment=DeploymentType.CLOUD,
+    cloud_provider="runpod",
+))
+print(f"${result.total_usd:.2f} — {result.estimated_hours:.1f} hours")
+```
+
+Pricing: `knowledge/hardware/pricing.yaml`
+
+---
+
+## REST API
+
+```bash
+uvicorn app.main:app --reload --port 8000
+# Open http://localhost:8000/docs
+```
+
+| Endpoint | Description |
+|----------|-------------|
+| `POST /api/v1/dataset/analyze` | Dataset quality analysis |
+| `POST /api/v1/training/analyze` | Training log health |
+| `POST /api/v1/gpu/recommend` | GPU ranking + cost |
+| `POST /api/v1/cost/estimate` | Standalone cost estimate |
+
+Full reference: [docs/api.md](docs/api.md)
 
 ---
 

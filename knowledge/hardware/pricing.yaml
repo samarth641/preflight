@@ -1,0 +1,38 @@
+# Approximate on-demand hourly rates (USD) — update periodically from provider pages.
+defaults:
+  electricity_usd_per_kwh: 0.12
+  storage_usd_per_gb_month: 0.023
+  bandwidth_usd_per_gb: 0.09
+
+cloud_hourly_usd:
+  rtx-4090:
+    runpod: 0.44
+    lambda: 0.50
+    vast: 0.35
+  rtx-4080:
+    runpod: 0.34
+  a100-80gb:
+    aws: 32.77
+    gcp: 30.00
+    azure: 3.67
+    lambda: 1.10
+    runpod: 1.89
+  h100-80gb:
+    aws: 98.32
+    gcp: 90.00
+    azure: 6.98
+  rtx-3060:
+    local: 0.0
+  rtx-4060-ti:
+    local: 0.0
+  mi300x:
+    aws: 0.0
+
+# Baseline training speed reference (7B transformer, 10k samples, batch 8, 1 epoch ≈ 1 hour on A100)
+training_baseline:
+  parameter_count_billion: 7.0
+  reference_gpu_id: a100-80gb
+  reference_tflops_fp16: 312
+  seconds_per_epoch: 3600
+  dataset_samples: 10000
+  batch_size: 8

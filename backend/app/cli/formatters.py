@@ -184,9 +184,15 @@ def render_gpu_recommendation(result, console: Console | None = None) -> None:
         table.add_column("Fit")
         table.add_column("Score", justify="right")
         table.add_column("Utilization", justify="right")
+        table.add_column("Est. Cost", justify="right")
 
         for index, candidate in enumerate(result.candidates, 1):
             fit_color = FIT_COLORS.get(candidate.fit_rating.value, "white")
+            cost_text = (
+                f"${candidate.cost_estimate.total_usd:.2f}"
+                if candidate.cost_estimate
+                else "—"
+            )
             table.add_row(
                 str(index),
                 candidate.gpu.name,
@@ -195,8 +201,16 @@ def render_gpu_recommendation(result, console: Console | None = None) -> None:
                 f"[{fit_color}]{candidate.fit_rating.value}[/{fit_color}]",
                 f"{candidate.score:.2f}",
                 f"{candidate.vram_utilization:.0%}",
+                cost_text,
             )
         console.print(table)
+
+        if result.cheapest_gpu and result.cheapest_gpu.cost_estimate:
+            cheap = result.cheapest_gpu
+            console.print(
+                f"\n[bold yellow]Cheapest option:[/bold yellow] {cheap.gpu.name} "
+                f"— ${cheap.cost_estimate.total_usd:.2f} ({cheap.cost_estimate.estimated_hours:.1f}h)"
+            )
 
         for candidate in result.candidates[:3]:
             console.print(f"\n[bold]{candidate.gpu.name}[/bold]")
@@ -229,4 +243,42 @@ def render_gpu_recommendation(result, console: Console | None = None) -> None:
 
 def render_gpu_json(result) -> str:
     """Serialize GPU recommendation to JSON."""
+    return json.dumps(result.model_dump(mode="json"), indent=2)
+
+
+def render_cost_estimate(result, console: Console | None = None) -> None:
+    """Render cost estimate as rich terminal output."""
+    from app.core.calculators.cost.models import CostEstimateResult
+
+    assert isinstance(result, CostEstimateResult)
+    console = console or Console()
+
+    console.print(
+        Panel(
+            f"[bold]${result.total_usd:.2f}[/bold] total — "
+            f"{result.estimated_hours:.1f}h ({result.estimated_days} days)",
+            title=f"Cost Estimate — {result.gpu_name}",
+            border_style="green",
+        )
+    )
+
+    table = Table(title="Cost Breakdown (USD)", show_header=True)
+    table.add_column("Component", style="cyan")
+    table.add_column("Amount", justify="right")
+    b = result.breakdown
+    table.add_row("Cloud compute", f"${b.cloud_usd:.2f}")
+    table.add_row("Electricity", f"${b.electricity_usd:.2f}")
+    table.add_row("Storage", f"${b.storage_usd:.2f}")
+    table.add_row("Bandwidth", f"${b.bandwidth_usd:.2f}")
+    table.add_row("Hardware amortization", f"${b.hardware_amortization_usd:.2f}")
+    table.add_row("[bold]Total[/bold]", f"[bold]${result.total_usd:.2f}[/bold]")
+    console.print(table)
+
+    if result.hourly_rate_usd is not None:
+        console.print(f"Hourly rate: ${result.hourly_rate_usd:.2f}/hr")
+    for note in result.notes:
+        console.print(f"  • {note}")
+
+
+def render_cost_json(result) -> str:
     return json.dumps(result.model_dump(mode="json"), indent=2)

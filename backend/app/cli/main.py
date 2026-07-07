@@ -170,7 +170,10 @@ def recommend_gpu(
     budget: str | None = typer.Option(None, "--budget", help="entry, mid, high, enthusiast, datacenter"),
     vendor: str | None = typer.Option(None, "--vendor", help="nvidia or amd"),
     max_results: int = typer.Option(5, "--max-results", help="Number of GPUs to show"),
+    epochs: int = typer.Option(10, "--epochs", "-e", help="Training epochs for cost estimate"),
+    dataset_samples: int = typer.Option(10_000, "--dataset-samples", help="Dataset size for cost estimate"),
     no_cloud: bool = typer.Option(False, "--no-cloud", help="Skip cloud provider suggestions"),
+    no_cost: bool = typer.Option(False, "--no-cost", help="Skip cost estimates"),
     output_format: OutputFormat = typer.Option(OutputFormat.rich, "--format", "-f"),
 ) -> None:
     """Recommend GPUs based on model size and training requirements."""
@@ -191,6 +194,9 @@ def recommend_gpu(
         preferred_vendor=vendor,
         max_results=max_results,
         include_cloud=not no_cloud,
+        include_cost=not no_cost,
+        epochs=epochs,
+        dataset_samples=dataset_samples,
     )
 
     result = GPURecommender().recommend(request)
@@ -199,4 +205,41 @@ def recommend_gpu(
         typer.echo(render_gpu_json(result))
     else:
         render_gpu_recommendation(result, Console())
+
+
+@app.command("estimate-cost")
+def estimate_cost(
+    params_billion: float = typer.Option(..., "--params-billion", "-p"),
+    gpu_id: str = typer.Option(..., "--gpu", "-g", help="GPU id e.g. rtx-4090, a100-80gb"),
+    epochs: int = typer.Option(10, "--epochs", "-e"),
+    dataset_samples: int = typer.Option(10_000, "--dataset-samples"),
+    batch_size: int = typer.Option(8, "--batch-size", "-b"),
+    model_type: str = typer.Option("transformer", "--type", "-t"),
+    deployment: str = typer.Option("cloud", "--deployment", help="local or cloud"),
+    provider: str | None = typer.Option(None, "--provider", help="Cloud provider e.g. runpod, aws"),
+    output_format: OutputFormat = typer.Option(OutputFormat.rich, "--format", "-f"),
+) -> None:
+    """Estimate training cost for a GPU and workload."""
+    from rich.console import Console
+
+    from app.cli.formatters import render_cost_estimate, render_cost_json
+    from app.core.calculators import CostCalculator, CostEstimateRequest
+    from app.core.calculators.cost.models import DeploymentType
+
+    request = CostEstimateRequest(
+        parameter_count_billion=params_billion,
+        gpu_id=gpu_id,
+        epochs=epochs,
+        dataset_samples=dataset_samples,
+        batch_size=batch_size,
+        model_type=model_type,
+        deployment=DeploymentType(deployment),
+        cloud_provider=provider,
+    )
+    result = CostCalculator().estimate(request)
+
+    if output_format == OutputFormat.json:
+        typer.echo(render_cost_json(result))
+    else:
+        render_cost_estimate(result, Console())
 
