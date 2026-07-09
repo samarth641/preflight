@@ -209,6 +209,7 @@ uvicorn app.main:app --reload --port 8000
 | `POST /api/v1/training/analyze` | Training log health |
 | `POST /api/v1/gpu/recommend` | GPU ranking + cost |
 | `POST /api/v1/cost/estimate` | Standalone cost estimate |
+| `POST /api/v1/predict/duration` | **ML** training duration + cost prediction |
 
 Full reference: [docs/api.md](docs/api.md)
 
@@ -265,6 +266,43 @@ for rec in result.recommendations:
 ```bash
 pytest ../tests/test_training_analyzer.py -v
 ```
+
+---
+
+## Duration Predictor (ML — Phase 3)
+
+XGBoost regression predicting training duration **before execution**, trained on
+414 real training runs (Epoch AI, label-filtered) + 430 physics-derived synthetic
+rows covering AMD (MI300X, RX 7900 XTX) and consumer GPUs. Cost = predicted
+hours × GPU hourly rate.
+
+Evaluation (grouped-by-organization split, corrupt labels filtered — see
+`artifacts/metrics.json`): the ML model and the analytical formula are
+complementary. On the matched held-out subset (real rows with the full physics
+feature), the formula wins on typical cases (median 1.17x vs 1.52x) while the
+ML model wins on the tail (p90 2.52x vs 3.29x). Both numbers are returned by
+the API so users see estimate + physics floor.
+
+**Caveat:** p90 is unstable across the grouped split at this sample size (~84
+matched test rows) — it moved from 9.8x/5.6x to 3.29x/2.52x between two runs
+on different grouped splits of the same data. Treat p90 as directional, not
+a precise bound, until the dataset grows.
+
+### CLI
+
+```bash
+trainwise predict-duration -p 7 -d 100e9 -g mi300x -n 4 --provider aws
+trainwise predict-duration -p 1 -d 2e9 -g rtx-4090 --format json
+```
+
+### Retraining
+
+```bash
+python ml/prep_dataset.py --augment   # data/raw/* -> data/processed/duration_train.csv
+python ml/train_duration.py           # -> backend/app/core/predictors/duration/artifacts/
+```
+
+Artifact is a ~300 KB JSON loaded at startup — no model server needed.
 
 ---
 

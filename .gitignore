@@ -8,8 +8,13 @@ __pycache__/
 *.egg
 .venv/
 venv/
+preflight_venv/
 .env
 .claude/
+
+# ML data (regenerable — see ml/prep_dataset.py; keep artifacts/, not raw data)
+data/raw/
+data/processed/
 
 # Frontend (Next.js)
 frontend/node_modules/
