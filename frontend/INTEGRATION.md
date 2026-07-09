@@ -47,37 +47,37 @@ Signatures and return types stay identical — components don't change.
 
 ## Endpoint Status
 
-### Integrated (ready to connect)
+### Ready to connect (8 endpoints)
 
 | Frontend Function | Backend Endpoint | Notes |
 |------------------|------------------|-------|
 | `getHealth()` | `GET /api/v1/health` | Direct match |
-| `analyzeDataset()` | `POST /api/v1/dataset/analyze` | Backend takes `{ path, max_images }`. Manual entry mode (metrics only) doesn't have a backend endpoint yet. |
-| `recommendGPU()` | `POST /api/v1/gpu/recommend` | Backend now returns `cost_estimate` per candidate and `cheapest_gpu`. `lib/types.ts` needs those fields added. New request fields (`include_cost`, `epochs`, `dataset_samples`, `deployment`) not sent yet. |
-| `getTrainingHealth()` | `POST /api/v1/training/analyze` | Backend takes `{ path }` to a log file. Frontend "live monitoring" is ahead of this — WebSocket streaming is future. |
-| `estimateCost()` | `POST /api/v1/cost/estimate` | Not wired into the UI yet. Can add to GPU or Analyze page. |
+| `analyzeDataset(input)` | `POST /api/v1/dataset/analyze` | Backend takes `{ path, max_images }`. Manual entry mode (metrics only) has no endpoint yet. |
+| `recommendGPU(req)` | `POST /api/v1/gpu/recommend` | Types match. Returns `cost_estimate` per candidate, `cheapest_gpu`. |
+| `predictDuration(req)` | `POST /api/v1/predict/duration` | XGBoost model. Returns estimated hours + optional cost. |
+| `estimateCost(req)` | `POST /api/v1/cost/estimate` | Cloud/electricity breakdown, multi-GPU scaling. |
+| `getTrainingHealth(jobId)` | `POST /api/v1/training/analyze` | Backend takes `{ path }` to a log file. |
+| `getDashboardStats()` | `GET /api/v1/dashboard/stats` | Returns experiment stats: total, running, completed, failed, avg_accuracy, convergence_rate. |
+| `listExperiments()` | `GET /api/v1/experiments` | Returns `ExperimentRecord[]` with params_million, epochs, convergence, duration. |
+| `getLiveMonitor(id?)` | `GET /api/v1/training/monitor` | Returns `LiveTrainingMonitor` with epoch curve, convergence status, health score. |
 
-### Not integrated (no backend endpoint yet)
+### No backend endpoint (stay mock or remove)
 
-| Frontend Page | Suggested Endpoint |
-|---------------|-------------------|
-| Dashboard stats | `GET /api/v1/dashboard/stats` |
-| Pre-Training predictions (cost, runtime, OOM, convergence, accuracy) | `POST /api/v1/predict` |
-| AI Explanation | `POST /api/v1/explain` |
-| Experiment history | `GET/DELETE /api/v1/experiments` |
-| Live training stream | `WS /api/v1/training/:id/stream` |
+| Frontend Function | Issue | Action |
+|------------------|-------|--------|
+| `analyzeTraining(req)` | No `/analyze` endpoint. PredictionResult fields are fabricated | Remove fabricated fields. Use `predictDuration()` + `estimateCost()` instead. |
+| `getRecentActivity()` | No endpoint | Derive from experiment list or keep mock |
+| `startTraining()` / `stopTraining()` | No endpoint | Keep mock |
+| `exportAnalysis()` | No endpoint | Keep mock |
+| `listGPUs()` / `listGPUBenchmarks()` / `listCloudOfferings()` | No dedicated endpoint | Add to backend or embed |
 
-Frontend works with mock data until each endpoint is ready. Connect one at a time.
+## Fabricated Fields (no backend support)
 
-## Type Sync
+The `/analyze` page has a PLACEHOLDER section with fields that have NO backend implementation:
+- `oom_probability`, `convergence_probability`, `expected_accuracy_min/max`
+- `gpu_utilization_estimate`, `carbon_footprint_kg`, `bottlenecks`
 
-Backend models changed since `lib/types.ts` was written. New fields to add:
-
-- `GPUCandidate.cost_estimate: CostEstimateResult | None`
-- `GPURecommendationResult.cheapest_gpu: GPUCandidate | None`
-- `GPURecommendationRequest`: `include_cost`, `epochs`, `dataset_samples`, `dataset_size_gb`, `deployment`
-
-Just let me know when models change and I'll update the types.
+These are marked as PLACEHOLDER in `types.ts` and `mock-data.ts`. They should be removed or labeled as "Roadmap" for the demo.
 
 ## Error Handling
 

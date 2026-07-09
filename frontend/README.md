@@ -1,6 +1,6 @@
 # PreFlight — AI Training Intelligence Platform (Frontend)
 
-Next.js dashboard for PreFlight. Predicts training cost, runtime, VRAM, convergence, and OOM risk before you allocate a GPU. Monitors live training. Recommends hardware.
+Next.js dashboard for PreFlight. Predicts training cost, runtime, and VRAM. Monitors live training. Recommends hardware.
 
 ## Quick Start
 
@@ -15,12 +15,12 @@ Open [http://localhost:3000](http://localhost:3000)
 
 | Route | What it does |
 |-------|-------------|
-| `/` | Dashboard — overview stats, recent activity, quick actions |
-| `/analyze` | Pre-Training Analysis — predictions for cost, runtime, VRAM, OOM, convergence, accuracy |
+| `/` | Dashboard — experiment stats, recent activity, quick actions |
+| `/analyze` | Pre-Training Analysis — duration prediction, cost estimation, configuration review |
 | `/dataset` | Dataset Intelligence — quality score, metrics, recommendations |
 | `/gpu` | GPU Recommender — ranked candidates, cloud offerings, cost estimates |
-| `/training` | Live Training Monitor — loss/accuracy/GPU charts, anomaly detection, health score |
-| `/history` | Experiment History — past runs, predictions vs actuals |
+| `/training` | Live Training Monitor — loss/accuracy curves, convergence status, health score |
+| `/history` | Experiment History — past runs with convergence and accuracy results |
 | `/settings` | Settings — API config, preferences |
 
 ## Tech Stack
@@ -58,6 +58,12 @@ frontend/
 ## Current State: Mock Mode
 
 All API calls in `lib/api.ts` return mock data. No backend required to run the UI.
+
+The mock data in `lib/mock-data.ts` matches the backend Pydantic models exactly (as of commit `dda968c`). This includes:
+- 8 API endpoints (health, dataset, GPU, cost, duration, training, dashboard, experiments, monitor)
+- 11 GPUs with benchmark throughput data
+- 5 experiment records matching test fixtures
+- Live training monitor with epoch curves and health scoring
 
 When the backend is ready, see [INTEGRATION.md](./INTEGRATION.md) for how to swap mock calls for real ones. It is a single-file change — only `lib/api.ts` changes. Components and types stay the same.
 
