@@ -1,0 +1,77 @@
+{
+  "name": "preflight",
+  "displayName": "Preflight — AI Training Intelligence",
+  "description": "GPU recommendations, ML training duration, dataset & log analysis for ML developers.",
+  "version": "0.1.2",
+  "publisher": "preflight",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "Machine Learning"],
+  "keywords": ["ml", "gpu", "training", "pytorch", "llm"],
+  "activationEvents": [
+    "onCommand:preflight.openDashboard",
+    "onCommand:preflight.recommendGpu",
+    "onCommand:preflight.predictDuration",
+    "onView:preflight.sidebar"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "preflight.openDashboard",
+        "title": "Preflight: Open Dashboard",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "preflight.recommendGpu",
+        "title": "Preflight: Recommend GPU",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "preflight.predictDuration",
+        "title": "Preflight: Predict Training Duration",
+        "icon": "$(watch)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "preflight",
+          "title": "Preflight",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "preflight": [
+        {
+          "type": "webview",
+          "id": "preflight.sidebar",
+          "name": "Dashboard"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Preflight",
+      "properties": {
+        "preflight.apiUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8000",
+          "description": "Preflight FastAPI backend base URL (no trailing slash)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  }
+}
