@@ -1,0 +1,67 @@
+metadata:
+  reference_gpu_id: a100-80gb
+  reference_throughput: 1.0
+  precision: fp16
+  updated: 2026-07
+  note: Throughput ratios blend published anchors with MLPerf Training ingest (15
+    fair single-node runs).
+gpus:
+  a100-80gb:
+    relative_training_throughput: 1.0
+    typical_mfu_percent: 50
+    source: reference (MLPerf A100 baseline)
+    approximate: false
+  h100-80gb:
+    relative_training_throughput: 2.3
+    typical_mfu_percent: 55
+    source: MLPerf Training ingest (llama2_70b_lora 1-node median); anchored at 2.3x
+      A100.
+    approximate: true
+  mi300x:
+    relative_training_throughput: 2.34
+    typical_mfu_percent: 45
+    source: "MLPerf v5.0 llama2_70b_lora 1-node median \u2014 parity with H100 (2.34x\
+      \ A100 via ingest)."
+    approximate: true
+  rtx-5090:
+    relative_training_throughput: 1.5
+    typical_mfu_percent: 40
+    source: "Blackwell consumer \u2014 landscape estimate, no NVLink (no public training\
+      \ MLPerf)."
+    approximate: true
+  rtx-4090:
+    relative_training_throughput: 0.78
+    typical_mfu_percent: 38
+    source: Measured LLM training tok/s vs A100 (0.72-0.82x when model fits 24GB);
+      much slower on large models forced into checkpointing/offload.
+    approximate: true
+  rx-7900-xtx:
+    relative_training_throughput: 0.5
+    typical_mfu_percent: 30
+    source: "ROCm consumer \u2014 software maturity discount"
+    approximate: true
+  rtx-4080:
+    relative_training_throughput: 0.55
+    typical_mfu_percent: 36
+    source: Lambda / Exxact estimate
+    approximate: true
+  rtx-4070:
+    relative_training_throughput: 0.42
+    typical_mfu_percent: 34
+    source: Lambda / Exxact estimate
+    approximate: true
+  rtx-4060-ti:
+    relative_training_throughput: 0.3
+    typical_mfu_percent: 30
+    source: landscape estimate
+    approximate: true
+  rtx-4060:
+    relative_training_throughput: 0.25
+    typical_mfu_percent: 28
+    source: landscape estimate
+    approximate: true
+  rtx-3060:
+    relative_training_throughput: 0.28
+    typical_mfu_percent: 30
+    source: "Ampere consumer \u2014 landscape estimate"
+    approximate: true

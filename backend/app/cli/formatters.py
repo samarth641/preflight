@@ -253,10 +253,12 @@ def render_cost_estimate(result, console: Console | None = None) -> None:
     assert isinstance(result, CostEstimateResult)
     console = console or Console()
 
+    timing = f"{result.estimated_hours:.1f}h wall-clock ({result.estimated_days} days)"
+    if result.gpu_hours and abs(result.gpu_hours - result.estimated_hours) > 0.05:
+        timing += f", {result.gpu_hours:.1f} GPU-hours"
     console.print(
         Panel(
-            f"[bold]${result.total_usd:.2f}[/bold] total — "
-            f"{result.estimated_hours:.1f}h ({result.estimated_days} days)",
+            f"[bold]${result.total_usd:.2f}[/bold] total — {timing}",
             title=f"Cost Estimate — {result.gpu_name}",
             border_style="green",
         )

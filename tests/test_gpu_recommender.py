@@ -150,3 +150,15 @@ class TestGPURecommender:
         result = recommender.recommend(request)
         rec_titles = {rec.title for rec in result.knowledge_recommendations}
         assert "Use Multi-GPU or Model Parallelism" in rec_titles
+
+    def test_ranking_uses_measured_throughput(self, recommender: GPURecommender) -> None:
+        request = GPURecommendationRequest(
+            parameter_count_billion=7.0,
+            model_type=ModelType.TRANSFORMER,
+            training_mode=TrainingMode.LORA,
+        )
+        result = recommender.recommend(request)
+        benchmark_reasons = [
+            r for c in result.candidates for r in c.reasons if "measured training throughput" in r
+        ]
+        assert benchmark_reasons

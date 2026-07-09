@@ -1,0 +1,37 @@
+{
+  "split": "grouped-by-organization (leak-resistant)",
+  "n_train": 754,
+  "n_test_real": 90,
+  "test": {
+    "median_ratio": 1.7700139111741362,
+    "p90_ratio": 8.584735169912227,
+    "within_2x_pct": 60.0,
+    "within_3x_pct": 78.88888888888889
+  },
+  "features": [
+    "log_params",
+    "log_dataset",
+    "log_flops",
+    "log_n_gpu",
+    "log_peak_flops",
+    "theo_log_hours",
+    "dom_language",
+    "dom_vision",
+    "dom_multimodal",
+    "dom_image_generation",
+    "dom_biology",
+    "dom_other"
+  ],
+  "baseline_formula": {
+    "median_ratio": 1.166666687458563,
+    "p90_ratio": 3.2893208342678597,
+    "within_2x_pct": 86.04651162790698,
+    "within_3x_pct": 88.37209302325581
+  },
+  "model_on_same_subset": {
+    "median_ratio": 1.517813725888748,
+    "p90_ratio": 2.523666772925262,
+    "within_2x_pct": 76.74418604651163,
+    "within_3x_pct": 90.69767441860465
+  }
+}

@@ -26,7 +26,11 @@ cloud_hourly_usd:
   rtx-4060-ti:
     local: 0.0
   mi300x:
-    aws: 0.0
+    # AWS does not offer MI300X instances (AWS accelerated computing is NVIDIA-only).
+    # Azure ND MI300X v5 is the confirmed real provider; rate per Thunder Compute's
+    # July 2026 pricing roundup (secondary source — Azure's own pricing page was
+    # unreachable at edit time). Re-verify before quoting precisely in the demo.
+    azure: 6.00
 
 # Baseline training speed reference (7B transformer, 10k samples, batch 8, 1 epoch ≈ 1 hour on A100)
 training_baseline:

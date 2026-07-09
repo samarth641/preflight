@@ -243,3 +243,64 @@ def estimate_cost(
     else:
         render_cost_estimate(result, Console())
 
+
+@app.command("predict-duration")
+def predict_duration(
+    params_billion: float = typer.Option(..., "--params-billion", "-p"),
+    dataset_tokens: float = typer.Option(..., "--dataset-tokens", "-d",
+                                         help="Training tokens (LLM) or samples"),
+    gpu_id: str = typer.Option(..., "--gpu", "-g", help="GPU id e.g. mi300x, rtx-4090"),
+    n_gpus: int = typer.Option(1, "--n-gpus", "-n"),
+    epochs: int = typer.Option(1, "--epochs", "-e"),
+    domain: str = typer.Option("language", "--domain",
+                               help="language|vision|multimodal|image generation|biology|other"),
+    provider: str | None = typer.Option(None, "--provider", help="Cloud provider for cost"),
+    output_format: OutputFormat = typer.Option(OutputFormat.rich, "--format", "-f"),
+) -> None:
+    """ML prediction of training duration (and cost) before execution."""
+    import json as _json
+
+    from rich.console import Console
+    from rich.table import Table
+
+    from app.core.calculators.cost.pricing import PricingRegistry
+    from app.core.predictors import DurationPredictor, DurationRequest
+
+    result = DurationPredictor().predict(DurationRequest(
+        parameter_count_billion=params_billion,
+        dataset_tokens=dataset_tokens,
+        gpu_id=gpu_id,
+        n_gpus=n_gpus,
+        epochs=epochs,
+        domain=domain,
+    ))
+    rate = PricingRegistry().cloud_hourly_rate(gpu_id, provider)
+    cost = round(result.estimated_hours * n_gpus * rate, 2) if rate else None
+
+    if output_format == OutputFormat.json:
+        payload = {
+            "estimated_hours": result.estimated_hours,
+            "theoretical_hours": result.theoretical_hours,
+            "gpu_id": result.gpu_id,
+            "n_gpus": result.n_gpus,
+            "model_version": result.model_version,
+            "estimated_cost_usd": cost,
+            "hourly_rate_usd": rate,
+        }
+        typer.echo(_json.dumps(payload, indent=2))
+        return
+
+    table = Table(title="Training Duration Prediction (ML)")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    h = result.estimated_hours
+    human = f"{h * 60:.0f}m" if h < 1 else (f"{h:.1f}h" if h < 48 else f"{h / 24:.1f} days")
+    table.add_row("Estimated duration", human)
+    table.add_row("Estimated hours", f"{h:.2f}")
+    table.add_row("Physics-formula hours", f"{result.theoretical_hours:.2f}")
+    table.add_row("GPU", f"{result.gpu_id} x{result.n_gpus}")
+    if cost is not None:
+        table.add_row("Estimated cost", f"${cost:,.2f} (@ ${rate}/h)")
+    table.add_row("Model", result.model_version)
+    Console().print(table)
+

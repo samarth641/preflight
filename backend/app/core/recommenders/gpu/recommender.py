@@ -12,10 +12,14 @@ from app.core.recommenders.gpu.models import (
     GPURecommendationRequest,
     GPURecommendationResult,
 )
+from app.core.recommenders.gpu.benchmarks import BenchmarkRegistry
 from app.core.recommenders.gpu.registry import CloudRegistry, GPURegistry
 from app.core.recommenders.gpu.scorer import score_gpu
 
 logger = logging.getLogger(__name__)
+
+# A100 80GB peak FP16 TFLOPS — anchors the TFLOPS->throughput fallback scale.
+REFERENCE_TFLOPS_FP16 = 312.0
 
 
 class GPURecommender:
@@ -26,10 +30,12 @@ class GPURecommender:
         gpu_registry: GPURegistry | None = None,
         cloud_registry: CloudRegistry | None = None,
         engine: KnowledgeEngine | None = None,
+        benchmark_registry: BenchmarkRegistry | None = None,
     ) -> None:
         self._gpu_registry = gpu_registry or GPURegistry()
         self._cloud_registry = cloud_registry or CloudRegistry()
         self._engine = engine or KnowledgeEngine()
+        self._benchmarks = benchmark_registry or BenchmarkRegistry(self._gpu_registry.knowledge_root)
         self._cost_calculator = None
 
     @property
@@ -43,13 +49,17 @@ class GPURecommender:
     def recommend(self, request: GPURecommendationRequest) -> GPURecommendationResult:
         required_vram = estimate_vram_gb(request)
         gpus = self._gpu_registry.gpus
-        max_tflops = max((gpu.tflops_fp16 for gpu in gpus), default=1.0)
+        perf_by_id = self._perf_by_id(gpus)
+        max_perf = max((v for v, _ in perf_by_id.values()), default=1.0)
 
         candidates: list[GPUCandidate] = []
         for gpu in gpus:
             if request.preferred_vendor and gpu.vendor != request.preferred_vendor:
                 continue
-            candidate = score_gpu(gpu, required_vram, request, max_tflops)
+            perf_value, from_benchmark = perf_by_id[gpu.id]
+            candidate = score_gpu(
+                gpu, required_vram, request, perf_value, max_perf, perf_from_benchmark=from_benchmark
+            )
             if candidate is not None:
                 candidates.append(candidate)
 
@@ -95,6 +105,22 @@ class GPURecommender:
             knowledge_recommendations=engine_result.recommendations,
             sources=engine_result.sources,
         )
+
+    def _perf_by_id(self, gpus) -> dict[str, tuple[float, bool]]:
+        """Map gpu_id -> (performance metric, is_from_benchmark).
+
+        Uses measured relative training throughput (A100 = 1.0) when available;
+        otherwise converts peak FP16 TFLOPS to the same reference scale so all
+        GPUs are comparable.
+        """
+        perf: dict[str, tuple[float, bool]] = {}
+        for gpu in gpus:
+            measured = self._benchmarks.relative_throughput(gpu.id)
+            if measured is not None:
+                perf[gpu.id] = (measured, True)
+            else:
+                perf[gpu.id] = (gpu.tflops_fp16 / REFERENCE_TFLOPS_FP16, False)
+        return perf
 
     def _match_cloud(
         self,

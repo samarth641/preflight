@@ -1,0 +1,5 @@
+runtime_minutes,num_epochs,gpu_name,model_size,dataset_size,task_type
+60,4,NVIDIA RTX 4090,7B,15000,transformer
+45,2,mi300x,13B,10000,llm
+90,6,RTX 4080,1.3B,25000,language
+15,1,h100-80gb,0.35B,8000,image

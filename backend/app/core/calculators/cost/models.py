@@ -54,9 +54,10 @@ class CostEstimateResult(BaseModel):
     gpu_name: str
     deployment: DeploymentType
     cloud_provider: str | None = None
-    estimated_hours: float
+    estimated_hours: float = Field(description="Wall-clock hours (reduced by GPU parallelism)")
     estimated_days: float
-    seconds_per_epoch: float
+    gpu_hours: float = Field(default=0.0, description="Total GPU-hours = wall-clock x GPU count (drives cost)")
+    seconds_per_epoch: float = Field(description="Wall-clock seconds per epoch")
     breakdown: CostBreakdown
     total_usd: float
     hourly_rate_usd: float | None = None
