@@ -17,9 +17,16 @@ def score_gpu(
     gpu: GPUSpec,
     required_vram_gb: float,
     request: GPURecommendationRequest,
-    max_tflops: float,
+    perf_value: float,
+    max_perf: float,
+    perf_from_benchmark: bool = False,
 ) -> GPUCandidate | None:
-    """Score a GPU against requirements. Returns None if VRAM is insufficient."""
+    """Score a GPU against requirements. Returns None if VRAM is insufficient.
+
+    ``perf_value`` is the GPU's performance metric on a shared scale (measured
+    relative training throughput when available, else TFLOPS converted to the same
+    reference scale). ``max_perf`` is the best value across candidates.
+    """
     headroom = gpu.vram_gb - required_vram_gb
     if headroom < 0:
         return GPUCandidate(
@@ -46,7 +53,9 @@ def score_gpu(
         vram_score = 0.8 - (utilization - 0.85) * 2
         reasons.append("Tight VRAM fit — limited headroom for larger batches")
 
-    perf_score = gpu.tflops_fp16 / max_tflops if max_tflops > 0 else 0.5
+    perf_score = perf_value / max_perf if max_perf > 0 else 0.5
+    if perf_from_benchmark:
+        reasons.append("Ranked on measured training throughput (benchmark)")
     efficiency_score = perf_score / max(gpu.power_watts / 200, 0.5)
 
     vendor_score = 1.0

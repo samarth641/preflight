@@ -1,0 +1,2471 @@
+training_time,gpu_name,model_size,dataset_size,task_type,source
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,github-code-python,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX Pro 6000 Blackwell,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,A100 40GB,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,RTX 4000 Ada,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,MI300X,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu-high,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,cosmopedia-v2,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,slimpajama,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,climbmix,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments
+300,M5 Max,1.3B,fineweb-edu,transformer,hf:autoresearch-experiments

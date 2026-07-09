@@ -1,0 +1,67 @@
+source,benchmark,training_time,accelerator,num_parameters,train_samples,workload_type,gpu_count,submission_platform,system_path
+mlperf:training_results_v5.0,llama2_70b_lora,1279.131,mi300x,70.0,3901,transformer,1,1xMI325X,MI325X_EPYC_9575F_pytorch/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,1695.611,mi300x,70.0,3901,transformer,1,1xMI300X,MI300X_EPYC_9575F_pytorch/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,1684.929,mi300x,70.0,3901,transformer,1,1xMI300X,1xXE9680x8MI300X/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,1714.191,mi300x,70.0,3901,transformer,1,1xMI300X,MI300X-LLMBoost-GPUBoost-1node/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,1828.096,mi300x,70.0,3901,transformer,2,2xMI300X,MI300X-LLMBoost-GPUBoost-2node/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,2358.054,mi300x,70.0,3901,transformer,4,4xMI300X,MI300X-LLMBoost-GPUBoost-4node/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,1233.423,mi300x,70.0,3901,transformer,1,1xMI325X,8xMI325X_2xEPYC_9575F/llama2_70b_lora
+mlperf:training_results_v5.0,llama2_70b_lora,1723.044,mi300x,70.0,3901,transformer,1,1xMI300X,1xBM.GPU.MI300X.8/llama2_70b_lora
+mlperf:training_results_v5.0,bert,48007.557,mi300x,0.11,3993600,transformer,8,tinybox_8xMI300X,tinybox_8xMI300X/bert
+mlperf:training_results_v4.1,ssd,16251.983,h100-80gb,0.034,4572,vision,8,1xSUBMISSION_PLATFORM_PLACEHOLDER,C885a-8xH100-SXM-80G/ssd
+mlperf:training_results_v4.1,ssd,4197.217,h100-80gb,0.034,2286,vision,8,4xDELL,4xXE9680x8H100-SXM-80GB/ssd
+mlperf:training_results_v4.1,bert,2117.313,h100-80gb,0.11,2248168,transformer,4,1xXE8640x4H100-SXM-80GB,XE8640x4H100-SXM-80GB/bert
+mlperf:training_results_v4.1,ssd,16497.451,h100-80gb,0.034,9143,vision,2,R760x2H100NVL-PCIe-94GB,R760x2H100NVL-PCIe-94GB/ssd
+mlperf:training_results_v4.1,ssd,2679.562,h100-80gb,0.034,4572,vision,8,8xXE9680x8H100-SXM-80GB,8xXE9680x8H100-SXM-80GB/ssd
+mlperf:training_results_v4.1,ssd,15922.346,h100-80gb,0.034,4572,vision,4,1xXE9640x4H100-SXM-80GB,XE9640x4H100-SXM-80GB/ssd
+mlperf:training_results_v4.1,bert,2439.959,h100-80gb,0.11,2548645,transformer,8,1xE9680x8H100-SXM-80GB,XE9680x8H100-SXM-80GB/bert
+mlperf:training_results_v4.1,ssd,15723.367,h100-80gb,0.034,4572,vision,8,1xE9680x8H100-SXM-80GB,XE9680x8H100-SXM-80GB/ssd
+mlperf:training_results_v4.1,ssd,15685.848,h100-80gb,0.034,4572,vision,4,1xXE8640x4H100-SXM-80GB,XE8640x4H100-SXM-80GB/ssd
+mlperf:training_results_v4.1,ssd,26618.501,h100-80gb,0.034,4572,vision,7,GX2560M7_H100_SXM_80GBx4,GX2560M7_H100_SXM_80GBx4/ssd
+mlperf:training_results_v4.1,ssd,22168.605,h100-80gb,0.034,4572,vision,16,PRIMERGY-CDI-H100NVLx16,PRIMERGY_CDI_H100_NVL_94GBx16/ssd
+mlperf:training_results_v4.1,llama2_70b_lora,7389.602,h100-80gb,70.0,3901,transformer,128,128xNVIDIA DGX H100,eos_n128_ngc24.09_nemo/llama2_70b_lora
+mlperf:training_results_v4.1,stable_diffusion,7382.070,h100-80gb,0.9,6513144,vision,128,128xNVIDIA DGX H100,eos_n128_ngc24.04_nemo/stable_diffusion
+mlperf:training_results_v4.1,ssd,10283.298,h100-80gb,0.034,464,vision,316,316xNVIDIA DGX H100,eos_n316_ngc24.04_pytorch/ssd
+mlperf:training_results_v4.1,stable_diffusion,5430.525,h100-80gb,0.9,6513144,vision,64,64xNVIDIA DGX H100,eos_n64_ngc24.09_nemo/stable_diffusion
+mlperf:training_results_v4.1,bert,404.589,h100-80gb,0.11,3004416,transformer,8,8xNVIDIA DGX H100,eos_n8_ngc23.04_pytorch/bert
+mlperf:training_results_v4.1,bert,2261.622,h100-80gb,0.11,5398960,transformer,434,434xNVIDIA DGX H100,eos_n434_ngc23.09_pytorch/bert
+mlperf:training_results_v4.1,llama2_70b_lora,2384.197,h100-80gb,70.0,3901,transformer,8,8xNVIDIA DGX H100,eos_n8_ngc24.09_nemo/llama2_70b_lora
+mlperf:training_results_v4.1,stable_diffusion,2314.851,h100-80gb,0.9,6513144,vision,8,8xNVIDIA DGX H100,eos_n8_ngc24.09_nemo/stable_diffusion
+mlperf:training_results_v4.1,ssd,2595.572,h100-80gb,0.034,4572,vision,8,8xNVIDIA DGX H100,eos_n8_ngc24.09_pytorch/ssd
+mlperf:training_results_v4.1,llama2_70b_lora,1814.910,h100-80gb,70.0,3901,transformer,1,1xNVIDIA DGX H100,eos_ngc24.09_nemo/llama2_70b_lora
+mlperf:training_results_v4.1,bert,347.703,h100-80gb,0.11,2698169,transformer,1,1xNVIDIA DGX H100,eos_ngc23.04_pytorch/bert
+mlperf:training_results_v4.1,stable_diffusion,1881.762,h100-80gb,0.9,6513144,vision,1,1xNVIDIA DGX H100,eos_ngc24.09_nemo/stable_diffusion
+mlperf:training_results_v4.1,ssd,2135.083,h100-80gb,0.034,4572,vision,1,1xNVIDIA DGX H100,eos_ngc24.09_pytorch/ssd
+mlperf:training_results_v4.0,bert,2117.313,h100-80gb,0.11,2248168,transformer,4,1xXE8640x4H100-SXM-80GB,XE8640x4H100-SXM-80GB/bert
+mlperf:training_results_v4.0,resnet,6020.940,h100-80gb,0.025,1281167,vision,4,1xXE8640x4H100-SXM-80GB,XE8640x4H100-SXM-80GB/resnet
+mlperf:training_results_v4.0,ssd,15685.848,h100-80gb,0.034,4572,vision,4,1xXE8640x4H100-SXM-80GB,XE8640x4H100-SXM-80GB/ssd
+mlperf:training_results_v4.0,bert,2586.364,h100-80gb,0.11,2848092,transformer,4,1xXE9640x4H100-SXM-80GB,XE9640x4H100-SXM-80GB/bert
+mlperf:training_results_v4.0,resnet,5989.792,h100-80gb,0.025,1281167,vision,4,1xXE9640x4H100-SXM-80GB,XE9640x4H100-SXM-80GB/resnet
+mlperf:training_results_v4.0,ssd,16384.033,h100-80gb,0.034,4572,vision,4,1xXE9640x4H100-SXM-80GB,XE9640x4H100-SXM-80GB/ssd
+mlperf:training_results_v4.0,bert,2439.959,h100-80gb,0.11,2548645,transformer,8,1xE9680x8H100-SXM-80GB,XE9680x8H100-SXM-80GB/bert
+mlperf:training_results_v4.0,llama2_70b_lora,12731.655,h100-80gb,70.0,3901,transformer,8,1xXE9680x8H100-SXM-80GB,XE9680x8H100-SXM-80GB/llama2_70b_lora
+mlperf:training_results_v4.0,resnet,5692.471,h100-80gb,0.025,1281167,vision,8,1xXE9680x8H100-SXM-80GB,XE9680x8H100-SXM-80GB/resnet
+mlperf:training_results_v4.0,ssd,15723.367,h100-80gb,0.034,4572,vision,8,1xE9680x8H100-SXM-80GB,XE9680x8H100-SXM-80GB/ssd
+mlperf:training_results_v4.0,resnet,9706.904,h100-80gb,0.025,1281167,vision,7,GX2560M7_H100_SXM_80GBx4,GX2560M7_H100_SXM_80GBx4/resnet
+mlperf:training_results_v4.0,ssd,26524.404,h100-80gb,0.034,4572,vision,7,GX2560M7_H100_SXM_80GBx4,GX2560M7_H100_SXM_80GBx4/ssd
+mlperf:training_results_v4.0,bert,4352.325,h100-80gb,0.11,2849248,transformer,7,GX2560M7_H100_SXM_80GBx4,GX2560M7_H100_SXM_80GBx4/bert
+mlperf:training_results_v4.0,llama2_70b_lora,378561.903,a100-80gb,70.0,3901,transformer,100,A100,a100_n8_ngc24.1_pytorch_deepspeed/llama2_70b_lora
+mlperf:training_results_v4.0,llama2_70b_lora,549418.094,h100-80gb,70.0,3901,transformer,100,H100,h100_n1_ngc24.1_pytorch_deepspeed/llama2_70b_lora
+mlperf:training_results_v4.0,llama2_70b_lora,223406.405,h100-80gb,70.0,3901,transformer,100,H100,h100_n4_ngc24.1_pytorch_deepspeed/llama2_70b_lora
+mlperf:training_results_v4.0,resnet,3618.798,h100-80gb,0.025,1281167,vision,448,448xNVIDIA DGX H100,coreweave_hgxh100_n448_ngc23.04_mxnet/resnet
+mlperf:training_results_v4.0,llama2_70b_lora,8958.770,h100-80gb,70.0,3901,transformer,128,128xNVIDIA DGX H100,eos_n128_ngc24.04_nemo/llama2_70b_lora
+mlperf:training_results_v4.0,stable_diffusion,7382.070,h100-80gb,0.9,6513144,vision,128,128xNVIDIA DGX H100,eos_n128_ngc24.04_nemo/stable_diffusion
+mlperf:training_results_v4.0,resnet,3304.381,h100-80gb,0.025,1281167,vision,316,316xNVIDIA DGX H100,eos_n316_ngc24.04_mxnet/resnet
+mlperf:training_results_v4.0,bert,2261.622,h100-80gb,0.11,5398960,transformer,434,434xNVIDIA DGX H100,eos_n434_ngc23.09_pytorch/bert
+mlperf:training_results_v4.0,ssd,10283.298,h100-80gb,0.034,464,vision,316,316xNVIDIA DGX H100,eos_n316_ngc24.04_pytorch/ssd
+mlperf:training_results_v4.0,stable_diffusion,5698.347,h100-80gb,0.9,6513144,vision,64,64xNVIDIA DGX H100,eos_n64_ngc24.04_nemo/stable_diffusion
+mlperf:training_results_v4.0,bert,404.589,h100-80gb,0.11,3004416,transformer,8,8xNVIDIA DGX H100,eos_n8_ngc23.04_pytorch/bert
+mlperf:training_results_v4.0,resnet,1083.851,h100-80gb,0.025,1281167,vision,8,8xNVIDIA DGX H100,eos_n8_ngc24.04_mxnet/resnet
+mlperf:training_results_v4.0,ssd,2627.145,h100-80gb,0.034,4572,vision,8,8xNVIDIA DGX H100,eos_n8_ngc24.04_pytorch/ssd
+mlperf:training_results_v4.0,bert,347.703,h100-80gb,0.11,2698169,transformer,1,1xNVIDIA DGX H100,eos_ngc23.04_pytorch/bert
+mlperf:training_results_v4.0,resnet,798.372,h100-80gb,0.025,1281167,vision,1,1xNVIDIA DGX H100,eos_ngc24.04_mxnet/resnet
+mlperf:training_results_v4.0,llama2_70b_lora,1629.043,h100-80gb,70.0,3901,transformer,1,1xNVIDIA DGX H100,eos_ngc24.04_nemo/llama2_70b_lora
+mlperf:training_results_v4.0,stable_diffusion,2517.673,h100-80gb,0.9,6513144,vision,1,1xNVIDIA DGX H100,eos_ngc24.04_nemo/stable_diffusion
+mlperf:training_results_v4.0,ssd,2122.930,h100-80gb,0.034,4572,vision,1,1xNVIDIA DGX H100,eos_ngc24.04_pytorch/ssd
+mlperf:training_results_v4.0,llama2_70b_lora,2475.144,h100-80gb,70.0,3901,transformer,8,8xNVIDIA DGX H100,eos_n8_ngc24.04_nemo/llama2_70b_lora
+mlperf:training_results_v4.0,stable_diffusion,3134.614,h100-80gb,0.9,6513144,vision,8,8xNVIDIA DGX H100,eos_n8_ngc24.04_nemo/stable_diffusion

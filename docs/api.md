@@ -214,6 +214,7 @@ Standalone cost estimate for a specific GPU and workload.
   "deployment": "cloud",
   "estimated_hours": 28.4,
   "estimated_days": 1.18,
+  "gpu_hours": 28.4,
   "seconds_per_epoch": 10224.0,
   "hourly_rate_usd": 0.44,
   "total_usd": 12.50,
@@ -239,6 +240,26 @@ Standalone cost estimate for a specific GPU and workload.
 | **Hardware amortization** | $0 | MSRP / lifetime hours × hours |
 
 Pricing lives in `knowledge/hardware/pricing.yaml` (not hardcoded).
+
+### Training-time model
+
+Training time uses a transparent **empirical linear model** (~80% accuracy — no ML), not a learned regressor:
+
+```
+seconds_per_epoch(1 GPU) = ref_seconds
+    × (params / ref_params) ** 0.75    # sub-linear in model size
+    × (samples / ref_samples)          # LINEAR in dataset size
+    × model_type_factor
+    × (ref_throughput / gpu_throughput)  # inverse-linear in hardware (benchmark-calibrated)
+
+wall_clock       = seconds_per_epoch(1 GPU) / gpu_count ** 0.95   # sub-linear multi-GPU
+gpu_hours        = wall_clock × gpu_count                          # billing / energy basis
+```
+
+- `estimated_hours` = **wall-clock** (what you wait), reduced by GPU parallelism.
+- `gpu_hours` = **billing basis** (`wall_clock × gpu_count`); cloud cost and electricity scale with this.
+- Batch size is intentionally **not** a factor: at fixed throughput it cancels (`steps × time/step = samples / samples-per-sec`).
+- GPU utilization (MFU) is already captured inside the measured throughput term (see `docs/benchmarks.md`).
 
 ### Example
 
