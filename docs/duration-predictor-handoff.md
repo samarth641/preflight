@@ -1,0 +1,94 @@
+# Duration Predictor — Handoff & Completion Plan
+
+Status as of 2026-07-09. Owner: Selva (`selva-k-r`). Target branch: `selva/duration-predictor`.
+
+## Current state
+
+**Built and audited (details in `backend/app/core/predictors/duration/artifacts/metrics.json`):**
+- Data pipeline: `ml/prep_dataset.py` (Epoch AI real rows + label sanity filter + synthetic AMD/consumer augmentation)
+- Training: `ml/train_duration.py` (XGBoost on log-hours, grouped-by-organization split)
+- Serving: `backend/app/core/predictors/duration/predictor.py` (in-process, physics fallback)
+- API: `POST /api/v1/predict/duration` (duration + cost via pricing.yaml) · CLI: `trainwise predict-duration`
+- Tests: `tests/test_duration_predictor.py` (6 tests)
+
+**Honest metrics (grouped split, cleaned labels):** formula median 1.18x / p90 9.8x; ML median 1.45x / p90 5.6x. Formula wins the center, ML wins the tail; API returns both.
+
+**Known caveat:** all verification so far ran in Claude's Linux sandbox, not on the dev machine. Steps 1–3 below close that gap.
+
+---
+
+## Phase A — Verify locally (BLOCKER for check-in, ~20 min)
+
+```powershell
+cd C:\Users\slvkm\Documents\Claude\preflight\backend
+pip install -e ".[dev]"          # picks up new xgboost + numpy deps
+pip install pandas               # ml/ scripts only
+```
+
+**Step 1 — reproduce the pipeline from the repo's own scripts** (proves reproducibility; the current artifact was generated from a mirror script):
+
+```powershell
+cd C:\Users\slvkm\Documents\Claude\preflight
+python ml\prep_dataset.py --augment      # expect: ~420 real rows (post-filter) + ~430 synthetic
+python ml\train_duration.py              # expect: metrics close to metrics.json (not identical — fine)
+```
+
+PASS = runs without error, printed p90_ratio for "test" is under ~15, artifacts overwritten.
+FAIL on import/path errors = fix in ml/ scripts (they were edited but never run on Windows).
+
+**Step 2 — test suite:**
+
+```powershell
+cd backend
+pytest ..\tests\test_duration_predictor.py -v    # expect 6/6 incl. test_api_endpoint
+pytest ..\tests -v                                # full suite — confirm nothing else broke
+ruff check .
+```
+
+**Step 3 — manual smoke (the demo commands):**
+
+```powershell
+trainwise predict-duration -p 7 -d 100e9 -g mi300x -n 4
+trainwise predict-duration -p 1 -d 2e9 -g rtx-4090 --format json
+uvicorn app.main:app --port 8000    # then POST /api/v1/predict/duration from /docs
+```
+
+Sanity expectations: more GPUs → fewer hours; bigger model → more hours; mi300x faster than rtx-4090.
+
+## Phase B — Data/config fixes (before or right after check-in, ~15 min)
+
+**Step 4 —** download https://epoch.ai/data/ml_hardware.csv → `data\raw\gpu_specs\`, rerun Step 1. Improves hardware-name coverage (19 hand-coded entries → 170).
+
+**Step 5 —** `knowledge/hardware/pricing.yaml`: `mi300x: aws: 0.0` is a placeholder — MI300X cost predictions are broken until a real hourly rate is entered (verify current market rate, ~$2–4/hr range on Azure/RunPod). Demo-critical for an AMD hackathon. Coordinate with samarth641 (his file).
+
+## Phase C — Check-in (~15 min)
+
+**Step 6 —** ensure `.gitignore` covers `data/raw/` and `data/processed/` (11+ MB, regenerable — commit scripts, not data). Artifacts (~300 KB) DO get committed.
+
+**Step 7 —**
+
+```powershell
+git checkout -b selva/duration-predictor
+git add ml/ backend/app/core/predictors/ backend/app/schemas/predict.py `
+        backend/app/api/routes.py backend/app/cli/main.py backend/pyproject.toml `
+        tests/test_duration_predictor.py README.md docs/duration-predictor-handoff.md .gitignore
+git commit -m "feat: ML training-duration predictor (XGBoost) + cost via pricing, API + CLI"
+git push -u origin selva/duration-predictor    # then PR into master
+```
+
+PR description: paste the metrics table from README + link this doc. Do NOT claim the old "40x → 4.5x" numbers; use the grouped-split ones.
+
+## Phase D — Post-check-in improvements (priority order)
+
+1. **Small-scale benchmark data** (MLPerf results repos on GitHub, AIME benchmarks) — attacks the measured weakness: median error 2.27x on ≤8-GPU runs vs 1.37x on frontier runs. Our users run small.
+2. **Quantile regression** — return p10–p90 hour range instead of a point estimate. Half day, big credibility win.
+3. **Per-tier MFU** — replace the flat 0.35 with values learned from real rows per hardware class.
+4. **Feedback flywheel** — log predicted-vs-actual via the existing training-log analyzer. Roadmap slide material.
+
+## Q&A prep (likely questions, one-line answers)
+
+- *Why ML if the formula's median is better?* The tail: formula p90 9.8x vs model 5.6x; one 10x miss costs more trust than many 1.2x hits. Also handles missing/soft inputs (domain, absent dataset size).
+- *Why grouped split?* Random splits put GPT-3 in train and GPT-3.5 in test — family leakage inflated our p90 by ~2x; we measured it.
+- *Why never test on synthetic rows?* They're generated by our own formula — testing on them grades the formula with its own answer key.
+- *Why no model server?* Artifact is ~300 KB of tree splits, microsecond CPU inference — in-process loading; a server adds a hop and zero value.
+- *AMD accuracy?* Extrapolation via physics prior + noisy-MFU synthetic rows, disclosed as such; error bars from real-data eval.
