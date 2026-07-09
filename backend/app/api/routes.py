@@ -13,8 +13,15 @@ from app.schemas.cost import CostEstimateBody, CostEstimateResponse
 from app.schemas.dataset import DatasetAnalyzeRequest, DatasetAnalyzeResponse
 from app.schemas.gpu import GPURecommendBody, GPURecommendResponse
 from app.schemas.training import TrainingAnalyzeRequest, TrainingAnalyzeResponse
+from app.schemas.monitor import (
+    DashboardStatsResponse,
+    ExperimentHistoryResponseSchema,
+    LiveTrainingMonitorResponse,
+)
+from app.core.monitors import TrainingMonitor
 
 router = APIRouter()
+_monitor = TrainingMonitor()
 
 
 @router.get("/health", response_model=HealthResponse, tags=["health"])
@@ -42,6 +49,30 @@ def analyze_training(body: TrainingAnalyzeRequest) -> TrainingAnalyzeResponse:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return TrainingAnalyzeResponse.model_validate(result.model_dump())
+
+
+@router.get("/dashboard/stats", response_model=DashboardStatsResponse, tags=["monitor"])
+def dashboard_stats() -> DashboardStatsResponse:
+    """Aggregate experiment dashboard stats (rule-based demo data)."""
+    return DashboardStatsResponse.model_validate(_monitor.dashboard_stats().model_dump())
+
+
+@router.get("/experiments", response_model=ExperimentHistoryResponseSchema, tags=["monitor"])
+def list_experiments() -> ExperimentHistoryResponseSchema:
+    """Experiment history from demo fixtures."""
+    return ExperimentHistoryResponseSchema.model_validate(_monitor.list_experiments().model_dump())
+
+
+@router.get("/training/monitor", response_model=LiveTrainingMonitorResponse, tags=["monitor"])
+def live_training_monitor(experiment_id: str | None = None) -> LiveTrainingMonitorResponse:
+    """Live training snapshot with convergence + rule-based alerts (demo data)."""
+    try:
+        result = _monitor.live_monitor(experiment_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return LiveTrainingMonitorResponse.model_validate(result.model_dump())
 
 
 @router.post("/gpu/recommend", response_model=GPURecommendResponse, tags=["gpu"])

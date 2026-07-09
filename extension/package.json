@@ -2,7 +2,7 @@
   "name": "preflight",
   "displayName": "Preflight — AI Training Intelligence",
   "description": "GPU recommendations, ML training duration, dataset & log analysis for ML developers.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "preflight",
   "license": "MIT",
   "engines": {

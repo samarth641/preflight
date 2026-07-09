@@ -41,14 +41,25 @@ export function getWebviewHtml(
     </header>
 
     <nav class="tabs fade-in delay-1" role="tablist">
-      <button class="tab active" data-tab="gpu" role="tab">GPU</button>
+      <button class="tab active" data-tab="monitor" role="tab">Monitor</button>
+      <button class="tab" data-tab="gpu" role="tab">GPU</button>
       <button class="tab" data-tab="duration" role="tab">Duration</button>
       <button class="tab" data-tab="dataset" role="tab">Dataset</button>
       <button class="tab" data-tab="training" role="tab">Training</button>
     </nav>
 
     <main>
-      <section class="panel active" id="panel-gpu" role="tabpanel">
+      <section class="panel active" id="panel-monitor" role="tabpanel">
+        <div class="card form-card fade-in delay-2">
+          <div class="form-error" id="formMonitorError" role="alert" hidden></div>
+          <h2>Live Training Monitor <span class="badge rules">Rules</span></h2>
+          <p class="hint">100M convergence · accuracy · experiment history (demo data)</p>
+          <button type="button" class="btn primary" id="refreshMonitor"><span class="btn-shine"></span>Refresh dashboard</button>
+        </div>
+        <div id="monitorResults" class="results"></div>
+      </section>
+
+      <section class="panel" id="panel-gpu" role="tabpanel">
         <form class="card form-card fade-in delay-2" id="formGpu" novalidate>
           <div class="form-error" id="formGpuError" role="alert" hidden></div>
           <h2>Recommend GPU</h2>

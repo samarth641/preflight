@@ -304,3 +304,121 @@ def predict_duration(
     table.add_row("Model", result.model_version)
     Console().print(table)
 
+
+@app.command("dashboard-stats")
+def dashboard_stats_cmd(
+    output_format: OutputFormat = typer.Option(OutputFormat.rich, "--format", "-f"),
+) -> None:
+    """Rule-based experiment dashboard stats (demo fixtures)."""
+    import json as _json
+
+    from rich.console import Console
+    from rich.table import Table
+
+    from app.core.monitors import TrainingMonitor
+
+    stats = TrainingMonitor().dashboard_stats()
+    if output_format == OutputFormat.json:
+        typer.echo(_json.dumps(stats.model_dump(), indent=2))
+        return
+
+    table = Table(title="Dashboard Stats (rule-based demo)")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    table.add_row("Total experiments", str(stats.total_experiments))
+    table.add_row("Running", str(stats.running))
+    table.add_row("Completed", str(stats.completed))
+    table.add_row("Failed", str(stats.failed))
+    table.add_row("100M-class models", str(stats.experiments_100m))
+    table.add_row("Avg accuracy", f"{stats.avg_accuracy:.1%}" if stats.avg_accuracy else "—")
+    table.add_row("Best accuracy", f"{stats.best_accuracy:.1%}" if stats.best_accuracy else "—")
+    table.add_row("Total GPU hours", f"{stats.total_gpu_hours:.1f}")
+    table.add_row("Convergence rate", f"{stats.convergence_rate_percent:.1f}%")
+    table.add_row("Active experiment", stats.active_experiment_id or "—")
+    Console().print(table)
+
+
+@app.command("list-experiments")
+def list_experiments_cmd(
+    output_format: OutputFormat = typer.Option(OutputFormat.rich, "--format", "-f"),
+) -> None:
+    """Experiment history from rule-based demo store."""
+    import json as _json
+
+    from rich.console import Console
+    from rich.table import Table
+
+    from app.core.monitors import TrainingMonitor
+
+    history = TrainingMonitor().list_experiments()
+    if output_format == OutputFormat.json:
+        typer.echo(_json.dumps(history.model_dump(), indent=2))
+        return
+
+    table = Table(title="Experiment History (demo)")
+    table.add_column("ID")
+    table.add_column("Name")
+    table.add_column("Params")
+    table.add_column("Status")
+    table.add_column("Accuracy", justify="right")
+    table.add_column("Convergence")
+    for exp in history.experiments:
+        acc = f"{exp.final_accuracy:.1%}" if exp.final_accuracy is not None else "—"
+        table.add_row(
+            exp.id,
+            exp.name[:28],
+            f"{exp.params_million:.0f}M",
+            exp.status,
+            acc,
+            exp.convergence or "—",
+        )
+    Console().print(table)
+
+
+@app.command("monitor-training")
+def monitor_training_cmd(
+    experiment_id: str | None = typer.Option(None, "--experiment", "-e", help="Experiment id (default: active)"),
+    output_format: OutputFormat = typer.Option(OutputFormat.rich, "--format", "-f"),
+) -> None:
+    """Live training monitor — convergence, accuracy, rule-based alerts (demo)."""
+    import json as _json
+
+    from rich.console import Console
+    from rich.table import Table
+
+    from app.core.monitors import TrainingMonitor
+
+    try:
+        live = TrainingMonitor().live_monitor(experiment_id)
+    except (FileNotFoundError, ValueError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+
+    if output_format == OutputFormat.json:
+        typer.echo(_json.dumps(live.model_dump(), indent=2))
+        return
+
+    console = Console()
+    table = Table(title=f"Live Monitor — {live.experiment_name}")
+    table.add_column("Metric")
+    table.add_column("Value", justify="right")
+    table.add_row("Experiment", live.experiment_id)
+    table.add_row("Params", f"{live.params_million:.0f}M")
+    table.add_row("Epoch", f"{live.epoch} / {live.total_epochs}")
+    table.add_row("Progress", f"{live.epoch_progress_percent:.1f}%")
+    table.add_row("Samples seen", f"{live.samples_seen_million:.1f}M")
+    table.add_row("Accuracy", f"{live.accuracy:.1%}" if live.accuracy is not None else "—")
+    table.add_row("Val loss", f"{live.val_loss:.4f}" if live.val_loss is not None else "—")
+    table.add_row("GPU util", f"{live.gpu_utilization:.0f}%" if live.gpu_utilization else "—")
+    table.add_row("Convergence", live.convergence_status)
+    table.add_row("Health", f"{live.health_score:.0f} ({live.health_grade})")
+    console.print(table)
+
+    if live.warnings:
+        console.print("\n[bold yellow]Warnings[/]")
+        for w in live.warnings:
+            console.print(f"  • {w.title}: {w.message}")
+    if live.recommendations:
+        console.print("\n[bold cyan]Recommendations[/]")
+        for r in live.recommendations:
+            console.print(f"  • {r.title}: {r.recommendation}")
+

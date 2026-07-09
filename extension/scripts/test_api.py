@@ -49,6 +49,9 @@ def main() -> int:
         ("training/analyze", lambda: post("/training/analyze", {
             "path": "F:/PREFLIIGHT/tests/fixtures/training/overfitting.csv",
         })),
+        ("dashboard/stats", lambda: get("/dashboard/stats")),
+        ("experiments", lambda: get("/experiments")),
+        ("training/monitor", lambda: get("/training/monitor")),
     ]
 
     failed = 0
@@ -64,6 +67,12 @@ def main() -> int:
                 print(f"    hours={data.get('estimated_hours')}")
             elif name.endswith("analyze"):
                 print(f"    score={data.get('score')} grade={data.get('grade')}")
+            elif name == "dashboard/stats":
+                print(f"    experiments={data.get('total_experiments')} running={data.get('running')}")
+            elif name == "experiments":
+                print(f"    count={len(data.get('experiments', []))}")
+            elif name == "training/monitor":
+                print(f"    epoch={data.get('epoch')} accuracy={data.get('accuracy')} status={data.get('convergence_status')}")
         except urllib.error.HTTPError as exc:
             failed += 1
             body = exc.read().decode()

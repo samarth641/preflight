@@ -1,0 +1,81 @@
+# Demo experiment history for rule-based dashboard (hackathon / dev).
+# Paths are relative to this directory.
+
+active_experiment_id: exp-live-100m
+
+experiments:
+  - id: exp-live-100m
+    name: ViT-Base 100M — live run
+    model: vit-base-patch16
+    params_million: 100
+    dataset: ImageNet-subset-50k
+    status: running
+    gpu: rtx-4090
+    total_epochs: 20
+    log_file: live_run.csv
+    started_at: "2026-07-09T18:30:00Z"
+    target_accuracy: 0.85
+
+  - id: exp-002
+    name: ResNet-50 100M converged
+    model: resnet50
+    params_million: 100
+    dataset: CIFAR-100
+    status: completed
+    gpu: a100-80gb
+    total_epochs: 30
+    epochs_completed: 30
+    final_accuracy: 0.892
+    best_val_loss: 0.42
+    convergence: converged
+    duration_hours: 4.2
+    started_at: "2026-07-08T10:00:00Z"
+    log_file: completed_converged.csv
+
+  - id: exp-003
+    name: BERT-tiny 100M plateau
+    model: bert-tiny
+    params_million: 100
+    dataset: glue-sst2
+    status: completed
+    gpu: rtx-4090
+    total_epochs: 25
+    epochs_completed: 25
+    final_accuracy: 0.71
+    best_val_loss: 0.58
+    convergence: plateau
+    duration_hours: 2.8
+    started_at: "2026-07-07T14:00:00Z"
+    log_file: completed_plateau.csv
+
+  - id: exp-004
+    name: CNN 100M diverged
+    model: custom-cnn
+    params_million: 100
+    dataset: custom-vision
+    status: failed
+    gpu: rtx-4090
+    total_epochs: 15
+    epochs_completed: 8
+    final_accuracy: 0.38
+    best_val_loss: 1.2
+    convergence: diverging
+    duration_hours: 1.1
+    started_at: "2026-07-06T09:00:00Z"
+    log_file: completed_diverged.csv
+
+  - id: exp-005
+    name: LoRA 7B fine-tune
+    model: llama-7b-lora
+    params_million: 7000
+    dataset: alpaca-52k
+    status: completed
+    gpu: h100-80gb
+    total_epochs: 5
+    epochs_completed: 5
+    final_accuracy: 0.81
+    best_val_loss: 0.55
+    convergence: converged
+    duration_hours: 6.5
+    started_at: "2026-07-05T20:00:00Z"
+    log_file: null

@@ -18,7 +18,11 @@
   }
 
   tabs.forEach((tab) => {
-    tab.addEventListener("click", () => switchTab(tab.dataset.tab));
+    tab.addEventListener("click", () => {
+      const name = tab.dataset.tab;
+      switchTab(name);
+      if (name === "monitor") loadMonitorDashboard();
+    });
   });
 
   const initial = document.body.dataset.initialTab;
@@ -505,5 +509,119 @@
       </div>
       ${metricsHtml}
       ${findings}`;
+  }
+
+  // ── Live Monitor / Dashboard ──────────────────────────────────────
+  function sparkline(curve, key, color) {
+    if (!curve?.length) return "";
+    const vals = curve.map((p) => p[key]).filter((v) => v != null);
+    if (!vals.length) return "";
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+    const range = max - min || 1;
+    const w = 120;
+    const h = 36;
+    const pts = vals.map((v, i) => {
+      const x = (i / Math.max(vals.length - 1, 1)) * w;
+      const y = h - ((v - min) / range) * (h - 4) - 2;
+      return `${x},${y}`;
+    }).join(" ");
+    return `<svg class="sparkline" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><polyline fill="none" stroke="${color}" stroke-width="2" points="${pts}"/></svg>`;
+  }
+
+  function statusBadge(status) {
+    const cls = { running: "live", completed: "ok", failed: "bad", converged: "ok", plateau: "warn", diverging: "bad", training: "live" }[status] || "";
+    return `<span class="status-badge ${cls}">${escapeHtml(status)}</span>`;
+  }
+
+  async function loadMonitorDashboard() {
+    const out = document.getElementById("monitorResults");
+    clearFormError("formMonitor");
+    showLoading(out);
+
+    try {
+      const [stats, history, live] = await Promise.all([
+        api("/dashboard/stats"),
+        api("/experiments"),
+        api("/training/monitor"),
+      ]);
+      renderMonitorDashboard(out, stats, history, live);
+    } catch (err) {
+      const msg = err.message || "Failed to load monitor data";
+      showFormError("formMonitor", msg);
+      handleApiError(out, err);
+    }
+  }
+
+  function renderMonitorDashboard(container, stats, history, live) {
+    let experimentsHtml = "";
+    history.experiments.forEach((exp, i) => {
+      const acc = exp.final_accuracy != null ? (exp.final_accuracy * 100).toFixed(1) + "%" : "—";
+      experimentsHtml += `
+        <div class="exp-row" style="animation-delay:${i * 0.06}s">
+          <div class="exp-main">
+            <div class="exp-name">${escapeHtml(exp.name)}</div>
+            <div class="gpu-meta">${exp.params_million}M params · ${escapeHtml(exp.gpu)} · ${exp.epochs_completed}/${exp.total_epochs} epochs</div>
+          </div>
+          <div class="exp-side">
+            ${statusBadge(exp.status)}
+            <div class="exp-acc">${acc}</div>
+          </div>
+        </div>`;
+    });
+
+    const alerts = [
+      ...(live.warnings || []).map((w) => ({ kind: "warn", text: w.message || w.title, title: w.title })),
+      ...(live.recommendations || []).map((r) => ({ kind: "info", text: r.recommendation || r.title, title: r.title })),
+    ];
+    let alertsHtml = "";
+    if (alerts.length) {
+      alertsHtml = '<ul class="findings">';
+      alerts.slice(0, 5).forEach((item, i) => {
+        alertsHtml += `<li class="finding ${item.kind}" style="animation-delay:${0.15 + i * 0.04}s">
+          <span class="finding-icon">${item.kind === "warn" ? "⚠" : "ℹ"}</span>
+          <span>${escapeHtml(item.title ? item.title + ": " : "")}${escapeHtml(item.text)}</span></li>`;
+      });
+      alertsHtml += "</ul>";
+    }
+
+    container.innerHTML = `
+      <div class="stat-grid">
+        <div class="stat-card highlight"><div class="stat-label">Experiments</div><div class="stat-value small">${stats.total_experiments}</div></div>
+        <div class="stat-card"><div class="stat-label">Running</div><div class="stat-value small">${stats.running}</div></div>
+        <div class="stat-card"><div class="stat-label">100M models</div><div class="stat-value small">${stats.experiments_100m}</div></div>
+        <div class="stat-card"><div class="stat-label">Best accuracy</div><div class="stat-value small">${stats.best_accuracy != null ? (stats.best_accuracy * 100).toFixed(1) + "%" : "—"}</div></div>
+        <div class="stat-card"><div class="stat-label">GPU hours</div><div class="stat-value small">${stats.total_gpu_hours}h</div></div>
+        <div class="stat-card"><div class="stat-label">Convergence rate</div><div class="stat-value small">${stats.convergence_rate_percent}%</div></div>
+      </div>
+
+      <div class="card live-card">
+        <div class="live-header">
+          <div>
+            <h3>${escapeHtml(live.experiment_name)}</h3>
+            <div class="gpu-meta">Epoch ${live.epoch}/${live.total_epochs} · ${live.params_million}M params · ${live.samples_seen_million}M samples seen</div>
+          </div>
+          ${statusBadge(live.convergence_status)}
+        </div>
+        <div class="live-metrics">
+          <div><span class="stat-label">Accuracy</span><div class="live-val">${live.accuracy != null ? (live.accuracy * 100).toFixed(1) + "%" : "—"}</div>${sparkline(live.curve, "accuracy", "#22d3ee")}</div>
+          <div><span class="stat-label">Val loss</span><div class="live-val">${live.val_loss?.toFixed(3) ?? "—"}</div>${sparkline(live.curve, "val_loss", "#f87171")}</div>
+          <div><span class="stat-label">Health</span><div class="live-val">${Math.round(live.health_score)} (${live.health_grade})</div></div>
+          <div><span class="stat-label">GPU</span><div class="live-val">${live.gpu_utilization != null ? live.gpu_utilization.toFixed(0) + "%" : "—"}</div></div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${live.epoch_progress_percent}%"></div></div>
+        <div class="gpu-meta" style="margin-top:6px">${live.epoch_progress_percent}% complete</div>
+        ${alertsHtml}
+      </div>
+
+      <h3 class="section-title">Experiment history</h3>
+      <div class="exp-list">${experimentsHtml}</div>`;
+    clearFormError("formMonitor");
+  }
+
+  document.getElementById("refreshMonitor")?.addEventListener("click", loadMonitorDashboard);
+
+  if (document.getElementById("panel-monitor")?.classList.contains("active")) {
+    loadMonitorDashboard();
   }
 })();
