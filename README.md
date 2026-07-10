@@ -2,6 +2,19 @@
 
 AI Training Intelligence Platform — a rule-based expert system for ML training recommendations.
 
+## Hackathon deploy (judges)
+
+One command — no Python/Node install:
+
+```bash
+docker compose up --build
+```
+
+- **UI:** http://localhost:3000  
+- **API docs:** http://localhost:8000/docs  
+
+Full instructions: [docs/DEPLOY.md](docs/DEPLOY.md)
+
 ## Status
 
 **Phase 1 complete:** Foundation architecture, knowledge engine, rule loader, and plugin system.

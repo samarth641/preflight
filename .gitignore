@@ -20,7 +20,6 @@ data/processed/
 frontend/node_modules/
 frontend/.next/
 frontend/tsconfig.tsbuildinfo
-frontend/package-lock.json
 frontend/.env.local
 
 # VS Code extension

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import { Sidebar } from "@/components/layout/Sidebar"
+import { AuthLayout } from "@/components/layout/AuthLayout"
+import { AuthProvider } from "@/components/providers/AuthProvider"
 import { PageResultsProvider } from "@/components/providers/PageResultsContext"
 
 export const metadata: Metadata = {
@@ -12,14 +13,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <PageResultsProvider>
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <main className="flex-1 min-w-0">
-              {children}
-            </main>
-          </div>
-        </PageResultsProvider>
+        <AuthProvider>
+          <PageResultsProvider>
+            <AuthLayout>{children}</AuthLayout>
+          </PageResultsProvider>
+        </AuthProvider>
       </body>
     </html>
   )
