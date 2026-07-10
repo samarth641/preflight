@@ -22,6 +22,7 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1"
 const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "true"
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true"
 
 /** Map demo training job ids to backend experiment ids */
 const DEMO_JOB_TO_EXPERIMENT: Record<string, string> = {
@@ -53,7 +54,8 @@ async function withBackend<T>(path: string, init: RequestInit | undefined, mockF
   try {
     return await apiFetch<T>(path, init)
   } catch (err) {
-    if (process.env.NODE_ENV === "development") {
+    // Fall back to mocks in local dev or hackathon demo mode when backend is unreachable
+    if (process.env.NODE_ENV === "development" || DEMO_MODE) {
       console.warn(`[api] ${path} failed, using mock:`, err)
       return mockFn()
     }
