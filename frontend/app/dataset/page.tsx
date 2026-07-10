@@ -25,6 +25,7 @@ import { ProgressBar } from "@/components/ui/ProgressBar"
 import { gradeColor, confidencePercent, formatNumber } from "@/lib/utils"
 import type { DatasetAnalysisResult, DatasetManualInput } from "@/lib/types"
 import { analyzeDataset } from "@/lib/api"
+import { usePageResults } from "@/components/providers/PageResultsContext"
 
 type TabMode = "manual" | "path"
 
@@ -37,9 +38,9 @@ interface MetricItem {
 
 function MetricCard({ label, value }: MetricItem) {
   return (
-    <div className="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-4">
-      <p className="text-xs text-[var(--text-muted)] mb-1">{label}</p>
-      <p className="text-base font-mono font-medium text-[var(--text)]">{value}</p>
+    <div className="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-5">
+      <p className="text-xs text-[var(--text-muted)] mb-2">{label}</p>
+      <p className="text-lg font-mono font-semibold text-[var(--text)]">{value}</p>
     </div>
   )
 }
@@ -52,7 +53,7 @@ function RecommendationItem({
   rec: DatasetAnalysisResult["recommendations"][number]
 }) {
   return (
-    <div className="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-4">
+    <div className="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-5">
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="flex items-start gap-2">
           <Lightbulb className="w-4 h-4 text-[var(--warning)] shrink-0 mt-0.5" />
@@ -90,19 +91,22 @@ function RecommendationItem({
 // ─── Main Page ───
 
 export default function DatasetPage() {
+  const { dataset, setDataset } = usePageResults()
+  const cached = dataset as { result: DatasetAnalysisResult | null; formState: Record<string, unknown> } | null
+
   const [mode, setMode] = useState<TabMode>("manual")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [result, setResult] = useState<DatasetAnalysisResult | null>(null)
+  const [result, setResult] = useState<DatasetAnalysisResult | null>(cached?.result ?? null)
 
   // Manual entry form state
-  const [imageCount, setImageCount] = useState(5000)
-  const [classCount, setClassCount] = useState(10)
-  const [classImbalanceRatio, setClassImbalanceRatio] = useState(2.0)
-  const [duplicatePercent, setDuplicatePercent] = useState(1.5)
-  const [blurPercent, setBlurPercent] = useState(3.0)
-  const [missingLabelPercent, setMissingLabelPercent] = useState(2.0)
-  const [medianResolution, setMedianResolution] = useState(512)
+  const [imageCount, setImageCount] = useState((cached?.formState?.imageCount as number) ?? 5000)
+  const [classCount, setClassCount] = useState((cached?.formState?.classCount as number) ?? 10)
+  const [classImbalanceRatio, setClassImbalanceRatio] = useState((cached?.formState?.classImbalanceRatio as number) ?? 2.0)
+  const [duplicatePercent, setDuplicatePercent] = useState((cached?.formState?.duplicatePercent as number) ?? 1.5)
+  const [blurPercent, setBlurPercent] = useState((cached?.formState?.blurPercent as number) ?? 3.0)
+  const [missingLabelPercent, setMissingLabelPercent] = useState((cached?.formState?.missingLabelPercent as number) ?? 2.0)
+  const [medianResolution, setMedianResolution] = useState((cached?.formState?.medianResolution as number) ?? 512)
 
   // Path input state
   const [datasetPath, setDatasetPath] = useState("")
@@ -123,6 +127,7 @@ export default function DatasetPage() {
       }
       const res = await analyzeDataset(input)
       setResult(res)
+      setDataset({ result: res, formState: { imageCount, classCount, classImbalanceRatio, duplicatePercent, blurPercent, missingLabelPercent, medianResolution } })
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to analyze dataset")
     } finally {
@@ -141,6 +146,7 @@ export default function DatasetPage() {
     try {
       const res = await analyzeDataset({ path: datasetPath.trim() })
       setResult(res)
+      setDataset({ result: res, formState: {} })
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to analyze dataset")
     } finally {
@@ -351,9 +357,22 @@ export default function DatasetPage() {
               </div>
             </Card>
 
+            {/* Warnings — right after quality score so issues are immediately visible */}
+            {result.warnings.length > 0 && (
+              <Card title="Warnings">
+                <div className="space-y-3">
+                  {result.warnings.map((w, i) => (
+                    <Alert key={i} severity="warning" title={w.title}>
+                      {w.message}
+                    </Alert>
+                  ))}
+                </div>
+              </Card>
+            )}
+
             {/* Metrics Grid */}
             <Card title="Dataset Metrics">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <MetricCard label="Image Count" value={formatNumber(result.metrics.image_count)} />
                 <MetricCard label="Classes" value={formatNumber(result.metrics.class_count)} />
                 <MetricCard
@@ -425,19 +444,6 @@ export default function DatasetPage() {
                 </div>
               </div>
             </Card>
-
-            {/* Warnings */}
-            {result.warnings.length > 0 && (
-              <Card title="Warnings">
-                <div className="space-y-3">
-                  {result.warnings.map((w, i) => (
-                    <Alert key={i} severity="warning" title={w.title}>
-                      {w.message}
-                    </Alert>
-                  ))}
-                </div>
-              </Card>
-            )}
 
             {/* Recommendations */}
             {result.recommendations.length > 0 && (

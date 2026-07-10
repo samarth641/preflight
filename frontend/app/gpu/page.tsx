@@ -13,6 +13,7 @@ import { EmptyState } from "@/components/ui/EmptyState"
 import { ProgressBar } from "@/components/ui/ProgressBar"
 import { recommendGPU, listGPUBenchmarks } from "@/lib/api"
 import { formatGB, fitRatingColor, confidencePercent } from "@/lib/utils"
+import { usePageResults } from "@/components/providers/PageResultsContext"
 import type {
   GPURecommendationRequest,
   GPURecommendationResult,
@@ -74,23 +75,26 @@ const vendorOptions = [
 ]
 
 export default function GPURecommenderPage() {
+  const { gpu: gpuCache, setGPU } = usePageResults()
+  const cached = gpuCache as { result: GPURecommendationResult | null; formState: Record<string, unknown> } | null
+
   // ─── Form State ───
-  const [parameterCount, setParameterCount] = useState(7)
-  const [trainingMode, setTrainingMode] = useState("full")
-  const [modelType, setModelType] = useState("transformer")
-  const [precision, setPrecision] = useState("fp16")
-  const [batchSize, setBatchSize] = useState(8)
-  const [imageSize, setImageSize] = useState(224)
-  const [sequenceLength, setSequenceLength] = useState(512)
-  const [budgetTier, setBudgetTier] = useState("any")
-  const [preferredVendor, setPreferredVendor] = useState("any")
-  const [maxResults, setMaxResults] = useState(5)
-  const [includeCloud, setIncludeCloud] = useState(true)
+  const [parameterCount, setParameterCount] = useState((cached?.formState?.parameterCount as number) ?? 7.1)
+  const [trainingMode, setTrainingMode] = useState((cached?.formState?.trainingMode as string) ?? "full")
+  const [modelType, setModelType] = useState((cached?.formState?.modelType as string) ?? "transformer")
+  const [precision, setPrecision] = useState((cached?.formState?.precision as string) ?? "fp16")
+  const [batchSize, setBatchSize] = useState((cached?.formState?.batchSize as number) ?? 8)
+  const [imageSize, setImageSize] = useState((cached?.formState?.imageSize as number) ?? 224)
+  const [sequenceLength, setSequenceLength] = useState((cached?.formState?.sequenceLength as number) ?? 576)
+  const [budgetTier, setBudgetTier] = useState((cached?.formState?.budgetTier as string) ?? "any")
+  const [preferredVendor, setPreferredVendor] = useState((cached?.formState?.preferredVendor as string) ?? "any")
+  const [maxResults, setMaxResults] = useState((cached?.formState?.maxResults as number) ?? 5)
+  const [includeCloud, setIncludeCloud] = useState((cached?.formState?.includeCloud as boolean) ?? true)
 
   // ─── Result State ───
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [result, setResult] = useState<GPURecommendationResult | null>(null)
+  const [result, setResult] = useState<GPURecommendationResult | null>(cached?.result ?? null)
   const [benchmarks, setBenchmarks] = useState<Record<string, GPUBenchmark>>({})
 
   useEffect(() => {
@@ -109,17 +113,23 @@ export default function GPURecommenderPage() {
       model_type: modelType as GPURecommendationRequest["model_type"],
       precision: precision as GPURecommendationRequest["precision"],
       batch_size: batchSize,
-      ...(modelType === "vision" && { image_size: imageSize }),
-      ...(modelType === "transformer" && { sequence_length: sequenceLength }),
-      ...(budgetTier !== "any" && { budget_tier: budgetTier as GPURecommendationRequest["budget_tier"] }),
-      ...(preferredVendor !== "any" && { preferred_vendor: preferredVendor as GPURecommendationRequest["preferred_vendor"] }),
+      image_size: modelType === "vision" ? imageSize : 224,
+      sequence_length: modelType === "transformer" ? sequenceLength : 512,
+      budget_tier: budgetTier !== "any" ? budgetTier as GPURecommendationRequest["budget_tier"] : null,
+      preferred_vendor: preferredVendor !== "any" ? preferredVendor as GPURecommendationRequest["preferred_vendor"] : null,
       max_results: maxResults,
       include_cloud: includeCloud,
+      include_cost: true,
+      epochs: 3,
+      dataset_samples: 2000000,
+      dataset_size_gb: null,
+      deployment: "cloud",
     }
 
     try {
       const res = await recommendGPU(req)
       setResult(res)
+      setGPU({ result: res, formState: { parameterCount, trainingMode, modelType, precision, batchSize, imageSize, sequenceLength, budgetTier, preferredVendor, maxResults, includeCloud } })
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to get GPU recommendations")
     } finally {
@@ -352,25 +362,28 @@ export default function GPURecommenderPage() {
               </Card>
             )}
 
-            {/* Warnings */}
+            {/* Warnings — isolated full-width alert section */}
             {result.warnings.length > 0 && (
-              <div className="space-y-3">
-                {result.warnings.map((warning, idx) => (
-                  <Alert key={warning.rule_id ?? idx} severity="warning" title={warning.title}>
-                    {warning.message}
-                    {warning.documentation_url && (
-                      <a
-                        href={warning.documentation_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[var(--primary)] hover:underline ml-2"
-                      >
-                        Learn more <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
-                  </Alert>
-                ))}
-              </div>
+              <Alert severity="warning" title="System Warnings">
+                <div className="space-y-3 mt-2">
+                  {result.warnings.map((warning, idx) => (
+                    <div key={warning.rule_id ?? idx} className="text-sm">
+                      <span className="font-medium text-[var(--text)]">{warning.title}</span>
+                      <span className="text-[var(--text-secondary)]"> — {warning.message}</span>
+                      {warning.documentation_url && (
+                        <a
+                          href={warning.documentation_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[var(--primary)] hover:underline ml-2"
+                        >
+                          Learn more <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </Alert>
             )}
 
             {/* Knowledge Recommendations */}
@@ -558,7 +571,7 @@ function CandidateRow({
 
   return (
     <div
-      className={`rounded-lg border p-4 transition-colors ${
+      className={`rounded-lg border p-5 transition-colors ${
         isBest
           ? "border-[var(--primary)] bg-[var(--primary)]/5"
           : "border-[var(--border)] hover:border-[var(--primary)]/50 hover:bg-[var(--surface-hover)]"

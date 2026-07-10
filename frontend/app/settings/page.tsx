@@ -8,7 +8,7 @@ import { Select } from "@/components/ui/Select"
 import { Badge } from "@/components/ui/Badge"
 import { Alert } from "@/components/ui/Alert"
 import { FullSpinner } from "@/components/ui/Spinner"
-import { Settings as SettingsIcon, Save, Wifi, CheckCircle2 } from "lucide-react"
+import { Save, Wifi } from "lucide-react"
 import { getSettings, updateSettings } from "@/lib/api"
 import type { Settings } from "@/lib/types"
 

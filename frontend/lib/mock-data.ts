@@ -4,13 +4,13 @@
 
 import type {
   GPUSpec, CloudOffering, Recommendation, Warning,
-  DatasetAnalysisResult, GPURecommendationResult, GPUCandidate,
+  DatasetAnalysisResult, GPURecommendationResult,
   AnalysisResult, ActivityItem, HealthStatus,
   EpochMetrics, TrainingAnalysisResult,
   Settings,
-  DurationPredictResult, CostEstimateResult, CostBreakdown, GPUBenchmark,
-  ExperimentRecord, ExperimentHistoryResponse, DashboardStats,
-  LiveTrainingMonitor, EpochPoint,
+  DurationPredictResult, CostEstimateResult, GPUBenchmark,
+  ExperimentHistoryResponse, DashboardStats,
+  LiveTrainingMonitor,
 } from "./types"
 
 // ─── GPU Database (from knowledge/hardware/gpus.yaml) ───

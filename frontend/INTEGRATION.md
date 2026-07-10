@@ -32,6 +32,8 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
 In `lib/api.ts`, each function currently returns mock data. Replace with a real fetch call:
 
 ```typescript
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"
+
 export async function recommendGPU(req: GPURecommendationRequest): Promise<GPURecommendationResult> {
   const res = await fetch(`${API_URL}/gpu/recommend`, {
     method: "POST",
@@ -47,37 +49,42 @@ Signatures and return types stay identical — components don't change.
 
 ## Endpoint Status
 
-### Ready to connect (8 endpoints)
+### Ready to connect (5 endpoints — verified in routes.py)
 
 | Frontend Function | Backend Endpoint | Notes |
 |------------------|------------------|-------|
 | `getHealth()` | `GET /api/v1/health` | Direct match |
-| `analyzeDataset(input)` | `POST /api/v1/dataset/analyze` | Backend takes `{ path, max_images }`. Manual entry mode (metrics only) has no endpoint yet. |
-| `recommendGPU(req)` | `POST /api/v1/gpu/recommend` | Types match. Returns `cost_estimate` per candidate, `cheapest_gpu`. |
-| `predictDuration(req)` | `POST /api/v1/predict/duration` | XGBoost model. Returns estimated hours + optional cost. |
-| `estimateCost(req)` | `POST /api/v1/cost/estimate` | Cloud/electricity breakdown, multi-GPU scaling. |
-| `getTrainingHealth(jobId)` | `POST /api/v1/training/analyze` | Backend takes `{ path }` to a log file. |
-| `getDashboardStats()` | `GET /api/v1/dashboard/stats` | Returns experiment stats: total, running, completed, failed, avg_accuracy, convergence_rate. |
-| `listExperiments()` | `GET /api/v1/experiments` | Returns `ExperimentRecord[]` with params_million, epochs, convergence, duration. |
-| `getLiveMonitor(id?)` | `GET /api/v1/training/monitor` | Returns `LiveTrainingMonitor` with epoch curve, convergence status, health score. |
+| `analyzeDataset({ path })` | `POST /api/v1/dataset/analyze` | Backend takes `{ path, max_images }`. Manual entry mode (metrics only) has no endpoint — keep mock or add backend support. |
+| `recommendGPU(req)` | `POST /api/v1/gpu/recommend` | Types match. `GPURecommendBody` schema matches `GPURecommendationRequest` in types.ts. |
+| `estimateCost(req)` | `POST /api/v1/cost/estimate` | Types match. `CostEstimateBody` schema matches `CostEstimateRequest`. |
+| `getTrainingHealth(jobId)` | `POST /api/v1/training/analyze` | Backend takes `{ path }` to a log file. Frontend passes `jobId` — needs adaptation. |
 
-### No backend endpoint (stay mock or remove)
+### No backend endpoint (stay mock)
 
 | Frontend Function | Issue | Action |
 |------------------|-------|--------|
-| `analyzeTraining(req)` | No `/analyze` endpoint. PredictionResult fields are fabricated | Remove fabricated fields. Use `predictDuration()` + `estimateCost()` instead. |
+| `predictDuration(req)` | No `/predict/duration` endpoint in routes.py | XGBoost model exists in CLI but no API route. Add endpoint or keep mock. |
+| `getDashboardStats()` | No `/dashboard/stats` endpoint | Keep mock or add endpoint |
+| `listExperiments()` | No `/experiments` endpoint | Keep mock or add endpoint |
+| `getLiveMonitor(id?)` | No `/training/monitor` endpoint | Keep mock or add endpoint |
 | `getRecentActivity()` | No endpoint | Derive from experiment list or keep mock |
-| `startTraining()` / `stopTraining()` | No endpoint | Keep mock |
+| `analyzeTraining(req)` | No `/analyze` endpoint | Fabricated PredictionResult fields. Use `predictDuration()` + `estimateCost()` instead. |
+| `startTraining()` / `stopTraining()` | No endpoint | Frontend-only controls, keep mock |
+| `getTrainingMetrics()` | No endpoint | Keep mock |
 | `exportAnalysis()` | No endpoint | Keep mock |
-| `listGPUs()` / `listGPUBenchmarks()` / `listCloudOfferings()` | No dedicated endpoint | Add to backend or embed |
+| `listGPUs()` / `listGPUBenchmarks()` / `listCloudOfferings()` | No dedicated endpoint | Add to backend or embed in GPU response |
+
+### Known type mismatch
+
+- `CostEstimateResult` in frontend types has `gpu_hours` field that the backend `CostEstimateResult` Pydantic model does not include. When swapping to real fetch, this field will be `undefined`. The cost page reads it for display — either add it to the backend model or handle the missing field in the page.
 
 ## Fabricated Fields (no backend support)
 
-The `/analyze` page has a PLACEHOLDER section with fields that have NO backend implementation:
+The pre-training page has fields with NO backend implementation:
 - `oom_probability`, `convergence_probability`, `expected_accuracy_min/max`
 - `gpu_utilization_estimate`, `carbon_footprint_kg`, `bottlenecks`
 
-These are marked as PLACEHOLDER in `types.ts` and `mock-data.ts`. They should be removed or labeled as "Roadmap" for the demo.
+These are clearly labeled in the page as estimates. They should be removed or labeled as "Roadmap" for production.
 
 ## Error Handling
 

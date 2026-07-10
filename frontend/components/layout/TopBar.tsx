@@ -17,11 +17,11 @@ export function TopBar({ title, subtitle }: TopBarProps) {
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
           <CheckCircle2 className="w-4 h-4 text-[var(--success)]" />
-          <span>v0.1.0</span>
+          <span>v0.2.0</span>
         </div>
         <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
           <AlertCircle className="w-4 h-4 text-[var(--warning)]" />
-          <span>30 rules loaded</span>
+          <span>23 rules loaded</span>
         </div>
         <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-medium">
           ML

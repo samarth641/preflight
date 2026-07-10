@@ -4,26 +4,27 @@ import { useEffect, useState } from "react"
 import { TopBar } from "@/components/layout/TopBar"
 import { Card } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
-import { Button } from "@/components/ui/Button"
 import { FullSpinner } from "@/components/ui/Spinner"
 import { EmptyState } from "@/components/ui/EmptyState"
-import { Alert } from "@/components/ui/Alert"
-import { History, Search, Eye, Trash2, ArrowLeft, CheckCircle2, XCircle, Square } from "lucide-react"
-import { listExperiments, getExperiment, deleteExperiment } from "@/lib/api"
-import { formatUSD, formatHours, formatPercent, formatRelativeTime, statusColor } from "@/lib/utils"
-import type { Experiment, ExperimentDetail, ExperimentStatus } from "@/lib/types"
+import { History, Search, Eye, ArrowLeft, CheckCircle2, XCircle, Square } from "lucide-react"
+import { listExperiments } from "@/lib/api"
+import { formatRelativeTime } from "@/lib/utils"
+import type { ExperimentRecord, ExperimentHistoryResponse } from "@/lib/types"
 
 export default function HistoryPage() {
-  const [experiments, setExperiments] = useState<Experiment[]>([])
+  const [data, setData] = useState<ExperimentHistoryResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState<string>("all")
-  const [selected, setSelected] = useState<ExperimentDetail | null>(null)
-  const [detailLoading, setDetailLoading] = useState(false)
+  const [selected, setSelected] = useState<ExperimentRecord | null>(null)
 
   useEffect(() => {
-    listExperiments().then(setExperiments).finally(() => setLoading(false))
+    listExperiments().then(setData).finally(() => setLoading(false))
   }, [])
+
+  if (loading) return <FullSpinner label="Loading experiments..." />
+
+  const experiments = data?.experiments ?? []
 
   const filtered = experiments.filter((e) => {
     if (statusFilter !== "all" && e.status !== statusFilter) return false
@@ -31,22 +32,7 @@ export default function HistoryPage() {
     return true
   })
 
-  const handleView = async (id: string) => {
-    setDetailLoading(true)
-    const detail = await getExperiment(id)
-    setSelected(detail)
-    setDetailLoading(false)
-  }
-
-  const handleDelete = async (id: string) => {
-    await deleteExperiment(id)
-    setExperiments(experiments.filter((e) => e.id !== id))
-  }
-
-  if (loading) return <FullSpinner label="Loading experiments..." />
-  if (detailLoading) return <FullSpinner label="Loading experiment details..." />
-
-  // Detail view
+  // ─── Detail view ───
   if (selected) {
     const statusIcon = selected.status === "completed" ? CheckCircle2 : selected.status === "failed" ? XCircle : Square
     const StatusIcon = statusIcon
@@ -54,16 +40,19 @@ export default function HistoryPage() {
       <>
         <TopBar title="Experiment Details" subtitle={selected.name} />
         <div className="p-6 space-y-6">
-          <Button variant="secondary" onClick={() => setSelected(null)}>
+          <button
+            onClick={() => setSelected(null)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"
+          >
             <ArrowLeft className="w-4 h-4" /> Back to list
-          </Button>
+          </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card title="Overview">
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <StatusIcon className="w-4 h-4" style={{ color: statusColor(selected.status) }} />
-                  <Badge variant={selected.status === "completed" ? "success" : selected.status === "failed" ? "danger" : "muted"}>
+                  <StatusIcon className="w-4 h-4" style={{ color: selected.status === "completed" ? "var(--success)" : selected.status === "failed" ? "var(--danger)" : "var(--primary)" }} />
+                  <Badge variant={selected.status === "completed" ? "success" : selected.status === "failed" ? "danger" : "default"}>
                     {selected.status}
                   </Badge>
                 </div>
@@ -71,7 +60,11 @@ export default function HistoryPage() {
                   { label: "Model", value: selected.model },
                   { label: "Dataset", value: selected.dataset },
                   { label: "GPU", value: selected.gpu },
-                  { label: "Date", value: new Date(selected.date).toLocaleString() },
+                  { label: "Parameters", value: `${(selected.params_million / 1000).toFixed(1)}B` },
+                  { label: "Started", value: new Date(selected.started_at).toLocaleString() },
+                  { label: "Duration", value: selected.duration_hours != null ? `${selected.duration_hours.toFixed(1)}h` : "—" },
+                  { label: "Convergence", value: selected.convergence ?? "—" },
+                  { label: "Target Accuracy", value: selected.target_accuracy != null ? `${(selected.target_accuracy * 100).toFixed(0)}%` : "—" },
                 ].map((row) => (
                   <div key={row.label} className="flex justify-between text-sm">
                     <span className="text-[var(--text-muted)]">{row.label}</span>
@@ -81,45 +74,48 @@ export default function HistoryPage() {
               </div>
             </Card>
 
-            <Card title="Predictions vs Actuals">
+            <Card title="Training Progress">
               <div className="space-y-3">
-                {[
-                  { label: "Runtime", pred: formatHours(selected.predictions.estimated_runtime_hours), actual: formatHours(selected.actuals.runtime_hours) },
-                  { label: "Cost", pred: formatUSD(selected.predictions.estimated_cost_usd), actual: formatUSD(selected.actuals.cost_usd) },
-                  { label: "Accuracy", pred: `${formatPercent(selected.predictions.expected_accuracy_min, 0)}-${formatPercent(selected.predictions.expected_accuracy_max, 0)}`, actual: selected.actuals.accuracy ? formatPercent(selected.actuals.accuracy, 1) : "N/A" },
-                  { label: "Converged", pred: `${formatPercent(selected.predictions.convergence_probability, 0)} likely`, actual: selected.actuals.converged ? "Yes" : "No" },
-                ].map((row) => (
-                  <div key={row.label} className="grid grid-cols-3 gap-2 text-sm">
-                    <span className="text-[var(--text-muted)]">{row.label}</span>
-                    <span className="text-[var(--text-secondary)] font-mono">Pred: {row.pred}</span>
-                    <span className="text-[var(--text)] font-mono">Actual: {row.actual}</span>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Epochs</p>
+                    <p className="text-2xl font-bold font-mono text-[var(--text)]">
+                      {selected.epochs_completed} / {selected.total_epochs}
+                    </p>
                   </div>
-                ))}
+                </div>
+                <div className="w-full bg-[var(--bg)] rounded-full h-2 overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{
+                      width: `${(selected.epochs_completed / selected.total_epochs) * 100}%`,
+                      background: selected.status === "completed" ? "var(--success)" : selected.status === "failed" ? "var(--danger)" : "var(--primary)",
+                    }}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4 pt-2">
+                  <div>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Final Accuracy</p>
+                    <p className="text-lg font-mono text-[var(--text)]">
+                      {selected.final_accuracy != null ? `${(selected.final_accuracy * 100).toFixed(1)}%` : "—"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Best Val Loss</p>
+                    <p className="text-lg font-mono text-[var(--text)]">
+                      {selected.best_val_loss != null ? selected.best_val_loss.toFixed(4) : "—"}
+                    </p>
+                  </div>
+                </div>
               </div>
             </Card>
           </div>
-
-          <Card title="Recommendations Applied">
-            <div className="space-y-2">
-              {selected.recommendations_applied.map((rec, i) => (
-                <div key={i} className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
-                  <CheckCircle2 className="w-4 h-4 text-[var(--success)]" /> {rec}
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {selected.notes && (
-            <Card title="Notes">
-              <p className="text-sm text-[var(--text-secondary)]">{selected.notes}</p>
-            </Card>
-          )}
         </div>
       </>
     )
   }
 
-  // List view
+  // ─── List view ───
   return (
     <>
       <TopBar title="Experiment History" subtitle="Browse and learn from past training runs" />
@@ -138,7 +134,7 @@ export default function HistoryPage() {
               />
             </div>
             <div className="flex gap-2">
-              {["all", "completed", "failed", "stopped", "running"].map((s) => (
+              {["all", "running", "completed", "failed"].map((s) => (
                 <button
                   key={s}
                   onClick={() => setStatusFilter(s)}
@@ -172,16 +168,16 @@ export default function HistoryPage() {
                     <th className="text-left py-3 px-2 font-medium">Model</th>
                     <th className="text-left py-3 px-2 font-medium">GPU</th>
                     <th className="text-left py-3 px-2 font-medium">Status</th>
-                    <th className="text-right py-3 px-2 font-medium">Runtime</th>
-                    <th className="text-right py-3 px-2 font-medium">Cost</th>
+                    <th className="text-right py-3 px-2 font-medium">Epochs</th>
                     <th className="text-right py-3 px-2 font-medium">Accuracy</th>
-                    <th className="text-left py-3 px-2 font-medium">Date</th>
+                    <th className="text-left py-3 px-2 font-medium">Convergence</th>
+                    <th className="text-left py-3 px-2 font-medium">Started</th>
                     <th className="text-right py-3 px-2 font-medium">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filtered.map((exp) => (
-                    <tr key={exp.id} className="border-b border-[var(--border)] hover:bg-[var(--surface-hover)] transition-colors">
+                    <tr key={exp.id} className="border-b border-[var(--border)] hover:bg-[var(--surface-hover)] transition-colors cursor-pointer" onClick={() => setSelected(exp)}>
                       <td className="py-3 px-2 text-[var(--text)]">{exp.name}</td>
                       <td className="py-3 px-2 text-[var(--text-secondary)] font-mono text-xs">{exp.model}</td>
                       <td className="py-3 px-2 text-[var(--text-secondary)] text-xs">{exp.gpu}</td>
@@ -190,17 +186,21 @@ export default function HistoryPage() {
                           {exp.status}
                         </Badge>
                       </td>
-                      <td className="py-3 px-2 text-right text-[var(--text-secondary)] font-mono text-xs">{formatHours(exp.runtime_hours)}</td>
-                      <td className="py-3 px-2 text-right text-[var(--text-secondary)] font-mono text-xs">{formatUSD(exp.cost_usd)}</td>
-                      <td className="py-3 px-2 text-right text-[var(--text)] font-mono text-xs">{exp.accuracy ? formatPercent(exp.accuracy, 1) : "—"}</td>
-                      <td className="py-3 px-2 text-[var(--text-muted)] text-xs">{formatRelativeTime(exp.date)}</td>
+                      <td className="py-3 px-2 text-right text-[var(--text-secondary)] font-mono text-xs">
+                        {exp.epochs_completed}/{exp.total_epochs}
+                      </td>
+                      <td className="py-3 px-2 text-right text-[var(--text)] font-mono text-xs">
+                        {exp.final_accuracy != null ? `${(exp.final_accuracy * 100).toFixed(1)}%` : "—"}
+                      </td>
+                      <td className="py-3 px-2 text-[var(--text-muted)] text-xs">{exp.convergence ?? "—"}</td>
+                      <td className="py-3 px-2 text-[var(--text-muted)] text-xs">{formatRelativeTime(exp.started_at)}</td>
                       <td className="py-3 px-2">
                         <div className="flex justify-end gap-2">
-                          <button onClick={() => handleView(exp.id)} className="p-1.5 rounded hover:bg-[var(--bg)] text-[var(--text-muted)] hover:text-[var(--primary)]">
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setSelected(exp) }}
+                            className="p-1.5 rounded hover:bg-[var(--bg)] text-[var(--text-muted)] hover:text-[var(--primary)]"
+                          >
                             <Eye className="w-4 h-4" />
-                          </button>
-                          <button onClick={() => handleDelete(exp.id)} className="p-1.5 rounded hover:bg-[var(--bg)] text-[var(--text-muted)] hover:text-[var(--danger)]">
-                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </td>

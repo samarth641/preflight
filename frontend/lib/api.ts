@@ -9,7 +9,7 @@ import type {
   EpochMetrics, TrainingAnalysisResult,
   DurationPredictRequest, DurationPredictResult,
   CostEstimateRequest, CostEstimateResult, GPUBenchmark,
-  ExperimentRecord, ExperimentHistoryResponse, DashboardStats,
+  ExperimentHistoryResponse, DashboardStats,
   LiveTrainingMonitor,
 } from "./types"
 

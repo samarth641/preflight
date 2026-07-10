@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { TopBar } from "@/components/layout/TopBar"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
@@ -15,11 +15,49 @@ import {
 } from "recharts"
 import {
   Activity, Square, TrendingDown, TrendingUp, Cpu, MemoryStick,
-  Zap, AlertTriangle, Lightbulb, Wifi,
+  Zap, AlertTriangle, Lightbulb, Wifi, Play, Trash2, Eye,
 } from "lucide-react"
 import { startTraining, getTrainingMetrics, getTrainingHealth, stopTraining } from "@/lib/api"
 import { gradeColor, confidencePercent, formatGB } from "@/lib/utils"
 import type { EpochMetrics, TrainingAnalysisResult } from "@/lib/types"
+
+// ─── Saved job type ───
+interface SavedJob {
+  jobId: string
+  model: string
+  status: "running" | "stopped"
+  connectedAt: number
+}
+
+const STORAGE_KEY = "preflight-saved-jobs"
+
+// Demo job — always visible so visitors can quickly view training data
+const DEMO_JOB: SavedJob = {
+  jobId: "demo-vit-base-live",
+  model: "ViT-Base 100M — Live Demo",
+  status: "running",
+  connectedAt: Date.now(),
+}
+
+function loadSavedJobs(): SavedJob[] {
+  if (typeof window === "undefined") return [DEMO_JOB]
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return [DEMO_JOB]
+    const jobs: SavedJob[] = JSON.parse(raw)
+    // Ensure demo job is always present
+    if (!jobs.find(j => j.jobId === DEMO_JOB.jobId)) {
+      return [DEMO_JOB, ...jobs]
+    }
+    return jobs
+  } catch { return [DEMO_JOB] }
+}
+
+function saveJobs(jobs: SavedJob[]) {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs))
+  }
+}
 
 // ─── Recharts dark theme helpers ───
 
@@ -32,10 +70,8 @@ const CHART_TOOLTIP_STYLE = {
   color: "var(--text)",
   fontSize: "12px",
 }
-const CHART_TOOLTIP_ITEM = { color: "var(--text)" }
 const CHART_TOOLTIP_LABEL = { color: "var(--text-muted)", marginBottom: "4px" }
 
-// Chart colors
 const COLOR_TRAIN_LOSS = "#3b82f6"
 const COLOR_VAL_LOSS = "#f59e0b"
 const COLOR_ACCURACY = "#22c55e"
@@ -48,8 +84,6 @@ const severityVariant: Record<string, "danger" | "warning" | "info"> = {
   low: "info",
 }
 
-// ─── Custom tooltip for Recharts ───
-
 function ChartTooltip({ active, payload, label }: {
   active?: boolean
   payload?: { name: string; value: number; color: string }[]
@@ -58,15 +92,10 @@ function ChartTooltip({ active, payload, label }: {
   if (!active || !payload || payload.length === 0) return null
   return (
     <div style={CHART_TOOLTIP_STYLE} className="px-3 py-2 shadow-lg">
-      <div style={CHART_TOOLTIP_LABEL} className="text-xs">
-        Epoch {label}
-      </div>
+      <div style={CHART_TOOLTIP_LABEL} className="text-xs">Epoch {label}</div>
       {payload.map((entry, i) => (
         <div key={i} className="flex items-center gap-2 text-xs">
-          <span
-            className="inline-block w-2 h-2 rounded-full"
-            style={{ background: entry.color }}
-          />
+          <span className="inline-block w-2 h-2 rounded-full" style={{ background: entry.color }} />
           <span className="text-[var(--text-secondary)]">{entry.name}:</span>
           <span className="font-mono text-[var(--text)]">
             {typeof entry.value === "number" ? entry.value.toFixed(4) : entry.value}
@@ -85,11 +114,26 @@ export default function TrainingPage() {
   const [connecting, setConnecting] = useState(false)
   const [loading, setLoading] = useState(false)
   const [stopping, setStopping] = useState(false)
+  const [starting, setStarting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Saved jobs
+  const [savedJobs, setSavedJobs] = useState<SavedJob[]>([])
 
   const [epochData, setEpochData] = useState<EpochMetrics[] | null>(null)
   const [health, setHealth] = useState<TrainingAnalysisResult | null>(null)
 
+  // Load saved jobs on mount
+  useEffect(() => {
+    setSavedJobs(loadSavedJobs())
+  }, [])
+
+  // Persist saved jobs when they change
+  useEffect(() => {
+    saveJobs(savedJobs)
+  }, [savedJobs])
+
+  // ─── Connect to a new job ───
   async function handleConnect() {
     if (!jobIdInput.trim()) {
       setError("Please enter a job ID or model name.")
@@ -98,7 +142,6 @@ export default function TrainingPage() {
     setError(null)
     setConnecting(true)
     try {
-      // startTraining returns { job_id } — use it to fetch metrics + health
       const { job_id } = await startTraining({
         model: jobIdInput.trim(),
         dataset: "default",
@@ -107,6 +150,16 @@ export default function TrainingPage() {
       setConnectedJobId(job_id)
       setConnecting(false)
       setLoading(true)
+
+      // Add to saved jobs
+      setSavedJobs(prev => {
+        const exists = prev.find(j => j.jobId === job_id)
+        if (exists) {
+          return prev.map(j => j.jobId === job_id ? { ...j, status: "running" as const, connectedAt: Date.now() } : j)
+        }
+        return [{ jobId: job_id, model: jobIdInput.trim(), status: "running" as const, connectedAt: Date.now() }, ...prev]
+      })
+
       const [metrics, analysis] = await Promise.all([
         getTrainingMetrics(job_id),
         getTrainingHealth(job_id),
@@ -121,15 +174,66 @@ export default function TrainingPage() {
     }
   }
 
+  // ─── Load a saved job ───
+  async function handleLoadJob(job: SavedJob) {
+    setError(null)
+    setConnectedJobId(job.jobId)
+    setJobIdInput(job.model)
+    setLoading(true)
+    try {
+      const [metrics, analysis] = await Promise.all([
+        getTrainingMetrics(job.jobId),
+        getTrainingHealth(job.jobId),
+      ])
+      setEpochData(metrics)
+      setHealth(analysis)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load training job.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // ─── Stop training ───
   async function handleStop() {
     if (!connectedJobId) return
     setStopping(true)
     try {
       await stopTraining(connectedJobId)
+      setSavedJobs(prev => prev.map(j => j.jobId === connectedJobId ? { ...j, status: "stopped" as const } : j))
     } catch {
-      // placeholder — ignore errors
+      // placeholder
     } finally {
       setStopping(false)
+    }
+  }
+
+  // ─── Start training (resume) ───
+  async function handleStart() {
+    if (!connectedJobId) return
+    setStarting(true)
+    try {
+      await startTraining({ model: connectedJobId, dataset: "default", gpu: "auto" })
+      setSavedJobs(prev => prev.map(j => j.jobId === connectedJobId ? { ...j, status: "running" as const } : j))
+      // Refresh metrics
+      const [metrics, analysis] = await Promise.all([
+        getTrainingMetrics(connectedJobId),
+        getTrainingHealth(connectedJobId),
+      ])
+      setEpochData(metrics)
+      setHealth(analysis)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to start training.")
+    } finally {
+      setStarting(false)
+    }
+  }
+
+  // ─── Remove saved job ───
+  function handleRemoveJob(jobId: string) {
+    setSavedJobs(prev => prev.filter(j => j.jobId !== jobId))
+    if (connectedJobId === jobId) {
+      handleDisconnect()
     }
   }
 
@@ -141,7 +245,7 @@ export default function TrainingPage() {
     setJobIdInput("")
   }
 
-  // ─── Loading state (connecting + fetching data) ───
+  // ─── Loading state ───
   if (connecting || loading) {
     return (
       <>
@@ -151,19 +255,24 @@ export default function TrainingPage() {
     )
   }
 
+  // Determine current job status from saved jobs
+  const currentJob = savedJobs.find(j => j.jobId === connectedJobId)
+  const isRunning = currentJob?.status === "running"
+
   // ─── Empty state — no job connected ───
   if (!connectedJobId || !epochData || !health) {
     return (
       <>
         <TopBar title="Live Training Monitor" subtitle="Real-time metrics & health analysis" />
-        <div className="p-6">
+        <div className="p-6 space-y-6">
           {error && (
-            <Alert severity="error" title="Connection Error" className="mb-6">
+            <Alert severity="error" title="Connection Error">
               {error}
             </Alert>
           )}
+
           {/* Connection form */}
-          <Card title="Connect to Training Job" className="mb-6">
+          <Card title="Connect to Training Job">
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
@@ -180,11 +289,52 @@ export default function TrainingPage() {
             </div>
           </Card>
 
-          <EmptyState
-            icon={<Activity className="w-6 h-6 text-[var(--text-muted)]" />}
-            title="No training job connected"
-            description="Enter a job ID or model name above and click Connect to start monitoring live training metrics, GPU utilization, and health analysis."
-          />
+          {/* Saved jobs list */}
+          {savedJobs.length > 0 && (
+            <Card title="Saved Training Jobs" action={<Badge variant="muted">{savedJobs.length}</Badge>}>
+              <div className="space-y-2">
+                {savedJobs.map((job) => (
+                  <div
+                    key={job.jobId}
+                    className="flex items-center gap-3 p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)] hover:border-[var(--primary)]/50 transition-colors"
+                  >
+                    <div className={`w-2 h-2 rounded-full ${job.status === "running" ? "bg-[var(--success)] animate-pulse" : "bg-[var(--text-muted)]"}`} />
+                    <div className="flex-1 flex items-center gap-3 min-w-0">
+                      <Activity className="w-4 h-4 text-[var(--text-muted)] shrink-0" />
+                      <div className="min-w-0">
+                        <div className="text-sm font-medium text-[var(--text)] truncate">{job.model}</div>
+                        <div className="text-xs text-[var(--text-muted)] font-mono">{job.jobId}</div>
+                      </div>
+                    </div>
+                    <Badge variant={job.status === "running" ? "success" : "muted"}>{job.status}</Badge>
+                    <button
+                      onClick={() => handleLoadJob(job)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] transition-colors"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      View
+                    </button>
+                    {job.jobId !== "demo-vit-base-live" && (
+                      <button
+                        onClick={() => handleRemoveJob(job.jobId)}
+                        className="p-1.5 rounded hover:bg-[var(--surface-hover)] text-[var(--text-muted)] hover:text-[var(--danger)] transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
+          {savedJobs.length === 0 && (
+            <EmptyState
+              icon={<Activity className="w-6 h-6 text-[var(--text-muted)]" />}
+              title="No training job connected"
+              description="Enter a job ID or model name above and click Connect to start monitoring live training metrics, GPU utilization, and health analysis."
+            />
+          )}
         </div>
       </>
     )
@@ -196,24 +346,10 @@ export default function TrainingPage() {
   const latest = epochData[epochData.length - 1]
   const scoreColor = gradeColor(health.grade)
 
-  // Prepare chart data — filter nulls per-chart via Recharts connectNulls={false}
-  const lossData = epochData.map((e) => ({
-    epoch: e.epoch,
-    train_loss: e.train_loss,
-    val_loss: e.val_loss,
-  }))
-  const accuracyData = epochData.map((e) => ({
-    epoch: e.epoch,
-    accuracy: e.accuracy !== null ? e.accuracy * 100 : null,
-  }))
-  const gpuData = epochData.map((e) => ({
-    epoch: e.epoch,
-    gpu_utilization: e.gpu_utilization,
-  }))
-  const vramData = epochData.map((e) => ({
-    epoch: e.epoch,
-    vram_gb: e.vram_gb,
-  }))
+  const lossData = epochData.map((e) => ({ epoch: e.epoch, train_loss: e.train_loss, val_loss: e.val_loss }))
+  const accuracyData = epochData.map((e) => ({ epoch: e.epoch, accuracy: e.accuracy !== null ? e.accuracy * 100 : null }))
+  const gpuData = epochData.map((e) => ({ epoch: e.epoch, gpu_utilization: e.gpu_utilization }))
+  const vramData = epochData.map((e) => ({ epoch: e.epoch, vram_gb: e.vram_gb }))
 
   return (
     <>
@@ -224,15 +360,15 @@ export default function TrainingPage() {
         <Card>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[var(--success)]/10 flex items-center justify-center">
-                <Wifi className="w-5 h-5 text-[var(--success)]" />
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: isRunning ? "rgba(34,197,94,0.1)" : "rgba(113,113,122,0.1)" }}>
+                <Wifi className="w-5 h-5" style={{ color: isRunning ? "var(--success)" : "var(--text-muted)" }} />
               </div>
               <div>
                 <div className="text-sm font-medium text-[var(--text)]">
                   Connected to <span className="font-mono">{connectedJobId}</span>
                 </div>
                 <div className="text-xs text-[var(--text-muted)]">
-                  {epochData.length} epochs recorded
+                  {epochData.length} epochs recorded · <span style={{ color: isRunning ? "var(--success)" : "var(--text-muted)" }}>{isRunning ? "Running" : "Stopped"}</span>
                 </div>
               </div>
             </div>
@@ -240,105 +376,78 @@ export default function TrainingPage() {
               <Button variant="secondary" onClick={handleDisconnect}>
                 Disconnect
               </Button>
-              <Button variant="danger" onClick={handleStop} loading={stopping}>
-                <Square className="w-4 h-4" />
-                Stop Training
-              </Button>
+              {isRunning ? (
+                <Button variant="danger" onClick={handleStop} loading={stopping}>
+                  <Square className="w-4 h-4" />
+                  Stop Training
+                </Button>
+              ) : (
+                <Button onClick={handleStart} loading={starting}>
+                  <Play className="w-4 h-4" />
+                  Start Training
+                </Button>
+              )}
             </div>
           </div>
         </Card>
 
+        {/* ─── Saved jobs quick switch ─── */}
+        {savedJobs.length > 1 && (
+          <Card>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xs font-medium text-[var(--text-secondary)]">Switch Job</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {savedJobs.map((job) => (
+                <button
+                  key={job.jobId}
+                  onClick={() => handleLoadJob(job)}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                    job.jobId === connectedJobId
+                      ? "bg-[var(--primary)] text-white"
+                      : "bg-[var(--bg)] text-[var(--text-secondary)] border border-[var(--border)] hover:border-[var(--primary)]"
+                  }`}
+                >
+                  <div className={`w-1.5 h-1.5 rounded-full ${job.status === "running" ? "bg-[var(--success)]" : "bg-[var(--text-muted)]"}`} />
+                  {job.model}
+                </button>
+              ))}
+            </div>
+          </Card>
+        )}
+
         {/* ─── Metrics summary bar ─── */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          <SummaryStat
-            icon={<Activity className="w-4 h-4" />}
-            label="Current Epoch"
-            value={`${m.current_epoch} / ${m.epoch_count}`}
-            color="var(--primary)"
-          />
-          <SummaryStat
-            icon={<TrendingDown className="w-4 h-4" />}
-            label="Train Loss"
-            value={m.latest_train_loss !== null ? m.latest_train_loss.toFixed(4) : "—"}
-            color="var(--primary)"
-          />
-          <SummaryStat
-            icon={<TrendingUp className="w-4 h-4" />}
-            label="Val Loss"
-            value={m.latest_val_loss !== null ? m.latest_val_loss.toFixed(4) : "—"}
-            color="var(--warning)"
-          />
-          <SummaryStat
-            icon={<Cpu className="w-4 h-4" />}
-            label="GPU Util"
-            value={m.gpu_utilization !== null ? `${m.gpu_utilization.toFixed(0)}%` : "—"}
-            color="var(--info)"
-          />
-          <SummaryStat
-            icon={<MemoryStick className="w-4 h-4" />}
-            label="VRAM Usage"
-            value={latest?.vram_gb !== null && latest?.vram_gb !== undefined ? formatGB(latest.vram_gb) : "—"}
-            color="var(--primary)"
-          />
+          <SummaryStat icon={<Activity className="w-4 h-4" />} label="Current Epoch" value={`${m.current_epoch} / ${m.epoch_count}`} color="var(--primary)" />
+          <SummaryStat icon={<TrendingDown className="w-4 h-4" />} label="Train Loss" value={m.latest_train_loss !== null ? m.latest_train_loss.toFixed(4) : "—"} color="var(--primary)" />
+          <SummaryStat icon={<TrendingUp className="w-4 h-4" />} label="Val Loss" value={m.latest_val_loss !== null ? m.latest_val_loss.toFixed(4) : "—"} color="var(--warning)" />
+          <SummaryStat icon={<Cpu className="w-4 h-4" />} label="GPU Util" value={m.gpu_utilization !== null ? `${m.gpu_utilization.toFixed(0)}%` : "—"} color="var(--info)" />
+          <SummaryStat icon={<MemoryStick className="w-4 h-4" />} label="VRAM Usage" value={latest?.vram_gb !== null && latest?.vram_gb !== undefined ? formatGB(latest.vram_gb) : "—"} color="var(--primary)" />
         </div>
 
-        {/* ─── Health score + warnings (sidebar row) ─── */}
+        {/* ─── Health score + warnings ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Health score */}
           <Card title="Training Health Score">
             <div className="flex flex-col items-center justify-center py-2">
-              <div
-                className="text-5xl font-bold font-mono"
-                style={{ color: scoreColor }}
-              >
-                {health.score}
-              </div>
-              <div
-                className="text-2xl font-bold mt-1"
-                style={{ color: scoreColor }}
-              >
-                Grade {health.grade}
-              </div>
+              <div className="text-5xl font-bold font-mono" style={{ color: scoreColor }}>{health.score}</div>
+              <div className="text-2xl font-bold mt-1" style={{ color: scoreColor }}>Grade {health.grade}</div>
               <div className="w-full mt-4">
-                <ProgressBar
-                  value={health.score}
-                  max={100}
-                  label="Health Score"
-                  color={scoreColor}
-                  showValue={false}
-                />
+                <ProgressBar value={health.score} max={100} label="Health Score" color={scoreColor} showValue={false} />
               </div>
               <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                {m.overfitting_detected && (
-                  <Badge variant="danger">Overfitting</Badge>
-                )}
-                {m.validation_loss_increasing && (
-                  <Badge variant="warning">Val Loss Rising</Badge>
-                )}
-                {m.accuracy_plateau && (
-                  <Badge variant="warning">Accuracy Plateau</Badge>
-                )}
-                {m.vram_near_limit && (
-                  <Badge variant="danger">VRAM Near Limit</Badge>
-                )}
-                {m.train_loss_stagnant && (
-                  <Badge variant="muted">Train Loss Stagnant</Badge>
-                )}
-                {!m.overfitting_detected && !m.validation_loss_increasing && !m.accuracy_plateau && (
-                  <Badge variant="success">No Critical Issues</Badge>
-                )}
+                {m.overfitting_detected && <Badge variant="danger">Overfitting</Badge>}
+                {m.validation_loss_increasing && <Badge variant="warning">Val Loss Rising</Badge>}
+                {m.accuracy_plateau && <Badge variant="warning">Accuracy Plateau</Badge>}
+                {m.vram_near_limit && <Badge variant="danger">VRAM Near Limit</Badge>}
+                {m.train_loss_stagnant && <Badge variant="muted">Train Loss Stagnant</Badge>}
+                {!m.overfitting_detected && !m.validation_loss_increasing && !m.accuracy_plateau && <Badge variant="success">No Critical Issues</Badge>}
               </div>
             </div>
           </Card>
 
-          {/* Warnings */}
           <Card title="Warnings" className="lg:col-span-2">
             {health.warnings.length === 0 ? (
-              <EmptyState
-                icon={<Zap className="w-5 h-5 text-[var(--success)]" />}
-                title="No warnings detected"
-                description="Training is proceeding without any flagged issues."
-              />
+              <EmptyState icon={<Zap className="w-5 h-5 text-[var(--success)]" />} title="No warnings detected" description="Training is proceeding without any flagged issues." />
             ) : (
               <div className="space-y-3">
                 {health.warnings.map((w, i) => (
@@ -356,116 +465,46 @@ export default function TrainingPage() {
           </Card>
         </div>
 
-        {/* ─── Charts: 2-column grid ─── */}
+        {/* ─── Charts ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Loss Chart */}
           <Card title="Training & Validation Loss">
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={lossData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid stroke={CHART_GRID} strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="epoch"
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }}
-                />
-                <YAxis
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  domain={["auto", "auto"]}
-                />
+                <XAxis dataKey="epoch" stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }} />
+                <YAxis stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} domain={["auto", "auto"]} />
                 <Tooltip content={<ChartTooltip />} />
-                <Legend
-                  wrapperStyle={{ fontSize: 11, color: CHART_TEXT }}
-                  iconType="line"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="train_loss"
-                  name="Train Loss"
-                  stroke={COLOR_TRAIN_LOSS}
-                  strokeWidth={2}
-                  dot={false}
-                  connectNulls={false}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="val_loss"
-                  name="Val Loss"
-                  stroke={COLOR_VAL_LOSS}
-                  strokeWidth={2}
-                  dot={false}
-                  connectNulls={false}
-                />
+                <Legend wrapperStyle={{ fontSize: 11, color: CHART_TEXT }} iconType="line" />
+                <Line type="monotone" dataKey="train_loss" name="Train Loss" stroke={COLOR_TRAIN_LOSS} strokeWidth={2} dot={false} connectNulls={false} />
+                <Line type="monotone" dataKey="val_loss" name="Val Loss" stroke={COLOR_VAL_LOSS} strokeWidth={2} dot={false} connectNulls={false} />
               </LineChart>
             </ResponsiveContainer>
           </Card>
 
-          {/* Accuracy Chart */}
           <Card title="Accuracy">
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={accuracyData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid stroke={CHART_GRID} strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="epoch"
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }}
-                />
-                <YAxis
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  domain={[0, 100]}
-                  unit="%"
-                />
+                <XAxis dataKey="epoch" stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }} />
+                <YAxis stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} domain={[0, 100]} unit="%" />
                 <Tooltip content={<ChartTooltip />} />
-                <Line
-                  type="monotone"
-                  dataKey="accuracy"
-                  name="Accuracy"
-                  stroke={COLOR_ACCURACY}
-                  strokeWidth={2}
-                  dot={false}
-                  connectNulls={false}
-                  unit="%"
-                />
+                <Line type="monotone" dataKey="accuracy" name="Accuracy" stroke={COLOR_ACCURACY} strokeWidth={2} dot={false} connectNulls={false} unit="%" />
               </LineChart>
             </ResponsiveContainer>
           </Card>
 
-          {/* GPU Utilization Chart */}
           <Card title="GPU Utilization">
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={gpuData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid stroke={CHART_GRID} strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="epoch"
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }}
-                />
-                <YAxis
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  domain={[0, 100]}
-                  unit="%"
-                />
+                <XAxis dataKey="epoch" stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }} />
+                <YAxis stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} domain={[0, 100]} unit="%" />
                 <Tooltip content={<ChartTooltip />} />
-                <Line
-                  type="monotone"
-                  dataKey="gpu_utilization"
-                  name="GPU Utilization"
-                  stroke={COLOR_GPU_UTIL}
-                  strokeWidth={2}
-                  dot={false}
-                  connectNulls={false}
-                  unit="%"
-                />
+                <Line type="monotone" dataKey="gpu_utilization" name="GPU Utilization" stroke={COLOR_GPU_UTIL} strokeWidth={2} dot={false} connectNulls={false} unit="%" />
               </LineChart>
             </ResponsiveContainer>
           </Card>
 
-          {/* VRAM Usage Chart (Area) */}
           <Card title="VRAM Usage">
             <ResponsiveContainer width="100%" height={200}>
               <AreaChart data={vramData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
@@ -476,29 +515,10 @@ export default function TrainingPage() {
                   </linearGradient>
                 </defs>
                 <CartesianGrid stroke={CHART_GRID} strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="epoch"
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }}
-                />
-                <YAxis
-                  stroke={CHART_TEXT}
-                  tick={{ fill: CHART_TEXT, fontSize: 11 }}
-                  domain={["auto", "auto"]}
-                  unit=" GB"
-                />
+                <XAxis dataKey="epoch" stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} label={{ value: "Epoch", position: "insideBottom", offset: -2, fill: CHART_TEXT, fontSize: 11 }} />
+                <YAxis stroke={CHART_TEXT} tick={{ fill: CHART_TEXT, fontSize: 11 }} domain={["auto", "auto"]} unit=" GB" />
                 <Tooltip content={<ChartTooltip />} />
-                <Area
-                  type="monotone"
-                  dataKey="vram_gb"
-                  name="VRAM"
-                  stroke={COLOR_VRAM}
-                  strokeWidth={2}
-                  fill="url(#vramGradient)"
-                  dot={false}
-                  connectNulls={false}
-                />
+                <Area type="monotone" dataKey="vram_gb" name="VRAM" stroke={COLOR_VRAM} strokeWidth={2} fill="url(#vramGradient)" dot={false} connectNulls={false} />
               </AreaChart>
             </ResponsiveContainer>
           </Card>
@@ -506,59 +526,23 @@ export default function TrainingPage() {
 
         {/* ─── Anomaly detection + Recommendations ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Anomaly Detection */}
-          <Card
-            title="Anomaly Detection"
-            action={
-              <span className="text-xs text-[var(--text-muted)]">
-                {health.trends.length} trend{health.trends.length !== 1 ? "s" : ""} detected
-              </span>
-            }
-          >
+          <Card title="Anomaly Detection" action={<span className="text-xs text-[var(--text-muted)]">{health.trends.length} trend{health.trends.length !== 1 ? "s" : ""} detected</span>}>
             {health.trends.length === 0 ? (
-              <EmptyState
-                icon={<AlertTriangle className="w-5 h-5 text-[var(--success)]" />}
-                title="No anomalies detected"
-                description="Training trends are within expected parameters."
-              />
+              <EmptyState icon={<AlertTriangle className="w-5 h-5 text-[var(--success)]" />} title="No anomalies detected" description="Training trends are within expected parameters." />
             ) : (
               <div className="space-y-3">
                 {health.trends.map((trend, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)]"
-                  >
+                  <div key={i} className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)]">
                     <div className="shrink-0 mt-0.5">
-                      <AlertTriangle
-                        className="w-4 h-4"
-                        style={{
-                          color:
-                            trend.severity === "high"
-                              ? "var(--danger)"
-                              : trend.severity === "medium"
-                                ? "var(--warning)"
-                                : "var(--info)",
-                        }}
-                      />
+                      <AlertTriangle className="w-4 h-4" style={{ color: trend.severity === "high" ? "var(--danger)" : trend.severity === "medium" ? "var(--warning)" : "var(--info)" }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-medium text-[var(--text)]">
-                          {trend.name}
-                        </span>
-                        <Badge variant={severityVariant[trend.severity]}>
-                          {trend.severity}
-                        </Badge>
+                        <span className="text-sm font-medium text-[var(--text)]">{trend.name}</span>
+                        <Badge variant={severityVariant[trend.severity]}>{trend.severity}</Badge>
                       </div>
-                      <p className="text-xs text-[var(--text-secondary)] mb-2">
-                        {trend.description}
-                      </p>
-                      <div className="text-xs text-[var(--text-muted)]">
-                        Affected epochs:{" "}
-                        <span className="font-mono">
-                          {trend.epochs_affected.join(", ")}
-                        </span>
-                      </div>
+                      <p className="text-xs text-[var(--text-secondary)] mb-2">{trend.description}</p>
+                      <div className="text-xs text-[var(--text-muted)]">Affected epochs: <span className="font-mono">{trend.epochs_affected.join(", ")}</span></div>
                     </div>
                   </div>
                 ))}
@@ -566,44 +550,23 @@ export default function TrainingPage() {
             )}
           </Card>
 
-          {/* Recommendations */}
-          <Card
-            title="Real-time Recommendations"
-            action={
-              <span className="text-xs text-[var(--text-muted)]">
-                {health.recommendations.length} active
-              </span>
-            }
-          >
+          <Card title="Real-time Recommendations" action={<span className="text-xs text-[var(--text-muted)]">{health.recommendations.length} active</span>}>
             {health.recommendations.length === 0 ? (
-              <EmptyState
-                icon={<Lightbulb className="w-5 h-5 text-[var(--text-muted)]" />}
-                title="No recommendations"
-                description="No actionable recommendations at this time."
-              />
+              <EmptyState icon={<Lightbulb className="w-5 h-5 text-[var(--text-muted)]" />} title="No recommendations" description="No actionable recommendations at this time." />
             ) : (
               <div className="space-y-3">
                 {health.recommendations.map((rec, i) => (
-                  <div
-                    key={i}
-                    className="p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)]"
-                  >
+                  <div key={i} className="p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)]">
                     <div className="flex items-start justify-between gap-3 mb-1">
                       <div className="flex items-center gap-2">
                         <Lightbulb className="w-4 h-4 text-[var(--warning)] shrink-0" />
-                        <span className="text-sm font-medium text-[var(--text)]">
-                          {rec.title}
-                        </span>
+                        <span className="text-sm font-medium text-[var(--text)]">{rec.title}</span>
                       </div>
                       <Badge variant="info">{confidencePercent(rec.confidence)}</Badge>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)] mt-1">
-                      {rec.recommendation}
-                    </p>
+                    <p className="text-xs text-[var(--text-secondary)] mt-1">{rec.recommendation}</p>
                     <div className="mt-2 flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                      <span className="px-1.5 py-0.5 rounded bg-[var(--surface-hover)] font-mono">
-                        {rec.source}
-                      </span>
+                      <span className="px-1.5 py-0.5 rounded bg-[var(--surface-hover)] font-mono">{rec.source}</span>
                       <span>·</span>
                       <span>Priority {rec.priority}</span>
                     </div>
@@ -614,7 +577,7 @@ export default function TrainingPage() {
           </Card>
         </div>
 
-        {/* ─── Additional metrics detail ─── */}
+        {/* ─── Training Details ─── */}
         <Card title="Training Details">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             <DetailItem label="Best Val Loss" value={m.best_val_loss !== null ? m.best_val_loss.toFixed(4) : "—"} />
@@ -634,24 +597,14 @@ export default function TrainingPage() {
 
 // ─── Sub-components ───
 
-function SummaryStat({
-  icon,
-  label,
-  value,
-  color,
-}: {
-  icon: React.ReactNode
-  label: string
-  value: string
-  color: string
-}) {
+function SummaryStat({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
   return (
-    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5">
       <div className="flex items-center gap-2 mb-2">
         <span style={{ color }}>{icon}</span>
         <span className="text-xs text-[var(--text-muted)]">{label}</span>
       </div>
-      <p className="text-lg font-bold text-[var(--text)] font-mono">{value}</p>
+      <p className="text-xl font-bold text-[var(--text)] font-mono">{value}</p>
     </div>
   )
 }
