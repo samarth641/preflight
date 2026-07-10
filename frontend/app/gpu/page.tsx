@@ -491,7 +491,7 @@ function BestPickCard({ candidate, requiredVram, benchmarks }: { candidate: GPUC
         <div className="text-right">
           <p className="text-xs text-[var(--text-muted)]">Match Score</p>
           <p className="text-2xl font-bold font-mono" style={{ color: fitRatingColor(fit_rating) }}>
-            {score.toFixed(0)}
+            {(score * 100).toFixed(0)}
           </p>
         </div>
       </div>
@@ -607,7 +607,7 @@ function CandidateRow({
         {/* Score */}
         <div className="text-right shrink-0">
           <p className="text-lg font-bold font-mono" style={{ color: fitRatingColor(fit_rating) }}>
-            {score.toFixed(0)}
+            {(score * 100).toFixed(0)}
           </p>
           <p className="text-xs text-[var(--text-muted)]">score</p>
         </div>

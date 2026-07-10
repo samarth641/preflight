@@ -1,4 +1,5 @@
 gpus:
+  # ─── NVIDIA consumer (Ampere) ───
   - id: rtx-3060
     name: NVIDIA RTX 3060
     vendor: nvidia
@@ -10,6 +11,40 @@ gpus:
     architecture: ampere
     msrp_usd: 329
 
+  - id: rtx-3070
+    name: NVIDIA RTX 3070
+    vendor: nvidia
+    vram_gb: 8
+    memory_bandwidth_gbps: 448
+    tflops_fp16: 40
+    power_watts: 220
+    training_speed_tier: mid
+    architecture: ampere
+    msrp_usd: 499
+
+  - id: rtx-3080
+    name: NVIDIA RTX 3080
+    vendor: nvidia
+    vram_gb: 10
+    memory_bandwidth_gbps: 760
+    tflops_fp16: 60
+    power_watts: 320
+    training_speed_tier: high
+    architecture: ampere
+    msrp_usd: 699
+
+  - id: rtx-3090
+    name: NVIDIA RTX 3090
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 936
+    tflops_fp16: 71
+    power_watts: 350
+    training_speed_tier: high
+    architecture: ampere
+    msrp_usd: 1499
+
+  # ─── NVIDIA consumer (Ada) ───
   - id: rtx-4060
     name: NVIDIA RTX 4060
     vendor: nvidia
@@ -43,6 +78,17 @@ gpus:
     architecture: ada
     msrp_usd: 599
 
+  - id: rtx-4070-ti
+    name: NVIDIA RTX 4070 Ti
+    vendor: nvidia
+    vram_gb: 12
+    memory_bandwidth_gbps: 504
+    tflops_fp16: 160
+    power_watts: 285
+    training_speed_tier: high
+    architecture: ada
+    msrp_usd: 799
+
   - id: rtx-4080
     name: NVIDIA RTX 4080
     vendor: nvidia
@@ -65,6 +111,18 @@ gpus:
     architecture: ada
     msrp_usd: 1599
 
+  # ─── NVIDIA consumer (Blackwell) ───
+  - id: rtx-5080
+    name: NVIDIA RTX 5080
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 960
+    tflops_fp16: 225
+    power_watts: 360
+    training_speed_tier: high
+    architecture: blackwell
+    msrp_usd: 999
+
   - id: rtx-5090
     name: NVIDIA RTX 5090
     vendor: nvidia
@@ -76,6 +134,29 @@ gpus:
     architecture: blackwell
     msrp_usd: 1999
 
+  # ─── AMD consumer (RDNA) ───
+  - id: rx-7800-xt
+    name: AMD RX 7800 XT
+    vendor: amd
+    vram_gb: 16
+    memory_bandwidth_gbps: 624
+    tflops_fp16: 75
+    power_watts: 263
+    training_speed_tier: mid
+    architecture: rdna3
+    msrp_usd: 499
+
+  - id: rx-7900-xt
+    name: AMD RX 7900 XT
+    vendor: amd
+    vram_gb: 20
+    memory_bandwidth_gbps: 800
+    tflops_fp16: 104
+    power_watts: 300
+    training_speed_tier: high
+    architecture: rdna3
+    msrp_usd: 899
+
   - id: rx-7900-xtx
     name: AMD RX 7900 XTX
     vendor: amd
@@ -86,6 +167,96 @@ gpus:
     training_speed_tier: high
     architecture: rdna3
     msrp_usd: 999
+
+  # ─── NVIDIA workstation / cloud inference ───
+  - id: t4
+    name: NVIDIA T4
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 320
+    tflops_fp16: 65
+    power_watts: 70
+    training_speed_tier: entry
+    architecture: turing
+    msrp_usd: 2000
+
+  - id: l4
+    name: NVIDIA L4
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 300
+    tflops_fp16: 121
+    power_watts: 72
+    training_speed_tier: mid
+    architecture: ada
+    msrp_usd: 2500
+
+  - id: a10
+    name: NVIDIA A10
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 600
+    tflops_fp16: 125
+    power_watts: 150
+    training_speed_tier: mid
+    architecture: ampere
+    msrp_usd: 3000
+
+  - id: a40
+    name: NVIDIA A40
+    vendor: nvidia
+    vram_gb: 48
+    memory_bandwidth_gbps: 696
+    tflops_fp16: 150
+    power_watts: 300
+    training_speed_tier: high
+    architecture: ampere
+    msrp_usd: 5000
+
+  - id: rtx-a6000
+    name: NVIDIA RTX A6000
+    vendor: nvidia
+    vram_gb: 48
+    memory_bandwidth_gbps: 768
+    tflops_fp16: 155
+    power_watts: 300
+    training_speed_tier: high
+    architecture: ampere
+    msrp_usd: 4650
+
+  - id: l40s
+    name: NVIDIA L40S
+    vendor: nvidia
+    vram_gb: 48
+    memory_bandwidth_gbps: 864
+    tflops_fp16: 362
+    power_watts: 350
+    training_speed_tier: enthusiast
+    architecture: ada
+    msrp_usd: 8000
+
+  # ─── NVIDIA datacenter ───
+  - id: v100-32gb
+    name: NVIDIA V100 32GB
+    vendor: nvidia
+    vram_gb: 32
+    memory_bandwidth_gbps: 900
+    tflops_fp16: 125
+    power_watts: 300
+    training_speed_tier: datacenter
+    architecture: volta
+    msrp_usd: 8000
+
+  - id: a100-40gb
+    name: NVIDIA A100 40GB
+    vendor: nvidia
+    vram_gb: 40
+    memory_bandwidth_gbps: 1555
+    tflops_fp16: 312
+    power_watts: 400
+    training_speed_tier: datacenter
+    architecture: ampere
+    msrp_usd: 10000
 
   - id: a100-80gb
     name: NVIDIA A100 80GB
@@ -109,6 +280,51 @@ gpus:
     architecture: hopper
     msrp_usd: 30000
 
+  - id: h200
+    name: NVIDIA H200
+    vendor: nvidia
+    vram_gb: 141
+    memory_bandwidth_gbps: 4800
+    tflops_fp16: 990
+    power_watts: 700
+    training_speed_tier: datacenter
+    architecture: hopper
+    msrp_usd: 35000
+
+  - id: b200
+    name: NVIDIA B200
+    vendor: nvidia
+    vram_gb: 192
+    memory_bandwidth_gbps: 8000
+    tflops_fp16: 2250
+    power_watts: 1000
+    training_speed_tier: datacenter
+    architecture: blackwell
+    msrp_usd: 40000
+
+  # ─── AMD datacenter (CDNA) ───
+  - id: mi210
+    name: AMD Instinct MI210
+    vendor: amd
+    vram_gb: 64
+    memory_bandwidth_gbps: 1600
+    tflops_fp16: 181
+    power_watts: 300
+    training_speed_tier: datacenter
+    architecture: cdna2
+    msrp_usd: 8000
+
+  - id: mi250x
+    name: AMD Instinct MI250X
+    vendor: amd
+    vram_gb: 128
+    memory_bandwidth_gbps: 3200
+    tflops_fp16: 383
+    power_watts: 560
+    training_speed_tier: datacenter
+    architecture: cdna2
+    msrp_usd: 12000
+
   - id: mi300x
     name: AMD MI300X
     vendor: amd
@@ -119,6 +335,264 @@ gpus:
     training_speed_tier: datacenter
     architecture: cdna3
     msrp_usd: 15000
+
+  - id: mi325x
+    name: AMD Instinct MI325X
+    vendor: amd
+    vram_gb: 256
+    memory_bandwidth_gbps: 6000
+    tflops_fp16: 1307
+    power_watts: 1000
+    training_speed_tier: datacenter
+    architecture: cdna3
+    msrp_usd: 18000
+
+  - id: mi350x
+    name: AMD Instinct MI350X
+    vendor: amd
+    vram_gb: 288
+    memory_bandwidth_gbps: 8000
+    tflops_fp16: 2300
+    power_watts: 1000
+    training_speed_tier: datacenter
+    architecture: cdna4
+    msrp_usd: 25000
+
+  - id: mi355x
+    name: AMD Instinct MI355X
+    vendor: amd
+    vram_gb: 288
+    memory_bandwidth_gbps: 8000
+    tflops_fp16: 2500
+    power_watts: 1400
+    training_speed_tier: datacenter
+    architecture: cdna4
+    msrp_usd: 28000
+
+  - id: b300
+    name: NVIDIA B300
+    vendor: nvidia
+    vram_gb: 288
+    memory_bandwidth_gbps: 12000
+    tflops_fp16: 2800
+    power_watts: 1200
+    training_speed_tier: datacenter
+    architecture: blackwell
+    msrp_usd: 55000
+
+  - id: gb200
+    name: NVIDIA GB200 Grace Blackwell
+    vendor: nvidia
+    vram_gb: 186
+    memory_bandwidth_gbps: 8000
+    tflops_fp16: 2500
+    power_watts: 1200
+    training_speed_tier: datacenter
+    architecture: blackwell
+    msrp_usd: 45000
+
+  - id: l40
+    name: NVIDIA L40
+    vendor: nvidia
+    vram_gb: 48
+    memory_bandwidth_gbps: 864
+    tflops_fp16: 181
+    power_watts: 300
+    training_speed_tier: high
+    architecture: ada
+    msrp_usd: 7000
+
+  - id: rtx-pro-6000
+    name: NVIDIA RTX PRO 6000 Blackwell
+    vendor: nvidia
+    vram_gb: 96
+    memory_bandwidth_gbps: 1600
+    tflops_fp16: 500
+    power_watts: 600
+    training_speed_tier: enthusiast
+    architecture: blackwell
+    msrp_usd: 8000
+
+  - id: h100-nvl
+    name: NVIDIA H100 NVL
+    vendor: nvidia
+    vram_gb: 94
+    memory_bandwidth_gbps: 3900
+    tflops_fp16: 756
+    power_watts: 400
+    training_speed_tier: datacenter
+    architecture: hopper
+    msrp_usd: 28000
+
+  # ─── NVIDIA Turing / older consumer ───
+  - id: rtx-2080-ti
+    name: NVIDIA RTX 2080 Ti
+    vendor: nvidia
+    vram_gb: 11
+    memory_bandwidth_gbps: 616
+    tflops_fp16: 53
+    power_watts: 250
+    training_speed_tier: mid
+    architecture: turing
+    msrp_usd: 999
+
+  - id: rtx-2070-super
+    name: NVIDIA RTX 2070 Super
+    vendor: nvidia
+    vram_gb: 8
+    memory_bandwidth_gbps: 448
+    tflops_fp16: 36
+    power_watts: 215
+    training_speed_tier: entry
+    architecture: turing
+    msrp_usd: 499
+
+  # ─── More Ada / Blackwell consumer ───
+  - id: rtx-4070-super
+    name: NVIDIA RTX 4070 Super
+    vendor: nvidia
+    vram_gb: 12
+    memory_bandwidth_gbps: 504
+    tflops_fp16: 178
+    power_watts: 220
+    training_speed_tier: high
+    architecture: ada
+    msrp_usd: 599
+
+  - id: rtx-4080-super
+    name: NVIDIA RTX 4080 Super
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 736
+    tflops_fp16: 105
+    power_watts: 320
+    training_speed_tier: high
+    architecture: ada
+    msrp_usd: 999
+
+  - id: rtx-5070
+    name: NVIDIA RTX 5070
+    vendor: nvidia
+    vram_gb: 12
+    memory_bandwidth_gbps: 672
+    tflops_fp16: 155
+    power_watts: 250
+    training_speed_tier: high
+    architecture: blackwell
+    msrp_usd: 549
+
+  - id: rtx-5070-ti
+    name: NVIDIA RTX 5070 Ti
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 896
+    tflops_fp16: 190
+    power_watts: 300
+    training_speed_tier: high
+    architecture: blackwell
+    msrp_usd: 749
+
+  # ─── More workstation NVIDIA ───
+  - id: rtx-a4000
+    name: NVIDIA RTX A4000
+    vendor: nvidia
+    vram_gb: 16
+    memory_bandwidth_gbps: 448
+    tflops_fp16: 76
+    power_watts: 140
+    training_speed_tier: mid
+    architecture: ampere
+    msrp_usd: 1000
+
+  - id: rtx-a5000
+    name: NVIDIA RTX A5000
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 768
+    tflops_fp16: 111
+    power_watts: 230
+    training_speed_tier: high
+    architecture: ampere
+    msrp_usd: 2250
+
+  - id: rtx-6000-ada
+    name: NVIDIA RTX 6000 Ada
+    vendor: nvidia
+    vram_gb: 48
+    memory_bandwidth_gbps: 960
+    tflops_fp16: 364
+    power_watts: 300
+    training_speed_tier: enthusiast
+    architecture: ada
+    msrp_usd: 6800
+
+  # ─── Grace Hopper / more datacenter ───
+  - id: gh200
+    name: NVIDIA GH200 Grace Hopper
+    vendor: nvidia
+    vram_gb: 96
+    memory_bandwidth_gbps: 4000
+    tflops_fp16: 990
+    power_watts: 900
+    training_speed_tier: datacenter
+    architecture: hopper
+    msrp_usd: 35000
+
+  - id: a30
+    name: NVIDIA A30
+    vendor: nvidia
+    vram_gb: 24
+    memory_bandwidth_gbps: 933
+    tflops_fp16: 165
+    power_watts: 165
+    training_speed_tier: mid
+    architecture: ampere
+    msrp_usd: 4000
+
+  # ─── More AMD ───
+  - id: mi100
+    name: AMD Instinct MI100
+    vendor: amd
+    vram_gb: 32
+    memory_bandwidth_gbps: 1200
+    tflops_fp16: 185
+    power_watts: 300
+    training_speed_tier: datacenter
+    architecture: cdna1
+    msrp_usd: 6000
+
+  - id: rx-7600
+    name: AMD RX 7600
+    vendor: amd
+    vram_gb: 8
+    memory_bandwidth_gbps: 288
+    tflops_fp16: 42
+    power_watts: 165
+    training_speed_tier: entry
+    architecture: rdna3
+    msrp_usd: 269
+
+  - id: rx-7700-xt
+    name: AMD RX 7700 XT
+    vendor: amd
+    vram_gb: 12
+    memory_bandwidth_gbps: 432
+    tflops_fp16: 70
+    power_watts: 245
+    training_speed_tier: mid
+    architecture: rdna3
+    msrp_usd: 449
+
+  - id: w7900
+    name: AMD Radeon PRO W7900
+    vendor: amd
+    vram_gb: 48
+    memory_bandwidth_gbps: 864
+    tflops_fp16: 123
+    power_watts: 295
+    training_speed_tier: high
+    architecture: rdna3
+    msrp_usd: 3999
 
 rules:
   - id: hardware-vram-insufficient
@@ -146,7 +620,7 @@ rules:
       field: hardware.required_vram_gb
       operator: gte
       value: 40
-    recommendation: Consider multi-GPU training with DeepSpeed ZeRO or cloud instances with A100/H100.
+    recommendation: Consider multi-GPU training with DeepSpeed ZeRO or cloud instances with A100/H100/MI300X.
     reason: Models requiring 40GB+ VRAM exceed single consumer GPU capacity.
     confidence: 0.90
     priority: 8
@@ -168,3 +642,159 @@ rules:
     priority: 6
     references:
       - "AMD ROCm compatibility matrix"
+
+  - id: hardware-consumer-vram-tight
+    title: Consumer GPU May Be Tight on VRAM
+    source: Preflight Hardware Knowledge
+    documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+    category: hardware
+    condition:
+      and:
+        - field: hardware.required_vram_gb
+          operator: gte
+          value: 20
+        - field: hardware.required_vram_gb
+          operator: lt
+          value: 40
+    recommendation: Prefer 24GB+ cards (RTX 4090/5090, RX 7900 XTX) or use LoRA/QLoRA to fit consumer VRAM.
+    reason: Full fine-tunes of 7B-class models often need 20–40GB; consumer cards sit at the edge.
+    confidence: 0.84
+    priority: 7
+    references:
+      - "Hugging Face GPU training guide"
+
+  - id: hardware-datacenter-for-70b
+    title: Datacenter GPUs Recommended for 70B-Class Models
+    source: Preflight Hardware Knowledge
+    documentation_url: https://www.deepspeed.ai/tutorials/zero/
+    category: hardware
+    condition:
+      field: hardware.parameter_count
+      operator: gte
+      value: 30000000000
+    recommendation: Use A100/H100/H200/MI300X with ZeRO-3 or tensor parallelism; avoid single consumer GPUs.
+    reason: 30B+ parameter models exceed practical single-GPU full fine-tune capacity.
+    confidence: 0.93
+    priority: 9
+    references:
+      - "DeepSpeed ZeRO-3"
+      - "Model parallelism guides"
+
+  - id: hardware-prefer-amd-value
+    title: Consider AMD for High VRAM per Dollar
+    source: AMD ROCm Documentation
+    documentation_url: https://rocm.docs.amd.com/
+    category: hardware
+    condition:
+      and:
+        - field: hardware.required_vram_gb
+          operator: gte
+          value: 48
+        - field: hardware.preferred_vendor
+          operator: ne
+          value: nvidia
+    recommendation: Evaluate MI300X/MI325X or Azure ND MI300X — often better $/GB than H100 for memory-bound jobs.
+    reason: AMD Instinct cards offer 192–256GB HBM at lower cloud hourly rates than equivalent NVIDIA SKUs.
+    confidence: 0.80
+    priority: 6
+    references:
+      - "Azure ND MI300X"
+      - "ROCm training guides"
+
+  - id: hardware-old-turing
+    title: Turing GPUs Are Slow for Modern Training
+    source: Preflight Hardware Knowledge
+    documentation_url: https://docs.nvidia.com/cuda/
+    category: hardware
+    condition:
+      field: hardware.gpu_architecture
+      operator: eq
+      value: turing
+    recommendation: Prefer Ampere/Ada/Blackwell or CDNA for training; keep Turing for light inference only.
+    reason: Turing lacks modern Tensor Core throughput and efficient BF16 paths used by current stacks.
+    confidence: 0.82
+    priority: 5
+    references:
+      - "GPU architecture comparison"
+
+  - id: hardware-inference-card-for-train
+    title: Inference-Oriented GPU for Training
+    source: Preflight Hardware Knowledge
+    documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+    category: hardware
+    condition:
+      field: hardware.gpu_id
+      operator: in
+      value: ["t4", "l4", "a10"]
+    recommendation: Fine for small LoRA/QLoRA; avoid full fine-tunes of 7B+ on T4/L4/A10.
+    reason: These SKUs prioritize inference efficiency over training bandwidth and TFLOPS.
+    confidence: 0.84
+    priority: 6
+    references:
+      - "Cloud GPU SKU guides"
+
+  - id: hardware-power-budget
+    title: High Power Draw — Check PSU / Cloud Limits
+    source: Preflight Hardware Knowledge
+    documentation_url: https://www.nvidia.com/en-us/data-center/
+    category: hardware
+    condition:
+      field: hardware.power_watts
+      operator: gte
+      value: 450
+    recommendation: Ensure PSU headroom (local) or instance power limits (cloud) for 450W+ GPUs like 4090/5090/H100.
+    reason: Undervoltage and thermal throttling silently destroy training throughput.
+    confidence: 0.78
+    priority: 4
+    references:
+      - "GPU power requirements"
+
+  - id: hardware-gh200-unified
+    title: GH200 Unified Memory Advantage
+    source: NVIDIA Documentation
+    documentation_url: https://www.nvidia.com/en-us/data-center/grace-hopper-superchip/
+    category: hardware
+    condition:
+      field: hardware.gpu_id
+      operator: eq
+      value: gh200
+    recommendation: Exploit Grace–Hopper coherent memory for large activations/KV; still size batches carefully.
+    reason: CPU–GPU coherent HBM/LPDDR reduces host offload friction for memory-heavy jobs.
+    confidence: 0.80
+    priority: 5
+    references:
+      - "Grace Hopper architecture"
+
+  - id: hardware-mi350-vs-b200
+    title: Compare MI350X vs B200 on Memory vs Software
+    source: Preflight Hardware Knowledge
+    documentation_url: https://www.amd.com/en/products/accelerators/instinct/mi350.html
+    category: hardware
+    condition:
+      field: hardware.required_vram_gb
+      operator: gte
+      value: 160
+    recommendation: Shortlist MI350X/MI355X (288GB) for capacity; B200/B300 when CUDA ecosystem and NVLink matter more.
+    reason: Jul 2026 comparisons show AMD leading HBM capacity; NVIDIA still leads interconnect/software MFU.
+    confidence: 0.82
+    priority: 6
+    references:
+      - "MI350X vs B200 2026 analyses"
+      - "cloud-gpus.com pricing"
+
+  - id: hardware-marketplace-vs-hyperscaler
+    title: Prefer Marketplace GPUs for Cost
+    source: Preflight Cost Knowledge
+    documentation_url: https://cloud-gpus.com/price-analytics/
+    category: hardware
+    condition:
+      field: hardware.budget_sensitive
+      operator: eq
+      value: true
+    recommendation: Quote RunPod/Vast/TensorWave/DigitalOcean medians before AWS/GCP list prices for the same SKU.
+    reason: Jul 2026 H100 marketplace medians ~$3/hr vs hyperscaler list often >$10–90/hr.
+    confidence: 0.88
+    priority: 7
+    references:
+      - "AIMultiple GPU index"
+      - "cloud-gpus.com Jul 2026"

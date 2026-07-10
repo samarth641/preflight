@@ -73,6 +73,7 @@ class GPURecommender:
 
         if request.include_cost:
             ranked = self._attach_cost_estimates(ranked, request)
+            ranked = self._apply_cost_value_boost(ranked)
 
         cloud_offerings = self._match_cloud(ranked, required_vram, request)
 
@@ -188,11 +189,60 @@ class GPURecommender:
         return updated
 
     @staticmethod
+    def _apply_cost_value_boost(candidates: list[GPUCandidate]) -> list[GPUCandidate]:
+        """Blend cloud/local cost into score so cheaper capable GPUs can beat expensive ones."""
+        with_cost = [c for c in candidates if c.cost_estimate is not None]
+        if len(with_cost) < 2:
+            return candidates
+
+        totals = [c.cost_estimate.total_usd for c in with_cost]  # type: ignore[union-attr]
+        min_c, max_c = min(totals), max(totals)
+        if max_c <= min_c:
+            return candidates
+
+        for candidate in with_cost:
+            total = candidate.cost_estimate.total_usd  # type: ignore[union-attr]
+            cost_norm = 1.0 - (total - min_c) / (max_c - min_c)
+            candidate.score = round(min(1.0, candidate.score * 0.7 + cost_norm * 0.3), 3)
+            candidate.reasons.append(f"Value-adjusted for est. training cost ${total:.2f}")
+
+        return sorted(candidates, key=lambda c: (-c.score, c.cost_estimate.total_usd if c.cost_estimate else 1e9))
+
+    @staticmethod
     def _default_provider_for_gpu(gpu_id: str) -> str | None:
         defaults = {
+            "rtx-3090": "runpod",
             "rtx-4090": "runpod",
             "rtx-4080": "runpod",
+            "rtx-5080": "runpod",
+            "rtx-5090": "runpod",
+            "rx-7900-xt": "runpod",
+            "rx-7900-xtx": "runpod",
+            "l40s": "runpod",
+            "a40": "runpod",
+            "rtx-a6000": "lambda",
+            "a100-40gb": "runpod",
             "a100-80gb": "runpod",
-            "h100-80gb": "aws",
+            "h100-80gb": "runpod",
+            "h200": "coreweave",
+            "b200": "coreweave",
+            "mi210": "azure",
+            "mi250x": "azure",
+            "mi300x": "azure",
+            "mi325x": "azure",
+            "mi350x": "tensorwave",
+            "mi355x": "tensorwave",
+            "t4": "gcp",
+            "l4": "gcp",
+            "gh200": "coreweave",
+            "b300": "coreweave",
+            "gb200": "coreweave",
+            "h100-nvl": "runpod",
+            "rtx-pro-6000": "runpod",
+            "l40": "runpod",
+            "rtx-a5000": "runpod",
+            "rtx-6000-ada": "runpod",
+            "rtx-5070-ti": "runpod",
+            "w7900": "runpod",
         }
         return defaults.get(gpu_id)

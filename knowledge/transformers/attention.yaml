@@ -1,0 +1,95 @@
+- id: attn-sdpa-default
+  title: Use PyTorch SDPA Attention
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html
+  category: optimization
+  condition:
+    and:
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "bert", "mistral", "gemma", "qwen"]
+      - field: training.attn_implementation
+        operator: eq
+        value: eager
+  recommendation: Set attn_implementation to sdpa (or flash_attention_2 on NVIDIA) instead of eager attention.
+  reason: Eager attention is memory- and compute-heavy compared to fused SDPA kernels.
+  confidence: 0.87
+  priority: 7
+  references:
+    - "scaled_dot_product_attention"
+
+- id: attn-gqa-mqa
+  title: Prefer GQA/MQA Checkpoints When Available
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: model.architecture
+        operator: in
+        value: ["llama", "mistral", "qwen", "gemma"]
+  recommendation: Choose model variants with grouped/multi-query attention for faster long-context decode.
+  reason: Fewer KV heads shrink KV cache and raise tokens/sec.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "GQA / MQA"
+
+- id: attn-sliding-window
+  title: Use Sliding-Window Attention for Long Context
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers
+  category: optimization
+  condition:
+    and:
+      - field: training.sequence_length
+        operator: gte
+        value: 8192
+      - field: model.architecture
+        operator: in
+        value: ["mistral", "gemma", "transformer"]
+  recommendation: Prefer architectures with sliding-window / local attention for very long sequences.
+  reason: Full global attention at 8k+ is often unnecessary and VRAM-expensive.
+  confidence: 0.78
+  priority: 5
+  references:
+    - "Mistral sliding window"
+
+- id: attn-rope-scaling
+  title: Be Careful With RoPE Scaling
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers
+  category: training
+  condition:
+    field: training.sequence_length
+    operator: gte
+    value: 8192
+  recommendation: Only extend context with documented RoPE scaling methods; validate on long-context evals.
+  reason: Naive context extension degrades quality outside the trained window.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "RoPE scaling / YaRN"
+
+- id: attn-checkpoint-long-seq
+  title: Checkpoint Attention for Long Sequences
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+  category: optimization
+  condition:
+    and:
+      - field: training.sequence_length
+        operator: gte
+        value: 2048
+      - field: hardware.vram_gb
+        operator: lt
+        value: 48
+  recommendation: Enable gradient checkpointing when training long sequences on <48GB GPUs.
+  reason: Activation memory from attention dominates VRAM at long context.
+  confidence: 0.88
+  priority: 8
+  references:
+    - "Activation checkpointing"

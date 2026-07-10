@@ -27,14 +27,171 @@
     and:
       - field: model.architecture
         operator: in
-        value: ["transformer", "llama", "gpt", "bert"]
+        value: ["transformer", "llama", "gpt", "bert", "mistral", "gemma", "qwen"]
       - field: hardware.gpu_vendor
         operator: eq
         value: nvidia
-  recommendation: Install and enable flash-attn for 2-4x attention speedup and reduced memory.
+  recommendation: Install and enable flash-attn / attn_implementation="flash_attention_2" for 2-4x attention speedup.
   reason: Flash Attention reduces memory complexity from O(n²) to O(n) for sequence length n.
   confidence: 0.89
   priority: 7
   references:
     - "Flash Attention paper"
     - "Hugging Face transformers performance docs"
+
+- id: hf-bf16-ampere
+  title: Prefer BF16 on Ampere+ for Transformers
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_architecture
+        operator: in
+        value: ["ampere", "hopper", "ada", "blackwell"]
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "bert", "mistral", "gemma"]
+  recommendation: Train with bf16=True (Trainer / Accelerate) instead of fp16 when hardware supports it.
+  reason: BF16 avoids FP16 loss-scaling issues and is the default for modern LLM fine-tunes.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "Hugging Face mixed precision"
+
+- id: hf-lora-for-consumer
+  title: Use LoRA/QLoRA on Consumer GPUs
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: model.parameter_count
+        operator: gte
+        value: 3000000000
+      - field: hardware.vram_gb
+        operator: lt
+        value: 48
+      - field: training.mode
+        operator: eq
+        value: full
+  recommendation: Switch to LoRA or QLoRA (PEFT) instead of full fine-tune on <48GB GPUs.
+  reason: Full updates of 3B+ models rarely fit consumer VRAM; adapters match quality for many tasks.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "PEFT LoRA"
+    - "QLoRA paper"
+
+- id: hf-packing
+  title: Pack Short Sequences for Throughput
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/trl
+  category: optimization
+  condition:
+    and:
+      - field: dataset.median_token_length
+        operator: lt
+        value: 512
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "mistral", "gemma"]
+  recommendation: Enable sample packing / concatenation so short texts fill the context window.
+  reason: Padding-dominated batches waste compute on short instruction datasets.
+  confidence: 0.82
+  priority: 6
+  references:
+    - "TRL SFTTrainer packing"
+
+- id: hf-eval-steps
+  title: Evaluate Frequently on Small Datasets
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/main_classes/trainer
+  category: training
+  condition:
+    field: dataset.sample_count
+    operator: lt
+    value: 10000
+  recommendation: Set eval_strategy=steps with a modest eval_steps; save best checkpoint by eval loss.
+  reason: Small datasets overfit fast; infrequent eval misses the best checkpoint.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Hugging Face Trainer"
+
+- id: hf-tokenizer-truncation
+  title: Align Tokenizer Max Length with Model
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/pad_truncation
+  category: dataset
+  condition:
+    field: training.sequence_length
+    operator: gt
+    value: 0
+  recommendation: Set tokenizer truncation/padding to the model context limit; avoid silent overflow.
+  reason: Mismatched max_length causes truncated labels or wasted padding.
+  confidence: 0.78
+  priority: 4
+  references:
+    - "Padding and truncation"
+
+- id: hf-accelerate-fsdp
+  title: Use Accelerate FSDP for Multi-GPU LLMs
+  source: Hugging Face Accelerate
+  documentation_url: https://huggingface.co/docs/accelerate
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: model.parameter_count
+        operator: gte
+        value: 7000000000
+  recommendation: Launch with Accelerate FSDP (FULL_SHARD) or DeepSpeed ZeRO for multi-GPU LLM fine-tunes.
+  reason: DDP alone replicates full weights; FSDP/ZeRO is required past single-GPU capacity.
+  confidence: 0.87
+  priority: 8
+  references:
+    - "Accelerate FSDP"
+    - "DeepSpeed ZeRO"
+
+- id: hf-unsloth
+  title: Consider Unsloth for Fast LoRA Fine-Tunes
+  source: Unsloth Documentation
+  documentation_url: https://github.com/unslothai/unsloth
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+  recommendation: Try Unsloth kernels for 2–5x faster LoRA/QLoRA on supported model families.
+  reason: Custom Triton kernels cut VRAM and wall-clock for common LLM adapters.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Unsloth"
+
+- id: hf-neftune
+  title: Add NEFTune Noise for Instruction Tuning
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/trl
+  category: training
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "full"]
+      - field: dataset.task_type
+        operator: eq
+        value: instruction
+  recommendation: Enable NEFTune embedding noise (TRL) to improve instruction-following robustness.
+  reason: Small noise on embeddings often improves chat/instruction SFT quality.
+  confidence: 0.72
+  priority: 3
+  references:
+    - "NEFTune paper"

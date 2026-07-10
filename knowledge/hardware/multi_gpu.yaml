@@ -1,0 +1,115 @@
+- id: multigpu-ddp-first
+  title: Start with DDP for Multi-GPU
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: hardware.gpu_count
+        operator: lte
+        value: 8
+      - field: model.parameter_count
+        operator: lt
+        value: 7000000000
+  recommendation: Use DistributedDataParallel when the full model fits on each GPU.
+  reason: DDP is simplest and fastest when replication fits; FSDP/ZeRO add overhead unnecessarily.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "PyTorch DDP tutorial"
+
+- id: multigpu-fsdp-when-oom
+  title: Switch to FSDP When Model Does Not Fit
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/fsdp.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: hardware.required_vram_gb
+        operator: gt
+        value: 0
+  recommendation: If per-GPU VRAM < required model+optimizer memory, use FSDP FULL_SHARD or DeepSpeed ZeRO.
+  reason: DDP replicates weights; sharding is mandatory past single-GPU capacity.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "FSDP"
+    - "DeepSpeed ZeRO"
+
+- id: multigpu-batch-scale
+  title: Scale Global Batch With GPU Count
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
+  category: training
+  condition:
+    field: hardware.gpu_count
+    operator: gte
+    value: 2
+  recommendation: Keep per-GPU micro-batch fixed; scale global batch by world size or adjust LR with sqrt/linear rules.
+  reason: Changing effective batch without LR adjustment shifts optimization dynamics.
+  confidence: 0.82
+  priority: 6
+  references:
+    - "Linear scaling rule"
+
+- id: multigpu-nccl-timeout
+  title: Watch for NCCL Timeouts / Hangs
+  source: NVIDIA NCCL Documentation
+  documentation_url: https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/index.html
+  category: hardware
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: training.distributed_hang
+        operator: eq
+        value: true
+  recommendation: Set NCCL_DEBUG=INFO, ensure equal work per rank, and check NVLink/IB fabric health.
+  reason: Uneven batches or network issues cause collective hangs that look like "frozen training".
+  confidence: 0.85
+  priority: 8
+  references:
+    - "NCCL troubleshooting"
+
+- id: multigpu-gradient-accum-sync
+  title: Sync Gradients Correctly With Accumulation
+  source: Hugging Face Accelerate
+  documentation_url: https://huggingface.co/docs/accelerate
+  category: training
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: training.gradient_accumulation_steps
+        operator: gte
+        value: 2
+  recommendation: Only all-reduce on the last accumulation step (Accelerate/DeepSpeed handle this if configured).
+  reason: Syncing every micro-step wastes bandwidth and can skew effective batch size.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "Accelerate gradient accumulation"
+
+- id: multigpu-single-node-first
+  title: Validate Single-Node Before Multi-Node
+  source: Preflight Hardware Knowledge
+  documentation_url: https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
+  category: hardware
+  condition:
+    field: hardware.node_count
+    operator: gte
+    value: 2
+  recommendation: Prove the job on 1 node (8 GPUs) before scaling to multi-node; fix data + checkpointing first.
+  reason: Multi-node adds network failure modes that obscure application bugs.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Distributed training playbooks"

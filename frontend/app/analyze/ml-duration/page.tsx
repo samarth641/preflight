@@ -28,12 +28,16 @@ const domainOptions = [
 
 const cloudProviderOptions = [
   { value: "none", label: "No cost estimate" },
-  { value: "aws", label: "AWS" },
-  { value: "gcp", label: "Google Cloud" },
-  { value: "azure", label: "Microsoft Azure" },
-  { value: "lambda", label: "Lambda Labs" },
-  { value: "runpod", label: "RunPod" },
-  { value: "vast", label: "Vast.ai" },
+  { value: "azure", label: "Microsoft Azure (AMD MI300X+ + NVIDIA)" },
+  { value: "tensorwave", label: "TensorWave (AMD)" },
+  { value: "digitalocean", label: "DigitalOcean (AMD MI300X + NVIDIA)" },
+  { value: "runpod", label: "RunPod (NVIDIA + AMD)" },
+  { value: "vast", label: "Vast.ai (NVIDIA + AMD)" },
+  { value: "salad", label: "SaladCloud (consumer NVIDIA)" },
+  { value: "coreweave", label: "CoreWeave (NVIDIA)" },
+  { value: "aws", label: "AWS (NVIDIA)" },
+  { value: "gcp", label: "Google Cloud (NVIDIA)" },
+  { value: "lambda", label: "Lambda Labs (NVIDIA)" },
 ]
 
 export default function MLDurationPage() {

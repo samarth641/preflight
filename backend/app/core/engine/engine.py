@@ -123,7 +123,8 @@ class KnowledgeEngine:
         return sorted(recommendations, key=lambda r: (-r.score, -r.priority))
 
     def _resolve_conflicts(self, recommendations: list[Recommendation]) -> list[Recommendation]:
-        """Keep highest-scored recommendation per category when conflicts arise."""
+        """Keep the top-scoring recommendations per category (avoid one rule silencing a whole topic)."""
+        max_per_category = 8
         by_category: dict[str, list[Recommendation]] = defaultdict(list)
 
         for rec in recommendations:
@@ -132,14 +133,14 @@ class KnowledgeEngine:
         resolved: list[Recommendation] = []
         for category_recs in by_category.values():
             category_recs.sort(key=lambda r: (-r.score, -r.priority))
-            resolved.append(category_recs[0])
+            kept = category_recs[:max_per_category]
+            resolved.extend(kept)
 
-            for suppressed in category_recs[1:]:
+            for suppressed in category_recs[max_per_category:]:
                 logger.debug(
-                    "Suppressed conflicting rule %s in category %s (kept %s)",
+                    "Suppressed lower-ranked rule %s in category %s",
                     suppressed.rule_id,
                     suppressed.category,
-                    category_recs[0].rule_id,
                 )
 
         return sorted(resolved, key=lambda r: (-r.score, -r.priority))

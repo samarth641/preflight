@@ -1,36 +1,207 @@
-# Approximate on-demand hourly rates (USD) — update periodically from provider pages.
+# Approximate on-demand hourly rates (USD).
+# Updated 2026-07 from public aggregators (cloud-gpus.com medians, AIMultiple,
+# GetDeploying, GPU Tracker). Hyperscaler list prices stay high; marketplace
+# medians are used for runpod/vast/lambda/coreweave/tensorwave where available.
 defaults:
   electricity_usd_per_kwh: 0.12
   storage_usd_per_gb_month: 0.023
   bandwidth_usd_per_gb: 0.09
 
 cloud_hourly_usd:
+  # Consumer NVIDIA
+  rtx-3060:
+    local: 0.0
+    vast: 0.12
+  rtx-3070:
+    local: 0.0
+    vast: 0.15
+  rtx-3080:
+    local: 0.0
+    vast: 0.20
+  rtx-3090:
+    runpod: 0.30
+    vast: 0.22
+  rtx-4060:
+    local: 0.0
+  rtx-4060-ti:
+    local: 0.0
+    vast: 0.18
+  rtx-4070:
+    runpod: 0.28
+    vast: 0.22
+  rtx-4070-ti:
+    runpod: 0.32
+    vast: 0.25
+  rtx-4070-super:
+    runpod: 0.30
+    vast: 0.24
+  rtx-4080:
+    runpod: 0.34
+    vast: 0.28
+  rtx-4080-super:
+    runpod: 0.36
+    vast: 0.30
   rtx-4090:
     runpod: 0.44
     lambda: 0.50
     vast: 0.35
-  rtx-4080:
-    runpod: 0.34
+  rtx-5070:
+    runpod: 0.42
+    vast: 0.34
+  rtx-5070-ti:
+    runpod: 0.48
+    vast: 0.38
+  rtx-5080:
+    runpod: 0.50
+    vast: 0.40
+  rtx-5090:
+    # Jul 2026 median ~$0.66–$0.79 on-demand (AIMultiple / cloud-gpus)
+    runpod: 0.69
+    vast: 0.55
+    salad: 0.27
+
+  # Consumer AMD
+  rx-7600:
+    vast: 0.12
+  rx-7700-xt:
+    vast: 0.16
+  rx-7800-xt:
+    vast: 0.18
+  rx-7900-xt:
+    runpod: 0.32
+    vast: 0.25
+  rx-7900-xtx:
+    runpod: 0.39
+    vast: 0.30
+  w7900:
+    vast: 0.55
+    runpod: 0.65
+
+  # Workstation / inference NVIDIA
+  t4:
+    aws: 0.53
+    gcp: 0.35
+    azure: 0.53
+  l4:
+    gcp: 0.70
+    aws: 0.81
+    # cloud-gpus median ~$0.88
+    runpod: 0.80
+  a10:
+    aws: 1.01
+    runpod: 0.60
+  a30:
+    aws: 1.20
+    gcp: 1.00
+  a40:
+    runpod: 0.79
+    vast: 0.55
+  l40:
+    runpod: 0.99
+    vast: 0.75
+  l40s:
+    # cloud-gpus median ~$1.57
+    runpod: 0.99
+    vast: 0.85
+    coreweave: 1.40
+  rtx-a4000:
+    runpod: 0.40
+    vast: 0.28
+  rtx-a5000:
+    runpod: 0.44
+    vast: 0.35
+  rtx-a6000:
+    runpod: 0.59
+    vast: 0.45
+    lambda: 0.80
+  rtx-6000-ada:
+    runpod: 1.04
+    lambda: 1.20
+  rtx-pro-6000:
+    runpod: 2.14
+    vast: 1.80
+  rtx-2080-ti:
+    vast: 0.14
+  rtx-2070-super:
+    vast: 0.10
+
+  # Datacenter NVIDIA
+  v100-32gb:
+    aws: 3.06
+    gcp: 2.48
+  a100-40gb:
+    aws: 4.10
+    runpod: 1.29
+    lambda: 1.10
   a100-80gb:
+    # marketplace median ~$1.39–$2.50; hyperscalers much higher
     aws: 32.77
     gcp: 30.00
     azure: 3.67
-    lambda: 1.10
+    lambda: 1.29
     runpod: 1.89
   h100-80gb:
+    # Jul 2026 marketplace median ~$2.99–$3.29 (AIMultiple / cloud-gpus)
     aws: 98.32
     gcp: 90.00
     azure: 6.98
-  rtx-3060:
-    local: 0.0
-  rtx-4060-ti:
-    local: 0.0
+    lambda: 2.49
+    runpod: 2.69
+    coreweave: 2.49
+    vast: 2.20
+  h100-nvl:
+    runpod: 2.99
+    lambda: 2.79
+  h200:
+    # cloud-gpus H200 SXM median ~$4.44
+    aws: 110.00
+    coreweave: 3.99
+    runpod: 3.99
+    lambda: 3.49
+  gh200:
+    # cloud-gpus median ~$3.08
+    coreweave: 3.08
+    runpod: 3.50
+  b200:
+    # cloud-gpus / AIMultiple median ~$6.11–$6.84
+    coreweave: 5.50
+    runpod: 6.00
+    lambda: 5.99
+    vast: 4.50
+  b300:
+    coreweave: 7.50
+    runpod: 8.00
+    vast: 5.50
+  gb200:
+    coreweave: 8.00
+    aws: 13.00
+
+  # Datacenter AMD — Jul 2026 medians (cloud-gpus / AIMultiple)
+  mi100:
+    azure: 1.80
+  mi210:
+    azure: 2.50
+  mi250x:
+    azure: 3.50
   mi300x:
-    # AWS does not offer MI300X instances (AWS accelerated computing is NVIDIA-only).
-    # Azure ND MI300X v5 is the confirmed real provider; rate per Thunder Compute's
-    # July 2026 pricing roundup (secondary source — Azure's own pricing page was
-    # unreachable at edit time). Re-verify before quoting precisely in the demo.
+    # median ~$2.33–$2.72; Azure list higher
     azure: 6.00
+    runpod: 2.49
+    tensorwave: 2.33
+    digitalocean: 1.99
+  mi325x:
+    azure: 7.50
+    runpod: 2.00
+    tensorwave: 2.20
+  mi350x:
+    tensorwave: 4.50
+    azure: 8.00
+    runpod: 4.99
+  mi355x:
+    # cloud-gpus ~$5.60
+    tensorwave: 5.60
+    azure: 9.00
+    runpod: 5.99
 
 # Baseline training speed reference (7B transformer, 10k samples, batch 8, 1 epoch ≈ 1 hour on A100)
 training_baseline:

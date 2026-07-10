@@ -23,13 +23,135 @@
     and:
       - field: hardware.gpu_architecture
         operator: in
-        value: ["ampere", "hopper", "ada"]
+        value: ["ampere", "hopper", "ada", "blackwell"]
       - field: training.mixed_precision
         operator: eq
         value: false
-  recommendation: Enable mixed precision training to utilize Tensor Cores for matrix operations.
+  recommendation: Enable mixed precision training (FP16/BF16) to utilize Tensor Cores for matrix operations.
   reason: Tensor Cores provide significant speedup for FP16/BF16 matrix multiply operations.
   confidence: 0.87
   priority: 7
   references:
     - "CUDA WMMA documentation"
+
+- id: cuda-tf32-ampere
+  title: Enable TF32 on Ampere+ GPUs
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/cuda/cublas/index.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_architecture
+        operator: in
+        value: ["ampere", "hopper", "ada", "blackwell"]
+      - field: training.precision
+        operator: eq
+        value: fp32
+  recommendation: Allow TF32 (torch.backends.cuda.matmul.allow_tf32=True) for ~3–8x matmul speedup with FP32-like accuracy.
+  reason: Ampere+ Tensor Cores accelerate FP32 math via TF32 without changing model code to FP16.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "NVIDIA TF32 blog"
+    - "PyTorch TF32 notes"
+
+- id: cuda-channels-last
+  title: Use Channels-Last Memory Format for CNNs
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/tutorials/intermediate/memory_format_tutorial.html
+  category: optimization
+  condition:
+    and:
+      - field: model.architecture
+        operator: in
+        value: ["cnn", "vision", "resnet"]
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+  recommendation: Convert model and inputs to channels_last (NHWC) for better Tensor Core utilization on conv nets.
+  reason: NCHW layout under-utilizes Tensor Cores on modern NVIDIA GPUs for convolutions.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "PyTorch channels_last tutorial"
+
+- id: cuda-cudnn-benchmark
+  title: Enable cuDNN Benchmark for Fixed Input Sizes
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/backends.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+      - field: training.variable_input_size
+        operator: eq
+        value: false
+  recommendation: Set torch.backends.cudnn.benchmark=True when image/sequence sizes are fixed.
+  reason: cuDNN autotunes convolution algorithms once; variable sizes make benchmarking wasteful.
+  confidence: 0.82
+  priority: 5
+  references:
+    - "PyTorch cuDNN backends"
+
+- id: cuda-oom-activation
+  title: Activation Memory Dominating VRAM
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/cuda/
+  category: hardware
+  condition:
+    and:
+      - field: hardware.vram_usage_percent
+        operator: gte
+        value: 85
+      - field: model.parameter_count
+        operator: lt
+        value: 7000000000
+  recommendation: Enable gradient checkpointing, lower sequence length/image size, or reduce batch size.
+  reason: For mid-size models, activations (not weights) usually drive OOM at long sequences or large batches.
+  confidence: 0.84
+  priority: 7
+  references:
+    - "Activation checkpointing guides"
+
+- id: cuda-multi-gpu-nccl
+  title: Use NCCL for Multi-GPU Communication
+  source: NVIDIA NCCL Documentation
+  documentation_url: https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/index.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+  recommendation: Prefer NCCL backend (torch.distributed) over Gloo for GPU collectives.
+  reason: NCCL is optimized for NVIDIA multi-GPU all-reduce and scales better than CPU-based Gloo.
+  confidence: 0.90
+  priority: 7
+  references:
+    - "NCCL user guide"
+    - "PyTorch DDP"
+
+- id: cuda-pinned-memory
+  title: Enable Pinned Host Memory for Transfers
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/data.html
+  category: optimization
+  condition:
+    and:
+      - field: training.gpu_utilization
+        operator: lt
+        value: 75
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+  recommendation: Use DataLoader pin_memory=True and non_blocking=True transfers to overlap H2D copies.
+  reason: Pageable host memory stalls DMA; pinned memory unlocks async copies and higher GPU occupancy.
+  confidence: 0.83
+  priority: 6
+  references:
+    - "PyTorch DataLoader pin_memory"

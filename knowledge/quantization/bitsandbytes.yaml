@@ -1,0 +1,116 @@
+- id: quant-bnb-4bit
+  title: Use bitsandbytes 4-bit for Base Weights
+  source: bitsandbytes Documentation
+  documentation_url: https://huggingface.co/docs/bitsandbytes
+  category: optimization
+  condition:
+    and:
+      - field: hardware.vram_gb
+        operator: lt
+        value: 24
+      - field: model.parameter_count
+        operator: gte
+        value: 3000000000
+  recommendation: Load the base model in 4-bit NF4 (bnb) and train LoRA adapters in BF16/FP16.
+  reason: 4-bit bases cut weight memory ~4x so 7B–13B models fit on 12–16GB GPUs.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "QLoRA"
+    - "bitsandbytes"
+
+- id: quant-bnb-8bit
+  title: Prefer 8-bit Over Aggressive 4-bit When Quality Matters
+  source: bitsandbytes Documentation
+  documentation_url: https://huggingface.co/docs/bitsandbytes
+  category: optimization
+  condition:
+    and:
+      - field: hardware.vram_gb
+        operator: gte
+        value: 24
+      - field: hardware.vram_gb
+        operator: lt
+        value: 48
+      - field: model.parameter_count
+        operator: gte
+        value: 7000000000
+  recommendation: Try 8-bit loading before 4-bit if eval quality drops on hard tasks.
+  reason: 8-bit often preserves more fidelity than NF4 while still saving substantial VRAM.
+  confidence: 0.78
+  priority: 5
+  references:
+    - "LLM.int8()"
+
+- id: quant-gptq-awq-infer
+  title: Use GPTQ/AWQ for Inference Deployment
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/quantization
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: model.parameter_count
+        operator: gte
+        value: 7000000000
+  recommendation: Serve with AWQ or GPTQ quantized checkpoints for higher tokens/sec at lower VRAM.
+  reason: Weight-only quantization is standard for production LLM inference on limited GPUs.
+  confidence: 0.86
+  priority: 7
+  references:
+    - "AWQ"
+    - "GPTQ"
+
+- id: quant-dont-train-gptq
+  title: Do Not Fine-Tune GPTQ Weights Directly
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/quantization
+  category: training
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: full
+      - field: model.quantization
+        operator: in
+        value: ["gptq", "awq"]
+  recommendation: Fine-tune FP16/BF16 or QLoRA adapters; quantize to GPTQ/AWQ after training for serve.
+  reason: GPTQ/AWQ checkpoints are optimized for inference, not gradient updates.
+  confidence: 0.88
+  priority: 8
+  references:
+    - "Quantization for training vs inference"
+
+- id: quant-double-quant
+  title: Enable Double Quantization in QLoRA
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    field: training.mode
+    operator: eq
+    value: qlora
+  recommendation: Keep bnb_4bit_use_double_quant=True for a small extra VRAM win on consumer cards.
+  reason: Double quant compresses quantization constants with negligible quality impact.
+  confidence: 0.80
+  priority: 4
+  references:
+    - "QLoRA paper"
+
+- id: quant-compute-dtype
+  title: Set Compute Dtype to BF16/FP16 for 4-bit Bases
+  source: bitsandbytes Documentation
+  documentation_url: https://huggingface.co/docs/bitsandbytes
+  category: optimization
+  condition:
+    field: training.mode
+    operator: eq
+    value: qlora
+  recommendation: Use bnb_4bit_compute_dtype=bfloat16 (or float16) matching your GPU generation.
+  reason: Wrong compute dtype slows matmuls or causes numerical issues during adapter training.
+  confidence: 0.83
+  priority: 5
+  references:
+    - "bitsandbytes config"

@@ -43,11 +43,20 @@ def recommender(knowledge_root: Path) -> GPURecommender:
 class TestGPURegistry:
     def test_loads_all_gpus(self, gpu_registry: GPURegistry) -> None:
         gpus = gpu_registry.load()
-        assert len(gpus) >= 11
+        assert len(gpus) >= 50
         ids = {gpu.id for gpu in gpus}
         assert "rtx-4090" in ids
         assert "h100-80gb" in ids
         assert "mi300x" in ids
+        assert "rtx-5090" in ids
+        assert "rx-7900-xtx" in ids
+        assert "h200" in ids
+        assert "mi325x" in ids
+        assert "gh200" in ids
+        assert "rtx-a5000" in ids
+        assert "mi350x" in ids
+        assert "b300" in ids
+        assert "gb200" in ids
 
     def test_get_by_id(self, gpu_registry: GPURegistry) -> None:
         gpu = gpu_registry.get("rtx-3060")
@@ -122,7 +131,11 @@ class TestGPURecommender:
         result = recommender.recommend(request)
         assert result.required_vram_gb > 40
         gpu_ids = {candidate.gpu.id for candidate in result.candidates}
-        assert "a100-80gb" in gpu_ids or "h100-80gb" in gpu_ids or "mi300x" in gpu_ids
+        datacenter = {
+            "a100-80gb", "h100-80gb", "h200", "b200", "b300", "gb200", "gh200",
+            "mi300x", "mi325x", "mi350x", "mi355x",
+        }
+        assert gpu_ids & datacenter
 
     def test_vendor_filter(self, recommender: GPURecommender) -> None:
         request = GPURecommendationRequest(

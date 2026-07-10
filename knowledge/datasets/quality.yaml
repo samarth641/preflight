@@ -15,6 +15,26 @@
     - "Focal Loss paper"
     - "PyTorch CrossEntropyLoss documentation"
 
+- id: dataset-moderate-imbalance
+  title: Mild Class Imbalance Detected
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/nn.html#torch.nn.CrossEntropyLoss
+  category: dataset
+  condition:
+    and:
+      - field: dataset.class_imbalance_ratio
+        operator: gte
+        value: 2
+      - field: dataset.class_imbalance_ratio
+        operator: lt
+        value: 5
+  recommendation: Monitor per-class F1; consider class weights if minority recall lags.
+  reason: Moderate imbalance often still trains, but metrics can hide minority failures.
+  confidence: 0.75
+  priority: 4
+  references:
+    - "Class imbalance best practices"
+
 - id: dataset-low-resolution
   title: Increase Image Resolution
   source: PyTorch Documentation
@@ -31,6 +51,22 @@
   references:
     - "ImageNet preprocessing standards"
 
+- id: dataset-very-low-resolution
+  title: Very Low Resolution Images
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    field: dataset.median_resolution
+    operator: lt
+    value: 64
+  recommendation: Collect higher-resolution data or use specialized low-res architectures; avoid naive upscaling alone.
+  reason: Sub-64px images rarely retain enough signal for standard ImageNet-style CNNs/ViTs.
+  confidence: 0.88
+  priority: 8
+  references:
+    - "Low-resolution recognition literature"
+
 - id: dataset-duplicates
   title: Remove Duplicate Images
   source: PyTorch Documentation
@@ -46,6 +82,22 @@
   priority: 7
   references:
     - "Dataset quality best practices"
+
+- id: dataset-near-duplicates
+  title: High Near-Duplicate Rate
+  source: Preflight Dataset Analyzer
+  documentation_url: https://pytorch.org/vision/stable/index.html
+  category: dataset
+  condition:
+    field: dataset.near_duplicate_percent
+    operator: gte
+    value: 10
+  recommendation: Deduplicate with perceptual hash (pHash) and ensure near-duplicates do not cross train/val.
+  reason: Near-duplicates leak identity across splits and inflate validation accuracy.
+  confidence: 0.84
+  priority: 7
+  references:
+    - "Perceptual hashing for datasets"
 
 - id: dataset-blur
   title: Remove or Fix Blurry Images
@@ -94,3 +146,206 @@
   priority: 6
   references:
     - "Data augmentation best practices"
+
+- id: dataset-tiny
+  title: Extremely Small Dataset
+  source: Preflight Dataset Analyzer
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    field: dataset.image_count
+    operator: lt
+    value: 100
+  recommendation: Prefer transfer learning + heavy augmentation; consider few-shot methods over training from scratch.
+  reason: Under 100 images, from-scratch training almost always overfits.
+  confidence: 0.92
+  priority: 9
+  references:
+    - "Transfer learning best practices"
+
+- id: dataset-train-val-leak
+  title: Ensure Proper Train/Val Split
+  source: Preflight Dataset Analyzer
+  documentation_url: https://scikit-learn.org/stable/modules/cross_validation.html
+  category: dataset
+  condition:
+    field: dataset.has_validation_split
+    operator: eq
+    value: false
+  recommendation: Hold out 10–20% stratified validation (or group split by patient/scene) before training.
+  reason: Without a held-out set you cannot detect overfitting or tune hyperparameters safely.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "Train/validation/test split guidelines"
+
+- id: dataset-augmentation-needed
+  title: Enable Data Augmentation
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    and:
+      - field: dataset.image_count
+        operator: lt
+        value: 5000
+      - field: dataset.augmentation_enabled
+        operator: eq
+        value: false
+  recommendation: Add RandomResizedCrop, flips, color jitter, and RandAugment/AutoAugment for vision tasks.
+  reason: Mid-size datasets without augmentation overfit quickly on modern architectures.
+  confidence: 0.83
+  priority: 6
+  references:
+    - "RandAugment"
+    - "torchvision transforms"
+
+- id: dataset-corrupt-files
+  title: Corrupt or Unreadable Files Detected
+  source: Preflight Dataset Analyzer
+  documentation_url: https://pillow.readthedocs.io/
+  category: dataset
+  condition:
+    field: dataset.corrupt_percent
+    operator: gte
+    value: 1
+  recommendation: Remove or repair corrupt files; fail the dataloader early with a checksum pass.
+  reason: Corrupt images crash training mid-epoch and bias sampling if silently skipped inconsistently.
+  confidence: 0.95
+  priority: 9
+  references:
+    - "Dataset integrity checks"
+
+- id: dataset-label-noise
+  title: Suspected Label Noise
+  source: Preflight Dataset Analyzer
+  documentation_url: https://pytorch.org/docs/stable/nn.html
+  category: dataset
+  condition:
+    field: dataset.estimated_label_noise_percent
+    operator: gte
+    value: 10
+  recommendation: Audit labels, use confident learning / loss correction, or train with label-smoothing.
+  reason: High label noise caps achievable accuracy and can look like underfitting.
+  confidence: 0.78
+  priority: 7
+  references:
+    - "Confident Learning"
+    - "Label smoothing"
+
+- id: dataset-text-too-short
+  title: Very Short Text Samples
+  source: Hugging Face Datasets
+  documentation_url: https://huggingface.co/docs/datasets
+  category: dataset
+  condition:
+    field: dataset.median_token_length
+    operator: lt
+    value: 8
+  recommendation: Filter empty/near-empty strings; verify tokenization and preprocessing pipeline.
+  reason: Extremely short sequences provide weak supervision for language models.
+  confidence: 0.80
+  priority: 6
+  references:
+    - "Text dataset cleaning guides"
+
+- id: dataset-long-context
+  title: Long Sequences May Blow VRAM
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+  category: dataset
+  condition:
+    field: dataset.median_token_length
+    operator: gte
+    value: 4096
+  recommendation: Use packing, truncation, Flash Attention, or gradient checkpointing; consider RoPE scaling carefully.
+  reason: Attention memory grows with sequence length; long-context batches OOM quickly.
+  confidence: 0.88
+  priority: 8
+  references:
+    - "Flash Attention"
+    - "Sequence packing"
+
+- id: dataset-class-count-low
+  title: Too Few Classes for Robust Classification
+  source: Preflight Dataset Analyzer
+  documentation_url: https://pytorch.org/vision/stable/datasets.html
+  category: dataset
+  condition:
+    and:
+      - field: dataset.class_count
+        operator: lte
+        value: 2
+      - field: dataset.image_count
+        operator: lt
+        value: 1000
+  recommendation: Collect more diverse samples per class; binary tasks still need breadth within each label.
+  reason: Tiny binary sets overfit to spurious cues (background, lighting).
+  confidence: 0.76
+  priority: 4
+  references:
+    - "Dataset diversity"
+
+- id: dataset-exif-orientation
+  title: Normalize Image Orientation
+  source: Pillow Documentation
+  documentation_url: https://pillow.readthedocs.io/en/stable/reference/ImageOps.html
+  category: dataset
+  condition:
+    field: dataset.has_exif_orientation_issues
+    operator: eq
+    value: true
+  recommendation: Apply ImageOps.exif_transpose during ingest so labels match upright pixels.
+  reason: Phone photos often store rotation in EXIF; models otherwise learn sideways artifacts.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "EXIF orientation"
+
+- id: dataset-color-space
+  title: Standardize Color Space
+  source: Preflight Dataset Analyzer
+  documentation_url: https://pillow.readthedocs.io/
+  category: dataset
+  condition:
+    field: dataset.mixed_color_modes
+    operator: eq
+    value: true
+  recommendation: Convert all images to RGB before training; reject CMYK/ Paletted surprises.
+  reason: Mixed modes crash transforms or silently drop channels.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "Image mode conversion"
+
+- id: dataset-text-lang-mix
+  title: Mixed-Language Corpus
+  source: Hugging Face Datasets
+  documentation_url: https://huggingface.co/docs/datasets
+  category: dataset
+  condition:
+    field: dataset.language_count
+    operator: gte
+    value: 3
+  recommendation: Stratify eval by language; consider multilingual tokenizers and balanced sampling.
+  reason: Dominant languages otherwise monopolize gradient updates.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Multilingual training"
+
+- id: dataset-pii
+  title: Scrub PII Before Training
+  source: Preflight Dataset Analyzer
+  documentation_url: https://huggingface.co/docs/hub/security
+  category: dataset
+  condition:
+    field: dataset.contains_pii
+    operator: eq
+    value: true
+  recommendation: Redact emails/phones/IDs; avoid committing raw dumps to public repos.
+  reason: Models memorize rare strings; PII in data becomes a compliance and safety risk.
+  confidence: 0.90
+  priority: 9
+  references:
+    - "Data privacy for ML"

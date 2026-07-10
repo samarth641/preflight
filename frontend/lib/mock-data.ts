@@ -43,7 +43,10 @@ export const MOCK_CLOUD: CloudOffering[] = [
   { provider_id: "runpod", provider_name: "RunPod", provider_url: "https://www.runpod.io/", gpu_id: "rtx-4090", gpu_name: "NVIDIA RTX 4090", instance_type: "RTX 4090", vram_gb: 24, gpu_count: 1, notes: "On-demand RTX 4090 pods" },
   { provider_id: "runpod", provider_name: "RunPod", provider_url: "https://www.runpod.io/", gpu_id: "rtx-4080", gpu_name: "NVIDIA RTX 4080", instance_type: "RTX 4080", vram_gb: 16, gpu_count: 1, notes: "Budget-friendly 16GB option" },
   { provider_id: "runpod", provider_name: "RunPod", provider_url: "https://www.runpod.io/", gpu_id: "a100-80gb", gpu_name: "NVIDIA A100 80GB", instance_type: "A100 80GB", vram_gb: 80, gpu_count: 1, notes: "Single A100 for fine-tuning large models" },
-  { provider_id: "vast", provider_name: "Vast.ai", provider_url: "https://vast.ai/", gpu_id: "rtx-4090", gpu_name: "NVIDIA RTX 4090", instance_type: "RTX 4090", vram_gb: 24, gpu_count: 1, notes: "Marketplace pricing, variable availability" },
+  { provider_id: "azure", provider_name: "Microsoft Azure", provider_url: "https://azure.microsoft.com/en-us/products/virtual-machines", gpu_id: "mi300x", gpu_name: "AMD MI300X", instance_type: "ND MI300X v5", vram_gb: 192, gpu_count: 1, notes: "AMD MI300X — strong $/VRAM for large models (ROCm)" },
+  { provider_id: "runpod", provider_name: "RunPod", provider_url: "https://www.runpod.io/", gpu_id: "rtx-5090", gpu_name: "NVIDIA RTX 5090", instance_type: "RTX 5090", vram_gb: 32, gpu_count: 1, notes: "Blackwell 32GB consumer GPU" },
+  { provider_id: "runpod", provider_name: "RunPod", provider_url: "https://www.runpod.io/", gpu_id: "rx-7900-xtx", gpu_name: "AMD RX 7900 XTX", instance_type: "RX 7900 XTX", vram_gb: 24, gpu_count: 1, notes: "AMD 24GB — often cheaper than NVIDIA peers (ROCm)" },
+  { provider_id: "vast", provider_name: "Vast.ai", provider_url: "https://vast.ai/", gpu_id: "rx-7900-xtx", gpu_name: "AMD RX 7900 XTX", instance_type: "RX 7900 XTX", vram_gb: 24, gpu_count: 1, notes: "Budget AMD 24GB marketplace option" },
 ]
 
 // ─── Knowledge Engine Recommendations ───

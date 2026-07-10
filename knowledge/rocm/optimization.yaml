@@ -17,3 +17,219 @@
   priority: 6
   references:
     - "MIOpen convolution documentation"
+
+- id: rocm-pytorch-version
+  title: Use ROCm-Compatible PyTorch Build
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/projects/install-on-linux/en/latest/how-to/3rd-party/pytorch-install.html
+  category: hardware
+  condition:
+    field: hardware.gpu_vendor
+    operator: eq
+    value: amd
+  recommendation: Install the official ROCm PyTorch wheel matching your ROCm version; do not use CUDA wheels on AMD.
+  reason: CUDA builds will not see AMD GPUs; mismatched ROCm/PyTorch pairs cause cryptic runtime failures.
+  confidence: 0.95
+  priority: 9
+  references:
+    - "ROCm PyTorch install guide"
+
+- id: rocm-flash-attn-alt
+  title: Prefer AOTriton / lean attention kernels on ROCm
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "bert"]
+  recommendation: Use ROCm-supported attention backends (AOTriton/flash-attn ROCm builds) instead of NVIDIA-only flash-attn.
+  reason: Stock flash-attn CUDA wheels fail on AMD; ROCm alternatives restore long-context efficiency.
+  confidence: 0.82
+  priority: 7
+  references:
+    - "ROCm Transformer Engine / AOTriton"
+
+- id: rocm-hip-visible-devices
+  title: Set HIP_VISIBLE_DEVICES for Multi-GPU
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/
+  category: hardware
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+  recommendation: Use HIP_VISIBLE_DEVICES (not CUDA_VISIBLE_DEVICES alone) to pin AMD GPUs for distributed jobs.
+  reason: Device visibility env vars differ between CUDA and HIP stacks.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "ROCm environment variables"
+
+- id: rocm-mixed-precision
+  title: Prefer BF16 on CDNA Instinct GPUs
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: hardware.gpu_architecture
+        operator: in
+        value: ["cdna2", "cdna3"]
+  recommendation: Use BF16 mixed precision on MI210/MI250X/MI300X when the model supports it.
+  reason: CDNA GPUs are strong at BF16; FP16 can be less stable on some ROCm paths.
+  confidence: 0.84
+  priority: 7
+  references:
+    - "AMD Instinct training guides"
+
+- id: rocm-consumer-rdna-caveat
+  title: Consumer RDNA Training Caveats
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/
+  category: hardware
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: hardware.gpu_architecture
+        operator: in
+        value: ["rdna3"]
+  recommendation: Expect more framework gaps on RX 7900-class cards; pin known-good ROCm + PyTorch versions and test kernels early.
+  reason: Consumer RDNA support lags Instinct; some ops fall back to slow paths or fail.
+  confidence: 0.80
+  priority: 7
+  references:
+    - "ROCm GPU support matrix"
+
+- id: rocm-rccl
+  title: Use RCCL for AMD Multi-GPU Collectives
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/projects/rccl/en/latest/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+  recommendation: Configure torch.distributed with RCCL backend for AMD multi-GPU all-reduce.
+  reason: RCCL is the NCCL equivalent on ROCm and is required for efficient scaling.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "RCCL documentation"
+
+- id: rocm-azure-marketplace-image
+  title: Use Azure HPC ROCm Marketplace Image
+  source: Microsoft Azure Documentation
+  documentation_url: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/azure-nd-mi300-series-amd-gpu-driver-linux-installation-guide
+  category: hardware
+  condition:
+    and:
+      - field: hardware.gpu_id
+        operator: in
+        value: ["mi300x", "mi325x", "mi350x", "mi355x"]
+      - field: hardware.cloud_provider
+        operator: eq
+        value: azure
+  recommendation: Deploy microsoft-dsvm:ubuntu-hpc:2204-rocm (Ubuntu 22.04, ROCm 6.2.2) instead of DIY driver installs.
+  reason: Azure ND MI300X requires matched kernel/ROCm; marketplace images avoid broken driver stacks.
+  confidence: 0.92
+  priority: 8
+  references:
+    - "Azure ND MI300X driver guide"
+    - "AMD Instinct on Azure"
+
+- id: rocm-rccl-bandwidth-test
+  title: Run RCCL Bandwidth Test Before Multi-Node
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/en/latest/how-to/rocm-for-ai/system-setup/prerequisite-system-validation.html
+  category: hardware
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: hardware.node_count
+        operator: gte
+        value: 2
+  recommendation: Run rccl-tests all-reduce bandwidth check before launching multi-node training.
+  reason: Fabric misconfig is the #1 silent killer of AMD multi-node jobs.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "ROCm system validation"
+    - "rccl-tests"
+
+- id: rocm-fp8-instinct
+  title: Prefer FP8 on MI300X+ for Throughput
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_id
+        operator: in
+        value: ["mi300x", "mi325x", "mi350x", "mi355x"]
+      - field: training.mode
+        operator: in
+        value: ["full", "lora"]
+  recommendation: Use FP8 training/inference paths (Primus / Transformer Engine ROCm) when the model supports it.
+  reason: CDNA3/4 Instinct GPUs deliver large FP8 throughput gains vs BF16 alone.
+  confidence: 0.82
+  priority: 6
+  references:
+    - "ROCm Primus"
+    - "AMD MI300X training guides"
+
+- id: rocm-hipblaslt
+  title: Enable hipBLASLt Preference
+  source: AMD ROCm Documentation
+  documentation_url: https://rocm.docs.amd.com/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: amd
+      - field: hardware.gpu_architecture
+        operator: in
+        value: ["cdna3", "cdna4"]
+  recommendation: Set TORCH_BLAS_PREFER_HIPBLASLT=1 for faster GEMMs on MI300-class GPUs.
+  reason: hipBLASLt is the preferred matmul backend on modern Instinct hardware.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "ROCm PyTorch performance env vars"
+
+- id: rocm-mi350-memory
+  title: MI350-Class Memory Advantage
+  source: AMD Instinct Documentation
+  documentation_url: https://www.amd.com/en/products/accelerators/instinct/mi350.html
+  category: hardware
+  condition:
+    field: hardware.gpu_id
+    operator: in
+    value: ["mi350x", "mi355x"]
+  recommendation: Exploit 288GB HBM3E for large-context inference or full fine-tunes that OOM on 80–141GB NVIDIA cards.
+  reason: MI350 series leads on capacity vs B200 192GB for memory-bound LLM workloads.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "AMD MI350X product page"
+    - "MI350 vs B200 comparisons (2026)"

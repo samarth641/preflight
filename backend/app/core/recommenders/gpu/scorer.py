@@ -42,21 +42,26 @@ def score_gpu(
     fit_rating = _fit_rating(utilization, headroom)
     reasons: list[str] = []
 
-    # VRAM fit score: sweet spot is 50-85% utilization
-    if 0.5 <= utilization <= 0.85:
+    # VRAM fit: sweet spot 40-85%. Extra VRAM is headroom, not a hard penalty —
+    # otherwise high-VRAM AMD cards (MI300X, 7900 XTX) lose to smaller NVIDIA GPUs.
+    if 0.4 <= utilization <= 0.85:
         vram_score = 1.0
         reasons.append("Good VRAM fit — efficient utilization")
-    elif utilization < 0.5:
-        vram_score = 0.7 - (0.5 - utilization) * 0.4
-        reasons.append("More VRAM than needed — consider a cheaper GPU")
+    elif utilization < 0.4:
+        # Soft floor so large-VRAM value GPUs stay competitive
+        vram_score = max(0.65, 0.95 - (0.4 - utilization) * 0.6)
+        if utilization < 0.15:
+            reasons.append("Large VRAM headroom — useful for bigger batches; check cloud $/hr vs smaller GPUs")
+        else:
+            reasons.append("Extra VRAM headroom — room to grow batch size")
     else:
-        vram_score = 0.8 - (utilization - 0.85) * 2
+        vram_score = max(0.45, 0.8 - (utilization - 0.85) * 2)
         reasons.append("Tight VRAM fit — limited headroom for larger batches")
 
     perf_score = perf_value / max_perf if max_perf > 0 else 0.5
     if perf_from_benchmark:
         reasons.append("Ranked on measured training throughput (benchmark)")
-    efficiency_score = perf_score / max(gpu.power_watts / 200, 0.5)
+    efficiency_score = min(1.0, perf_score / max(gpu.power_watts / 200, 0.5))
 
     vendor_score = 1.0
     if request.preferred_vendor:
@@ -68,17 +73,21 @@ def score_gpu(
     if request.budget_tier and tier_score < 0.8:
         reasons.append(f"Tier '{gpu.training_speed_tier}' may exceed budget '{request.budget_tier.value}'")
 
+    # Light MSRP value signal so cheaper cards aren't buried by peak TFLOPS alone
+    value_score = _msrp_value_score(gpu.msrp_usd)
+
     if gpu.vendor == "nvidia":
         reasons.append("Full CUDA ecosystem support")
     elif gpu.vendor == "amd":
         reasons.append("ROCm support — verify framework compatibility")
 
     score = (
-        vram_score * 0.40
-        + perf_score * 0.25
+        vram_score * 0.35
+        + perf_score * 0.20
         + efficiency_score * 0.10
         + vendor_score * 0.10
-        + tier_score * 0.15
+        + tier_score * 0.10
+        + value_score * 0.15
     )
 
     if fit_rating == FitRating.INSUFFICIENT:
@@ -99,11 +108,26 @@ def _fit_rating(utilization: float, headroom_gb: float) -> FitRating:
         return FitRating.INSUFFICIENT
     if utilization > 0.9:
         return FitRating.TIGHT
-    if utilization < 0.35:
+    # Only extreme under-use is "overkill" (was 0.35 — punished AMD 192GB unfairly)
+    if utilization < 0.12:
         return FitRating.OVERKILL
-    if 0.5 <= utilization <= 0.85:
+    if 0.4 <= utilization <= 0.85:
         return FitRating.EXCELLENT
     return FitRating.GOOD
+
+
+def _msrp_value_score(msrp_usd: float | None) -> float:
+    """Map purchase price to 0–1 where cheaper is better. Unknown MSRP → neutral."""
+    if not msrp_usd or msrp_usd <= 0:
+        return 0.7
+    # Log-ish curve: $500 → ~1.0, $2000 → ~0.7, $15000 → ~0.35, $30000 → ~0.25
+    if msrp_usd <= 500:
+        return 1.0
+    if msrp_usd <= 2000:
+        return 1.0 - (msrp_usd - 500) / 1500 * 0.3
+    if msrp_usd <= 15000:
+        return 0.7 - (msrp_usd - 2000) / 13000 * 0.35
+    return max(0.2, 0.35 - (msrp_usd - 15000) / 30000 * 0.15)
 
 
 def _tier_score(gpu_tier: str, budget: BudgetTier | None) -> float:

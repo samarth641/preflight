@@ -1,0 +1,92 @@
+- id: sched-warmup-required
+  title: Always Warm Up Learning Rate
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    and:
+      - field: training.epochs
+        operator: gte
+        value: 1
+      - field: training.has_lr_warmup
+        operator: eq
+        value: false
+  recommendation: Add 3–10% step warmup (linear) before cosine/constant decay.
+  reason: Large early steps destabilize transformers and cause loss spikes.
+  confidence: 0.86
+  priority: 7
+  references:
+    - "Attention Is All You Need"
+    - "LR warmup"
+
+- id: sched-cosine-default
+  title: Default to Cosine Decay for Multi-Epoch Runs
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.CosineAnnealingLR.html
+  category: training
+  condition:
+    field: training.epochs
+    operator: gte
+    value: 3
+  recommendation: Use cosine annealing (or cosine with restarts for long runs) after warmup.
+  reason: Cosine schedules are robust defaults for vision and LLM fine-tunes.
+  confidence: 0.82
+  priority: 5
+  references:
+    - "SGDR / cosine annealing"
+
+- id: sched-constant-short-sft
+  title: Constant LR OK for Short SFT
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers
+  category: training
+  condition:
+    and:
+      - field: training.epochs
+        operator: lte
+        value: 2
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+  recommendation: Constant LR with short warmup is acceptable for 1–2 epoch LoRA SFT.
+  reason: Aggressive decay on tiny epoch budgets undertrains adapters.
+  confidence: 0.78
+  priority: 4
+  references:
+    - "SFT hyperparameter guides"
+
+- id: sched-plateau-reduce
+  title: Reduce LR on Plateau
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html
+  category: training
+  condition:
+    field: training.train_loss_stagnant
+    operator: eq
+    value: true
+  recommendation: Attach ReduceLROnPlateau on val loss (factor 0.5, patience 2–3) if cosine is not used.
+  reason: Stagnant loss often needs a scheduled LR drop rather than more epochs alone.
+  confidence: 0.80
+  priority: 6
+  references:
+    - "ReduceLROnPlateau"
+
+- id: sched-layerwise-decay
+  title: Consider Layer-wise LR Decay for Fine-Tunes
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers
+  category: training
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: full
+      - field: model.architecture
+        operator: in
+        value: ["bert", "roberta", "vision"]
+  recommendation: Apply lower LR to early layers and higher LR to the head (LLRD).
+  reason: Preserves pretrained features while adapting task-specific layers faster.
+  confidence: 0.76
+  priority: 4
+  references:
+    - "Layer-wise learning rate decay"

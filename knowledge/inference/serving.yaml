@@ -1,0 +1,119 @@
+- id: infer-vllm
+  title: Prefer vLLM for High-Throughput Serving
+  source: vLLM Documentation
+  documentation_url: https://docs.vllm.ai/
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: model.architecture
+        operator: in
+        value: ["llama", "mistral", "gemma", "qwen", "transformer"]
+  recommendation: Serve with vLLM (PagedAttention) for continuous batching and higher tokens/sec.
+  reason: Naive HF generate loops under-utilize GPUs under concurrent load.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "vLLM"
+    - "PagedAttention"
+
+- id: infer-tensor-parallel
+  title: Use Tensor Parallelism for Large Inference
+  source: vLLM Documentation
+  documentation_url: https://docs.vllm.ai/
+  category: hardware
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: model.parameter_count
+        operator: gte
+        value: 30000000000
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+  recommendation: Shard the model with tensor parallel size matching GPU count (2/4/8).
+  reason: 30B+ models often exceed single-GPU VRAM even when quantized.
+  confidence: 0.87
+  priority: 8
+  references:
+    - "Tensor parallelism"
+
+- id: infer-kv-cache
+  title: Size KV Cache for Concurrent Contexts
+  source: vLLM Documentation
+  documentation_url: https://docs.vllm.ai/
+  category: hardware
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: training.sequence_length
+        operator: gte
+        value: 4096
+  recommendation: Estimate KV cache VRAM from concurrent sequences × context; reduce max_model_len or concurrency if OOM.
+  reason: Long-context serving is often KV-cache bound, not weight bound.
+  confidence: 0.85
+  priority: 7
+  references:
+    - "KV cache memory"
+
+- id: infer-batch-decode
+  title: Enable Continuous Batching
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/text-generation-inference
+  category: optimization
+  condition:
+    field: training.mode
+    operator: eq
+    value: inference
+  recommendation: Use TGI/vLLM continuous batching instead of static batch=1 loops.
+  reason: Idle GPU time between requests dominates naive serving latency/throughput.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "Text Generation Inference"
+
+- id: infer-speculative
+  title: Consider Speculative Decoding
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/generation_strategies
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: model.parameter_count
+        operator: gte
+        value: 13000000000
+  recommendation: Try speculative decoding with a small draft model when latency SLOs are tight.
+  reason: Draft-then-verify can cut wall-clock latency for large targets on strong GPUs.
+  confidence: 0.72
+  priority: 4
+  references:
+    - "Speculative decoding"
+
+- id: infer-prefix-cache
+  title: Enable Prefix / Prompt Caching
+  source: vLLM Documentation
+  documentation_url: https://docs.vllm.ai/
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: inference
+      - field: dataset.task_type
+        operator: in
+        value: ["chat", "rag", "instruction"]
+  recommendation: Turn on automatic prefix caching when system prompts or RAG prefixes repeat.
+  reason: Recomputing shared prefixes wastes compute on multi-turn and RAG workloads.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Prefix caching"

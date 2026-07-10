@@ -115,7 +115,7 @@ def predict_duration(body: DurationPredictBody) -> DurationPredictResponse:
              else f"{hours:.1f}h" if hours < 48
              else f"{hours / 24:.1f} days")
 
-    rate = PricingRegistry().cloud_hourly_rate(body.gpu_id, body.cloud_provider)
+    rate, used_provider = PricingRegistry().resolve_cloud_rate(body.gpu_id, body.cloud_provider)
     cost = round(hours * body.n_gpus * rate, 2) if rate else None
 
     return DurationPredictResponse(
@@ -126,6 +126,6 @@ def predict_duration(body: DurationPredictBody) -> DurationPredictResponse:
         n_gpus=result.n_gpus,
         model_version=result.model_version,
         estimated_cost_usd=cost,
-        cost_provider=body.cloud_provider if rate else None,
+        cost_provider=used_provider if rate else None,
         hourly_rate_usd=rate,
     )

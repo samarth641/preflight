@@ -77,3 +77,128 @@
   priority: 7
   references:
     - "CUDA Memory Management documentation"
+
+- id: training-nan-loss
+  title: NaN or Inf Loss Detected
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/amp.html
+  category: training
+  condition:
+    field: training.loss_is_nan
+    operator: eq
+    value: true
+  recommendation: Lower LR, enable grad clipping, check labels, and verify AMP loss scaling / BF16.
+  reason: NaN loss usually means numerical overflow, bad inputs, or unstable mixed precision.
+  confidence: 0.93
+  priority: 10
+  references:
+    - "AMP GradScaler"
+    - "Debugging NaNs"
+
+- id: training-lr-too-high
+  title: Learning Rate Likely Too High
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: training.loss_spike_rate
+    operator: gte
+    value: 0.3
+  recommendation: Reduce peak LR by 2–10x and add warmup; inspect a few batches for outliers.
+  reason: Frequent loss spikes often track an aggressive learning rate or bad batches.
+  confidence: 0.80
+  priority: 7
+  references:
+    - "LR finder techniques"
+
+- id: training-lr-too-low
+  title: Learning Rate Likely Too Low
+  source: Preflight Training Analyzer
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    and:
+      - field: training.train_loss_stagnant
+        operator: eq
+        value: true
+      - field: training.epoch
+        operator: lte
+        value: 2
+  recommendation: Increase LR (or warmup target) — early stagnation often means the step size is too small.
+  reason: If loss barely moves in the first epochs, optimization is under-powered.
+  confidence: 0.76
+  priority: 6
+  references:
+    - "Learning rate warmup"
+
+- id: training-cpu-bottleneck
+  title: CPU / Data Pipeline Bottleneck
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/data.html
+  category: training
+  condition:
+    and:
+      - field: training.gpu_utilization
+        operator: lt
+        value: 60
+      - field: training.cpu_utilization
+        operator: gte
+        value: 85
+  recommendation: Optimize transforms, cache decoded data, raise workers carefully, or preprocess offline.
+  reason: Saturated CPU with idle GPU means the host cannot feed the accelerator.
+  confidence: 0.86
+  priority: 7
+  references:
+    - "DataLoader performance"
+
+- id: training-val-better-than-train
+  title: Validation Loss Lower Than Train
+  source: Preflight Training Analyzer
+  documentation_url: https://pytorch.org/docs/stable/nn.html
+  category: training
+  condition:
+    field: training.val_loss_below_train
+    operator: eq
+    value: true
+  recommendation: Check dropout/augmentation differences; ensure val uses eval() mode and no train-time noise.
+  reason: Val << train often means regularization is on during train only (expected) or a split bug.
+  confidence: 0.70
+  priority: 3
+  references:
+    - "train vs eval mode"
+
+- id: training-slow-steps
+  title: Step Time Unusually High
+  source: Preflight Training Analyzer
+  documentation_url: https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html
+  category: training
+  condition:
+    field: training.seconds_per_step
+    operator: gte
+    value: 5
+  recommendation: Profile with PyTorch profiler; check host↔device copies, logging, and checkpoint frequency.
+  reason: Multi-second steps on mid models usually indicate I/O or sync bottlenecks, not FLOPs.
+  confidence: 0.78
+  priority: 5
+  references:
+    - "PyTorch tuning guide"
+
+- id: training-checkpoint-often
+  title: Checkpoint More Frequently
+  source: Preflight Training Analyzer
+  documentation_url: https://pytorch.org/tutorials/beginner/saving_loading_models.html
+  category: training
+  condition:
+    and:
+      - field: training.estimated_hours
+        operator: gte
+        value: 6
+      - field: training.checkpoint_interval_hours
+        operator: gt
+        value: 2
+  recommendation: Save checkpoints every 30–60 minutes (or N steps) for long jobs.
+  reason: Long runs without checkpoints risk losing hours of progress on preemptible cloud GPUs.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "Saving and loading models"

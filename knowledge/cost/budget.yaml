@@ -1,0 +1,111 @@
+- id: cost-spot-instances
+  title: Prefer Spot / Interruptible for Experiments
+  source: Preflight Cost Knowledge
+  documentation_url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html
+  category: hardware
+  condition:
+    and:
+      - field: training.estimated_hours
+        operator: gte
+        value: 2
+      - field: training.checkpoint_interval_hours
+        operator: lte
+        value: 1
+  recommendation: Use spot/interruptible GPUs with frequent checkpoints for non-critical training runs.
+  reason: Spot discounts of 50–70% dominate cost when jobs can resume from checkpoints.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "Cloud spot GPU pricing"
+
+- id: cost-expensive-gpu-small-model
+  title: Oversized GPU for Small Model
+  source: Preflight Cost Knowledge
+  documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+  category: hardware
+  condition:
+    and:
+      - field: model.parameter_count
+        operator: lt
+        value: 1000000000
+      - field: hardware.vram_gb
+        operator: gte
+        value: 80
+  recommendation: Downshift to a cheaper 16–24GB GPU; A100/H100 is overkill for sub-1B models.
+  reason: Paying datacenter rates for tiny models wastes budget without quality gains.
+  confidence: 0.88
+  priority: 7
+  references:
+    - "Right-sizing GPUs"
+
+- id: cost-lora-vs-full
+  title: LoRA Usually Cheaper Than Full Fine-Tune
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: full
+      - field: model.parameter_count
+        operator: gte
+        value: 3000000000
+  recommendation: Prefer LoRA/QLoRA unless you have evidence full FT is required — lower GPU-hours and VRAM.
+  reason: Adapter training finishes faster on smaller/cheaper GPUs for most instruction tasks.
+  confidence: 0.86
+  priority: 7
+  references:
+    - "LoRA cost/quality tradeoffs"
+
+- id: cost-multi-gpu-efficiency
+  title: Multi-GPU Has Diminishing Returns
+  source: Preflight Cost Knowledge
+  documentation_url: https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
+  category: hardware
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 4
+      - field: model.parameter_count
+        operator: lt
+        value: 7000000000
+  recommendation: Benchmark 1–2 GPUs first; 4+ GPUs on small models often raise cost more than they cut wall-clock.
+  reason: Communication overhead and underfilled batches reduce scaling efficiency.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Weak scaling"
+
+- id: cost-storage-egress
+  title: Watch Dataset Egress and Checkpoint Storage
+  source: Preflight Cost Knowledge
+  documentation_url: https://aws.amazon.com/s3/pricing/
+  category: hardware
+  condition:
+    field: dataset.size_gb
+    operator: gte
+    value: 100
+  recommendation: Keep data in the same region as GPUs; prune old checkpoints; compress artifacts.
+  reason: Egress and disk often surprise teams after GPU spend is optimized.
+  confidence: 0.82
+  priority: 5
+  references:
+    - "Cloud storage pricing"
+
+- id: cost-idle-gpu
+  title: Shut Down Idle Cloud GPUs
+  source: Preflight Cost Knowledge
+  documentation_url: https://www.runpod.io/
+  category: hardware
+  condition:
+    field: training.gpu_utilization
+    operator: lt
+    value: 5
+  recommendation: Auto-stop or terminate pods when util stays near zero outside scheduled jobs.
+  reason: Idle on-demand GPUs burn budget with zero learning progress.
+  confidence: 0.92
+  priority: 8
+  references:
+    - "Cloud cost hygiene"

@@ -1,0 +1,112 @@
+- id: reg-dropout
+  title: Add Dropout Against Overfitting
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html
+  category: training
+  condition:
+    field: training.overfitting_detected
+    operator: eq
+    value: true
+  recommendation: Increase dropout (0.1–0.3) on attention/MLP or classifier heads.
+  reason: Dropout is a simple regularizer when train/val gaps appear.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "Dropout"
+
+- id: reg-label-smoothing
+  title: Use Label Smoothing
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html
+  category: training
+  condition:
+    and:
+      - field: training.overfitting_detected
+        operator: eq
+        value: true
+      - field: dataset.task_type
+        operator: in
+        value: ["classification", "instruction"]
+  recommendation: Set label_smoothing=0.05–0.1 in CrossEntropyLoss / Trainer.
+  reason: Soft targets reduce overconfidence on noisy or small datasets.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Label smoothing"
+
+- id: reg-mixup-cutmix
+  title: Apply MixUp / CutMix for Vision
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/vision/stable/transforms.html
+  category: dataset
+  condition:
+    and:
+      - field: model.architecture
+        operator: in
+        value: ["vision", "cnn", "resnet"]
+      - field: training.overfitting_detected
+        operator: eq
+        value: true
+  recommendation: Enable MixUp/CutMix or RandAugment to improve generalization.
+  reason: Vision models overfit small datasets without strong augmentation.
+  confidence: 0.83
+  priority: 6
+  references:
+    - "MixUp"
+    - "CutMix"
+
+- id: reg-early-stop
+  title: Early Stop on Validation Metric
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: training.validation_loss_increasing
+    operator: eq
+    value: true
+  recommendation: Stop after patience 3–5 epochs without val improvement; restore best checkpoint.
+  reason: Continuing past the val minimum usually worsens generalization.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "Early stopping"
+
+- id: reg-ema
+  title: Maintain EMA Weights
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    and:
+      - field: training.epochs
+        operator: gte
+        value: 5
+      - field: model.architecture
+        operator: in
+        value: ["vision", "cnn", "diffusion"]
+  recommendation: Track an exponential moving average of weights for evaluation/export.
+  reason: EMA often improves final accuracy and smooths noisy late-stage updates.
+  confidence: 0.75
+  priority: 3
+  references:
+    - "Model EMA"
+
+- id: reg-freeze-backbone
+  title: Freeze Backbone Early
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers
+  category: training
+  condition:
+    and:
+      - field: dataset.image_count
+        operator: lt
+        value: 2000
+      - field: training.mode
+        operator: eq
+        value: full
+  recommendation: Freeze most backbone layers for the first epochs; train the head, then gradually unfreeze.
+  reason: Tiny datasets destroy pretrained features if the full net updates immediately.
+  confidence: 0.85
+  priority: 7
+  references:
+    - "Transfer learning"

@@ -58,3 +58,150 @@
   priority: 6
   references:
     - "PyTorch DataLoader documentation"
+
+- id: pytorch-adamw-default
+  title: Prefer AdamW for Transformers
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html
+  category: training
+  condition:
+    and:
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "bert", "mistral", "gemma"]
+      - field: training.optimizer
+        operator: in
+        value: ["sgd", "adam"]
+  recommendation: Switch to AdamW with weight decay 0.01–0.1 and decoupled decay.
+  reason: AdamW is the de-facto default for LLM/transformer fine-tuning stability.
+  confidence: 0.86
+  priority: 6
+  references:
+    - "AdamW paper"
+    - "PyTorch AdamW"
+
+- id: pytorch-cosine-schedule
+  title: Use Cosine LR Schedule with Warmup
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    and:
+      - field: training.epochs
+        operator: gte
+        value: 3
+      - field: model.architecture
+        operator: in
+        value: ["transformer", "llama", "gpt", "bert", "vision"]
+  recommendation: Use linear warmup (3–5%) then cosine decay; avoid constant LR for multi-epoch runs.
+  reason: Warmup + cosine improves stability and final accuracy for transformers and ViTs.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "Attention Is All You Need (warmup)"
+    - "PyTorch LR schedulers"
+
+- id: pytorch-grad-clip
+  title: Clip Gradients to Stabilize Training
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.nn.utils.clip_grad_norm_.html
+  category: training
+  condition:
+    field: training.loss_diverging
+    operator: eq
+    value: true
+  recommendation: Apply max_grad_norm=1.0 (or 0.5–2.0) and reduce learning rate.
+  reason: Exploding gradients commonly accompany loss spikes in deep nets.
+  confidence: 0.87
+  priority: 8
+  references:
+    - "Gradient clipping"
+
+- id: pytorch-compile
+  title: Try torch.compile for Throughput
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_vendor
+        operator: eq
+        value: nvidia
+      - field: training.torch_compile
+        operator: eq
+        value: false
+  recommendation: Enable torch.compile(model) on PyTorch 2.x for additional kernel fusion speedups.
+  reason: Compiler graphs often yield 10–40% speedups after warmup on stable model graphs.
+  confidence: 0.75
+  priority: 4
+  references:
+    - "torch.compile tutorial"
+
+- id: pytorch-batch-size-power2
+  title: Prefer Power-of-Two Batch Sizes
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/deeplearning/performance/dl-performance-gpu-background/index.html
+  category: optimization
+  condition:
+    field: training.batch_size
+    operator: gt
+    value: 0
+  recommendation: Use batch sizes that are multiples of 8 (ideally 32/64) for Tensor Core efficiency.
+  reason: Odd batch sizes under-utilize Tensor Core tiles and can slow matmuls.
+  confidence: 0.70
+  priority: 3
+  references:
+    - "NVIDIA DL performance guide"
+
+- id: pytorch-deterministic-debug
+  title: Enable Determinism When Debugging
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/notes/randomness.html
+  category: training
+  condition:
+    field: training.non_reproducible
+    operator: eq
+    value: true
+  recommendation: Set seeds, use deterministic algorithms, and fix DataLoader generator for reproducibility.
+  reason: Non-deterministic kernels make flaky bugs and metric comparisons hard to trust.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "PyTorch randomness notes"
+
+- id: pytorch-accumulate-grads
+  title: Use Gradient Accumulation for Effective Batch Size
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+  category: optimization
+  condition:
+    and:
+      - field: hardware.vram_gb
+        operator: lt
+        value: 24
+      - field: training.batch_size
+        operator: lt
+        value: 8
+  recommendation: Raise gradient_accumulation_steps to reach effective batch 16–64 without OOM.
+  reason: Small per-step batches on limited VRAM hurt optimization; accumulation restores signal.
+  confidence: 0.85
+  priority: 7
+  references:
+    - "Gradient accumulation"
+
+- id: pytorch-weight-decay
+  title: Apply Weight Decay Regularization
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html
+  category: training
+  condition:
+    field: training.overfitting_detected
+    operator: eq
+    value: true
+  recommendation: Set AdamW weight_decay around 0.01–0.1; exclude bias/LayerNorm from decay.
+  reason: Weight decay reduces overfitting without changing the loss surface as aggressively as dropout.
+  confidence: 0.83
+  priority: 6
+  references:
+    - "AdamW"
+    - "Decoupled weight decay"

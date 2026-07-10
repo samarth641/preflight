@@ -3,6 +3,21 @@ providers:
     name: AWS
     url: https://aws.amazon.com/ec2/instance-types/
     offerings:
+      - gpu_id: t4
+        instance_type: g4dn.xlarge
+        vram_gb: 16
+        gpu_count: 1
+        notes: Budget inference / small fine-tunes
+      - gpu_id: a10
+        instance_type: g5.xlarge
+        vram_gb: 24
+        gpu_count: 1
+        notes: G5 instances with A10G
+      - gpu_id: a100-40gb
+        instance_type: p4d.24xlarge (per-GPU share)
+        vram_gb: 40
+        gpu_count: 1
+        notes: A100 40GB class capacity
       - gpu_id: a100-80gb
         instance_type: p4d.24xlarge
         vram_gb: 320
@@ -12,12 +27,27 @@ providers:
         instance_type: p5.48xlarge
         vram_gb: 640
         gpu_count: 8
-        notes: 8x H100 80GB, fastest cloud training option
+        notes: 8x H100 80GB, fastest AWS training option
+      - gpu_id: h200
+        instance_type: p5e / p5en
+        vram_gb: 141
+        gpu_count: 1
+        notes: H200 HBM3e — large-context / memory-bound jobs
 
   - id: gcp
     name: Google Cloud
     url: https://cloud.google.com/compute/docs/gpus
     offerings:
+      - gpu_id: t4
+        instance_type: n1-standard + T4
+        vram_gb: 16
+        gpu_count: 1
+        notes: Common Colab / GCP starter GPU
+      - gpu_id: l4
+        instance_type: g2-standard-4
+        vram_gb: 24
+        gpu_count: 1
+        notes: Ada L4 — efficient small training
       - gpu_id: a100-80gb
         instance_type: a2-ultragpu-8g
         vram_gb: 640
@@ -33,6 +63,11 @@ providers:
     name: Microsoft Azure
     url: https://azure.microsoft.com/en-us/products/virtual-machines
     offerings:
+      - gpu_id: t4
+        instance_type: NC T4 v3
+        vram_gb: 16
+        gpu_count: 1
+        notes: Entry Azure GPU
       - gpu_id: a100-80gb
         instance_type: NC A100 v4
         vram_gb: 80
@@ -43,6 +78,36 @@ providers:
         vram_gb: 640
         gpu_count: 8
         notes: 8x H100 for enterprise training
+      - gpu_id: mi210
+        instance_type: NDm A100 / MI210 class
+        vram_gb: 64
+        gpu_count: 1
+        notes: AMD Instinct MI210 (ROCm)
+      - gpu_id: mi250x
+        instance_type: ND MI250
+        vram_gb: 128
+        gpu_count: 1
+        notes: AMD MI250X dual-GCD
+      - gpu_id: mi300x
+        instance_type: ND MI300X v5
+        vram_gb: 192
+        gpu_count: 1
+        notes: AMD MI300X — use AzureHPC Ubuntu 22.04 ROCm image (ROCm 6.2.2)
+      - gpu_id: mi325x
+        instance_type: ND MI325X
+        vram_gb: 256
+        gpu_count: 1
+        notes: AMD MI325X — 256GB HBM for frontier fine-tunes
+      - gpu_id: mi350x
+        instance_type: ND MI350X
+        vram_gb: 288
+        gpu_count: 1
+        notes: AMD MI350X CDNA4 — 288GB HBM3E
+      - gpu_id: mi355x
+        instance_type: ND MI355X
+        vram_gb: 288
+        gpu_count: 1
+        notes: AMD MI355X high-end Instinct
 
   - id: lambda
     name: Lambda Labs
@@ -53,16 +118,31 @@ providers:
         vram_gb: 24
         gpu_count: 1
         notes: Affordable RTX 4090 for prototyping
+      - gpu_id: rtx-a6000
+        instance_type: gpu_1x_a6000
+        vram_gb: 48
+        gpu_count: 1
+        notes: 48GB workstation GPU
       - gpu_id: a100-80gb
         instance_type: gpu_8x_a100
         vram_gb: 640
         gpu_count: 8
         notes: 8x A100 SXM4 80GB cluster
+      - gpu_id: h100-80gb
+        instance_type: gpu_8x_h100
+        vram_gb: 640
+        gpu_count: 8
+        notes: 8x H100 SXM5
 
   - id: runpod
     name: RunPod
     url: https://www.runpod.io/
     offerings:
+      - gpu_id: rtx-3090
+        instance_type: RTX 3090
+        vram_gb: 24
+        gpu_count: 1
+        notes: Budget 24GB Ampere
       - gpu_id: rtx-4090
         instance_type: RTX 4090
         vram_gb: 24
@@ -73,23 +153,238 @@ providers:
         vram_gb: 16
         gpu_count: 1
         notes: Budget-friendly 16GB option
+      - gpu_id: rtx-5090
+        instance_type: RTX 5090
+        vram_gb: 32
+        gpu_count: 1
+        notes: Blackwell 32GB consumer GPU
+      - gpu_id: rtx-5080
+        instance_type: RTX 5080
+        vram_gb: 16
+        gpu_count: 1
+        notes: Blackwell 16GB
+      - gpu_id: l40s
+        instance_type: L40S
+        vram_gb: 48
+        gpu_count: 1
+        notes: Ada 48GB — strong single-GPU fine-tune
+      - gpu_id: a40
+        instance_type: A40
+        vram_gb: 48
+        gpu_count: 1
+        notes: Ampere 48GB cloud GPU
+      - gpu_id: rx-7900-xtx
+        instance_type: RX 7900 XTX
+        vram_gb: 24
+        gpu_count: 1
+        notes: AMD 24GB — often cheaper than NVIDIA peers (ROCm)
+      - gpu_id: rx-7900-xt
+        instance_type: RX 7900 XT
+        vram_gb: 20
+        gpu_count: 1
+        notes: AMD 20GB consumer
       - gpu_id: a100-80gb
         instance_type: A100 80GB
         vram_gb: 80
         gpu_count: 1
         notes: Single A100 for fine-tuning large models
+      - gpu_id: h100-80gb
+        instance_type: H100 80GB
+        vram_gb: 80
+        gpu_count: 1
+        notes: Single H100 pod
+      - gpu_id: mi300x
+        instance_type: MI300X
+        vram_gb: 192
+        gpu_count: 1
+        notes: AMD Instinct MI300X community/cloud pods
 
   - id: vast
     name: Vast.ai
     url: https://vast.ai/
     offerings:
-      - gpu_id: rtx-4090
-        instance_type: RTX 4090
-        vram_gb: 24
+      - gpu_id: rtx-3060
+        instance_type: RTX 3060
+        vram_gb: 12
         gpu_count: 1
-        notes: Marketplace pricing, variable availability
+        notes: Cheapest marketplace entry
       - gpu_id: rtx-3090
         instance_type: RTX 3090
         vram_gb: 24
         gpu_count: 1
         notes: Budget 24GB VRAM option
+      - gpu_id: rtx-4090
+        instance_type: RTX 4090
+        vram_gb: 24
+        gpu_count: 1
+        notes: Marketplace pricing, variable availability
+      - gpu_id: rtx-5090
+        instance_type: RTX 5090
+        vram_gb: 32
+        gpu_count: 1
+        notes: Marketplace RTX 5090
+      - gpu_id: rx-7900-xtx
+        instance_type: RX 7900 XTX
+        vram_gb: 24
+        gpu_count: 1
+        notes: Budget AMD 24GB marketplace option
+      - gpu_id: rx-7800-xt
+        instance_type: RX 7800 XT
+        vram_gb: 16
+        gpu_count: 1
+        notes: Budget AMD 16GB
+      - gpu_id: l40s
+        instance_type: L40S
+        vram_gb: 48
+        gpu_count: 1
+        notes: Marketplace L40S
+
+  - id: coreweave
+    name: CoreWeave
+    url: https://www.coreweave.com/
+    offerings:
+      - gpu_id: l40s
+        instance_type: L40S
+        vram_gb: 48
+        gpu_count: 1
+        notes: Ada L40S single GPU
+      - gpu_id: a100-80gb
+        instance_type: A100 HGX
+        vram_gb: 640
+        gpu_count: 8
+        notes: A100 HGX clusters
+      - gpu_id: h100-80gb
+        instance_type: H100 HGX
+        vram_gb: 640
+        gpu_count: 8
+        notes: High-performance H100 clusters
+      - gpu_id: h200
+        instance_type: H200
+        vram_gb: 141
+        gpu_count: 1
+        notes: H200 for large-context training
+      - gpu_id: gh200
+        instance_type: GH200
+        vram_gb: 96
+        gpu_count: 1
+        notes: Grace Hopper superchip nodes
+      - gpu_id: b200
+        instance_type: B200
+        vram_gb: 192
+        gpu_count: 1
+        notes: Blackwell B200 early availability
+      - gpu_id: b300
+        instance_type: B300
+        vram_gb: 288
+        gpu_count: 1
+        notes: Blackwell Ultra B300
+      - gpu_id: gb200
+        instance_type: GB200
+        vram_gb: 186
+        gpu_count: 1
+        notes: Grace Blackwell GB200 nodes
+
+  - id: tensorwave
+    name: TensorWave (AMD)
+    url: https://tensorwave.com/
+    offerings:
+      - gpu_id: mi250x
+        instance_type: MI250X
+        vram_gb: 128
+        gpu_count: 1
+        notes: AMD MI250X nodes
+      - gpu_id: mi300x
+        instance_type: MI300X
+        vram_gb: 192
+        gpu_count: 1
+        notes: AMD-focused cloud — MI300X optimized stacks (RoCEv2)
+      - gpu_id: mi325x
+        instance_type: MI325X
+        vram_gb: 256
+        gpu_count: 1
+        notes: AMD MI325X high-memory nodes
+      - gpu_id: mi350x
+        instance_type: MI350X
+        vram_gb: 288
+        gpu_count: 1
+        notes: CDNA4 MI350X — 288GB HBM3E
+      - gpu_id: mi355x
+        instance_type: MI355X
+        vram_gb: 288
+        gpu_count: 1
+        notes: CDNA4 MI355X high-end Instinct
+
+  - id: digitalocean
+    name: DigitalOcean Gradient
+    url: https://www.digitalocean.com/
+    offerings:
+      - gpu_id: mi300x
+        instance_type: MI300X
+        vram_gb: 192
+        gpu_count: 1
+        notes: Competitive MI300X on-demand (Jul 2026 aggregators ~$1.99/hr)
+      - gpu_id: h100-80gb
+        instance_type: H100
+        vram_gb: 80
+        gpu_count: 1
+        notes: DigitalOcean H100 droplets / GPU droplets
+      - gpu_id: l40s
+        instance_type: L40S
+        vram_gb: 48
+        gpu_count: 1
+        notes: L40S for mid-size fine-tunes
+
+  - id: paperspace
+    name: Paperspace Gradient
+    url: https://www.paperspace.com/
+    offerings:
+      - gpu_id: rtx-a4000
+        instance_type: A4000
+        vram_gb: 16
+        gpu_count: 1
+        notes: Common notebook workstation GPU
+      - gpu_id: rtx-a5000
+        instance_type: A5000
+        vram_gb: 24
+        gpu_count: 1
+        notes: 24GB notebook / Gradient machine
+      - gpu_id: a100-80gb
+        instance_type: A100
+        vram_gb: 80
+        gpu_count: 1
+        notes: A100 Gradient instances
+
+  - id: lightning
+    name: Lightning AI Studios
+    url: https://lightning.ai/
+    offerings:
+      - gpu_id: l4
+        instance_type: L4 Studio
+        vram_gb: 24
+        gpu_count: 1
+        notes: Fast spin-up for small fine-tunes
+      - gpu_id: l40s
+        instance_type: L40S Studio
+        vram_gb: 48
+        gpu_count: 1
+        notes: Strong single-GPU studio
+      - gpu_id: a100-80gb
+        instance_type: A100 Studio
+        vram_gb: 80
+        gpu_count: 1
+        notes: A100 studio for larger jobs
+
+  - id: salad
+    name: SaladCloud
+    url: https://salad.com/
+    offerings:
+      - gpu_id: rtx-4090
+        instance_type: RTX 4090
+        vram_gb: 24
+        gpu_count: 1
+        notes: Distributed consumer cloud — interruptible
+      - gpu_id: rtx-5090
+        instance_type: RTX 5090
+        vram_gb: 32
+        gpu_count: 1
+        notes: Low-cost 5090 (spot-like); checkpoint often

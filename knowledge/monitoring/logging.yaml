@@ -1,0 +1,95 @@
+- id: log-wandb-basics
+  title: Log Train/Val Curves Externally
+  source: Weights & Biases
+  documentation_url: https://docs.wandb.ai/
+  category: training
+  condition:
+    field: training.epochs
+    operator: gte
+    value: 2
+  recommendation: Log loss, LR, GPU util, and eval metrics to W&B/MLflow/TensorBoard every N steps.
+  reason: Without external logs you cannot diagnose regressions after the run ends.
+  confidence: 0.85
+  priority: 5
+  references:
+    - "W&B PyTorch integration"
+
+- id: log-system-metrics
+  title: Capture System Metrics During Training
+  source: Weights & Biases
+  documentation_url: https://docs.wandb.ai/guides/track/log/system-metrics
+  category: training
+  condition:
+    field: training.estimated_hours
+    operator: gte
+    value: 1
+  recommendation: Enable GPU memory/util and CPU/disk logging to catch bottlenecks early.
+  reason: Many “slow training” issues are host I/O or memory fragmentation, not model code.
+  confidence: 0.83
+  priority: 5
+  references:
+    - "System metrics"
+
+- id: log-grad-norm
+  title: Track Gradient Norms
+  source: PyTorch Documentation
+  documentation_url: https://pytorch.org/docs/stable/generated/torch.nn.utils.clip_grad_norm_.html
+  category: training
+  condition:
+    field: training.loss_spike_rate
+    operator: gte
+    value: 0.1
+  recommendation: Log grad norm each step around spikes; correlate with LR and bad batches.
+  reason: Exploding/vanishing grads show up in norms before loss fully diverges.
+  confidence: 0.80
+  priority: 6
+  references:
+    - "Gradient monitoring"
+
+- id: log-samples
+  title: Log Qualitative Predictions
+  source: Weights & Biases
+  documentation_url: https://docs.wandb.ai/
+  category: training
+  condition:
+    field: dataset.task_type
+    operator: in
+    value: ["instruction", "chat", "vision", "classification"]
+  recommendation: Periodically log sample predictions/generations alongside scalar metrics.
+  reason: Scalar loss can improve while qualitative behavior regresses.
+  confidence: 0.82
+  priority: 5
+  references:
+    - "W&B Tables"
+
+- id: log-config-snapshot
+  title: Snapshot Full Run Config
+  source: Weights & Biases
+  documentation_url: https://docs.wandb.ai/
+  category: training
+  condition:
+    field: training.epochs
+    operator: gte
+    value: 1
+  recommendation: Log hyperparameters, git commit, GPU id, and dataset revision at run start.
+  reason: Irreproducible “best runs” waste days when configs are not captured.
+  confidence: 0.88
+  priority: 6
+  references:
+    - "Experiment tracking"
+
+- id: log-alert-on-nan
+  title: Alert on NaN / Divergence
+  source: Weights & Biases
+  documentation_url: https://docs.wandb.ai/
+  category: training
+  condition:
+    field: training.loss_is_nan
+    operator: eq
+    value: true
+  recommendation: Configure run alerts to page on NaN loss or sudden metric collapse.
+  reason: Overnight jobs can burn hours after a silent numerical failure.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "W&B alerts"

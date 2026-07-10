@@ -1,3 +1,26 @@
+- id: deepspeed-zero-stage1
+  title: Use ZeRO Stage 1 for Light Multi-GPU Savings
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/docs/config-json/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: model.parameter_count
+        operator: gte
+        value: 100000000
+      - field: model.parameter_count
+        operator: lt
+        value: 500000000
+  recommendation: Enable ZeRO Stage 1 to shard optimizer states with minimal communication overhead.
+  reason: Stage 1 is a low-risk first step for multi-GPU memory relief on mid-size models.
+  confidence: 0.82
+  priority: 5
+  references:
+    - "DeepSpeed ZeRO stages"
+
 - id: deepspeed-zero-stage2
   title: Use ZeRO Stage 2 for Multi-GPU Training
   source: DeepSpeed Documentation
@@ -11,10 +34,108 @@
       - field: model.parameter_count
         operator: gte
         value: 500000000
-  recommendation: Configure DeepSpeed ZeRO Stage 2 to shard optimizer states across GPUs.
+  recommendation: Configure DeepSpeed ZeRO Stage 2 to shard optimizer states and gradients across GPUs.
   reason: ZeRO Stage 2 reduces per-GPU memory by partitioning optimizer states, enabling larger models.
   confidence: 0.90
   priority: 8
   references:
     - "DeepSpeed ZeRO paper"
     - "DeepSpeed configuration guide"
+
+- id: deepspeed-zero-stage3
+  title: Use ZeRO Stage 3 for Very Large Models
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/tutorials/zero/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 4
+      - field: model.parameter_count
+        operator: gte
+        value: 10000000000
+  recommendation: Enable ZeRO-3 (parameter sharding) or FSDP full shard for 10B+ models.
+  reason: Stage 3 shards parameters themselves — required when weights alone exceed single-GPU VRAM.
+  confidence: 0.91
+  priority: 9
+  references:
+    - "DeepSpeed ZeRO-3"
+    - "PyTorch FSDP"
+
+- id: deepspeed-cpu-offload
+  title: Enable CPU Offload When VRAM Is Tight
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/tutorials/zero-offload/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.vram_gb
+        operator: lt
+        value: 40
+      - field: model.parameter_count
+        operator: gte
+        value: 7000000000
+  recommendation: Use ZeRO-Offload (optimizer/params to CPU) or QLoRA instead of full fine-tune on small GPUs.
+  reason: 7B+ full fine-tunes on <40GB often need offload or PEFT to avoid OOM.
+  confidence: 0.87
+  priority: 8
+  references:
+    - "ZeRO-Offload"
+    - "QLoRA"
+
+- id: deepspeed-activation-checkpointing
+  title: Pair ZeRO with Activation Checkpointing
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/tutorials/activation-checkpointing/
+  category: optimization
+  condition:
+    and:
+      - field: hardware.gpu_count
+        operator: gte
+        value: 2
+      - field: model.parameter_count
+        operator: gte
+        value: 1000000000
+  recommendation: Enable activation checkpointing alongside ZeRO to cut activation memory ~30–50%.
+  reason: ZeRO helps optimizer/param memory; activations still dominate at long sequence lengths.
+  confidence: 0.86
+  priority: 7
+  references:
+    - "DeepSpeed activation checkpointing"
+
+- id: deepspeed-nvme-offload
+  title: Consider NVMe Offload for Extreme Scale
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/tutorials/zero-offload/
+  category: optimization
+  condition:
+    and:
+      - field: model.parameter_count
+        operator: gte
+        value: 70000000000
+      - field: hardware.vram_gb
+        operator: lt
+        value: 80
+  recommendation: Use ZeRO-Infinity / NVMe offload only if CPU offload is insufficient; expect large slowdowns.
+  reason: 70B+ models on mid VRAM need hierarchical offload; throughput drops sharply vs pure GPU.
+  confidence: 0.80
+  priority: 6
+  references:
+    - "ZeRO-Infinity"
+
+- id: deepspeed-communication-overlap
+  title: Overlap Communication with Compute
+  source: DeepSpeed Documentation
+  documentation_url: https://www.deepspeed.ai/docs/config-json/
+  category: optimization
+  condition:
+    field: hardware.gpu_count
+    operator: gte
+    value: 4
+  recommendation: Enable gradient communication overlap / bucketed all-reduce in DeepSpeed or DDP.
+  reason: Multi-node and multi-GPU jobs often stall on collectives without overlap.
+  confidence: 0.78
+  priority: 5
+  references:
+    - "DeepSpeed communication optimizations"

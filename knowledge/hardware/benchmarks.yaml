@@ -3,47 +3,112 @@ metadata:
   reference_throughput: 1.0
   precision: fp16
   updated: 2026-07
-  note: Throughput ratios blend published anchors with MLPerf Training ingest (15
-    fair single-node runs).
+  note: Throughput ratios blend published anchors with MLPerf Training ingest and landscape estimates.
 gpus:
   a100-80gb:
     relative_training_throughput: 1.0
     typical_mfu_percent: 50
     source: reference (MLPerf A100 baseline)
     approximate: false
+  a100-40gb:
+    relative_training_throughput: 0.95
+    typical_mfu_percent: 48
+    source: Same compute as 80GB; slightly lower for memory-bound jobs
+    approximate: true
   h100-80gb:
     relative_training_throughput: 2.3
     typical_mfu_percent: 55
-    source: MLPerf Training ingest (llama2_70b_lora 1-node median); anchored at 2.3x
-      A100.
+    source: MLPerf Training ingest (llama2_70b_lora 1-node median); anchored at 2.3x A100.
+    approximate: true
+  h200:
+    relative_training_throughput: 2.6
+    typical_mfu_percent: 55
+    source: HBM3e bandwidth uplift vs H100 — landscape estimate
+    approximate: true
+  b200:
+    relative_training_throughput: 4.5
+    typical_mfu_percent: 50
+    source: Blackwell datacenter — early landscape estimate
     approximate: true
   mi300x:
     relative_training_throughput: 2.34
     typical_mfu_percent: 45
-    source: "MLPerf v5.0 llama2_70b_lora 1-node median \u2014 parity with H100 (2.34x\
-      \ A100 via ingest)."
+    source: "MLPerf v5.0 llama2_70b_lora 1-node median — parity with H100 (2.34x A100 via ingest)."
+    approximate: true
+  mi325x:
+    relative_training_throughput: 2.5
+    typical_mfu_percent: 45
+    source: MI300X-class with more HBM — landscape estimate
+    approximate: true
+  mi250x:
+    relative_training_throughput: 1.1
+    typical_mfu_percent: 40
+    source: CDNA2 dual-GCD — landscape estimate vs A100
+    approximate: true
+  mi210:
+    relative_training_throughput: 0.55
+    typical_mfu_percent: 38
+    source: Single-GCD CDNA2 — landscape estimate
+    approximate: true
+  v100-32gb:
+    relative_training_throughput: 0.45
+    typical_mfu_percent: 40
+    source: Volta generation — landscape estimate
+    approximate: true
+  l40s:
+    relative_training_throughput: 1.1
+    typical_mfu_percent: 42
+    source: Ada workstation — strong single-GPU fine-tune
+    approximate: true
+  rtx-a6000:
+    relative_training_throughput: 0.7
+    typical_mfu_percent: 38
+    source: Ampere workstation 48GB
+    approximate: true
+  a40:
+    relative_training_throughput: 0.65
+    typical_mfu_percent: 38
+    source: Ampere cloud workstation
+    approximate: true
+  a10:
+    relative_training_throughput: 0.45
+    typical_mfu_percent: 35
+    source: Inference-oriented Ampere
+    approximate: true
+  l4:
+    relative_training_throughput: 0.4
+    typical_mfu_percent: 35
+    source: Ada low-power — good for small fine-tunes
+    approximate: true
+  t4:
+    relative_training_throughput: 0.22
+    typical_mfu_percent: 30
+    source: Turing inference GPU — slow for training
     approximate: true
   rtx-5090:
     relative_training_throughput: 1.5
     typical_mfu_percent: 40
-    source: "Blackwell consumer \u2014 landscape estimate, no NVLink (no public training\
-      \ MLPerf)."
+    source: "Blackwell consumer — landscape estimate, no NVLink (no public training MLPerf)."
+    approximate: true
+  rtx-5080:
+    relative_training_throughput: 1.0
+    typical_mfu_percent: 38
+    source: Blackwell consumer 16GB — landscape estimate
     approximate: true
   rtx-4090:
     relative_training_throughput: 0.78
     typical_mfu_percent: 38
-    source: Measured LLM training tok/s vs A100 (0.72-0.82x when model fits 24GB);
-      much slower on large models forced into checkpointing/offload.
-    approximate: true
-  rx-7900-xtx:
-    relative_training_throughput: 0.5
-    typical_mfu_percent: 30
-    source: "ROCm consumer \u2014 software maturity discount"
+    source: Measured LLM training tok/s vs A100 (0.72-0.82x when model fits 24GB)
     approximate: true
   rtx-4080:
     relative_training_throughput: 0.55
     typical_mfu_percent: 36
     source: Lambda / Exxact estimate
+    approximate: true
+  rtx-4070-ti:
+    relative_training_throughput: 0.48
+    typical_mfu_percent: 35
+    source: landscape estimate
     approximate: true
   rtx-4070:
     relative_training_throughput: 0.42
@@ -60,8 +125,148 @@ gpus:
     typical_mfu_percent: 28
     source: landscape estimate
     approximate: true
+  rtx-3090:
+    relative_training_throughput: 0.55
+    typical_mfu_percent: 35
+    source: Ampere 24GB — still common on Vast/RunPod
+    approximate: true
+  rtx-3080:
+    relative_training_throughput: 0.4
+    typical_mfu_percent: 32
+    source: landscape estimate
+    approximate: true
+  rtx-3070:
+    relative_training_throughput: 0.28
+    typical_mfu_percent: 30
+    source: landscape estimate
+    approximate: true
   rtx-3060:
     relative_training_throughput: 0.28
     typical_mfu_percent: 30
-    source: "Ampere consumer \u2014 landscape estimate"
+    source: "Ampere consumer — landscape estimate"
+    approximate: true
+  rx-7900-xtx:
+    relative_training_throughput: 0.5
+    typical_mfu_percent: 30
+    source: "ROCm consumer — software maturity discount"
+    approximate: true
+  rx-7900-xt:
+    relative_training_throughput: 0.42
+    typical_mfu_percent: 28
+    source: ROCm consumer — landscape estimate
+    approximate: true
+  rx-7800-xt:
+    relative_training_throughput: 0.32
+    typical_mfu_percent: 26
+    source: ROCm consumer — landscape estimate
+    approximate: true
+  rx-7700-xt:
+    relative_training_throughput: 0.28
+    typical_mfu_percent: 25
+    source: ROCm consumer — landscape estimate
+    approximate: true
+  rx-7600:
+    relative_training_throughput: 0.18
+    typical_mfu_percent: 22
+    source: ROCm entry — landscape estimate
+    approximate: true
+  w7900:
+    relative_training_throughput: 0.48
+    typical_mfu_percent: 28
+    source: RDNA3 workstation 48GB — landscape estimate
+    approximate: true
+  mi100:
+    relative_training_throughput: 0.5
+    typical_mfu_percent: 35
+    source: CDNA1 — landscape estimate
+    approximate: true
+  rtx-2080-ti:
+    relative_training_throughput: 0.22
+    typical_mfu_percent: 28
+    source: Turing — landscape estimate
+    approximate: true
+  rtx-2070-super:
+    relative_training_throughput: 0.16
+    typical_mfu_percent: 25
+    source: Turing — landscape estimate
+    approximate: true
+  rtx-4070-super:
+    relative_training_throughput: 0.48
+    typical_mfu_percent: 35
+    source: Ada refresh — landscape estimate
+    approximate: true
+  rtx-4080-super:
+    relative_training_throughput: 0.58
+    typical_mfu_percent: 36
+    source: Ada refresh — landscape estimate
+    approximate: true
+  rtx-5070:
+    relative_training_throughput: 0.85
+    typical_mfu_percent: 36
+    source: Blackwell consumer — landscape estimate
+    approximate: true
+  rtx-5070-ti:
+    relative_training_throughput: 1.05
+    typical_mfu_percent: 37
+    source: Blackwell consumer — landscape estimate
+    approximate: true
+  rtx-a4000:
+    relative_training_throughput: 0.35
+    typical_mfu_percent: 34
+    source: Ampere workstation — landscape estimate
+    approximate: true
+  rtx-a5000:
+    relative_training_throughput: 0.5
+    typical_mfu_percent: 36
+    source: Ampere workstation 24GB — landscape estimate
+    approximate: true
+  rtx-6000-ada:
+    relative_training_throughput: 1.05
+    typical_mfu_percent: 40
+    source: Ada workstation 48GB — landscape estimate
+    approximate: true
+  a30:
+    relative_training_throughput: 0.55
+    typical_mfu_percent: 38
+    source: Ampere datacenter mid — landscape estimate
+    approximate: true
+  gh200:
+    relative_training_throughput: 2.8
+    typical_mfu_percent: 52
+    source: Grace Hopper — landscape estimate vs A100
+    approximate: true
+  b300:
+    relative_training_throughput: 5.5
+    typical_mfu_percent: 50
+    source: Blackwell Ultra — landscape estimate Jul 2026
+    approximate: true
+  gb200:
+    relative_training_throughput: 5.0
+    typical_mfu_percent: 52
+    source: Grace Blackwell — landscape estimate
+    approximate: true
+  mi350x:
+    relative_training_throughput: 4.2
+    typical_mfu_percent: 45
+    source: "CDNA4 MI350X — ~parity claims vs B200 on FP8; MFU software discount"
+    approximate: true
+  mi355x:
+    relative_training_throughput: 4.5
+    typical_mfu_percent: 45
+    source: CDNA4 MI355X — landscape estimate Jul 2026
+    approximate: true
+  l40:
+    relative_training_throughput: 0.7
+    typical_mfu_percent: 38
+    source: Ada L40 — landscape estimate
+    approximate: true
+  rtx-pro-6000:
+    relative_training_throughput: 1.6
+    typical_mfu_percent: 40
+    source: Blackwell workstation 96GB — landscape estimate
+    approximate: true
+  h100-nvl:
+    relative_training_throughput: 2.2
+    typical_mfu_percent: 52
+    source: H100 NVL 94GB — landscape estimate
     approximate: true

@@ -1,0 +1,264 @@
+- id: peft-lora-rank-default
+  title: Start with LoRA Rank 8–16
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft/conceptual_guides/lora
+  category: optimization
+  condition:
+    field: training.mode
+    operator: eq
+    value: lora
+  recommendation: Begin with r=8 or r=16, lora_alpha=2r, dropout 0.05; raise rank only if underfit.
+  reason: Low ranks adapt style/format well; higher ranks cost VRAM with diminishing returns.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "LoRA paper"
+    - "PEFT LoRA"
+
+- id: peft-qlora-4bit
+  title: Use QLoRA 4-bit on Tight VRAM
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+      - field: hardware.vram_gb
+        operator: lt
+        value: 16
+  recommendation: Load base weights in 4-bit NF4 (bitsandbytes) and train LoRA adapters in 16-bit.
+  reason: QLoRA fits 7B–13B fine-tunes on 8–12GB GPUs that cannot hold FP16 bases.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "QLoRA paper"
+    - "bitsandbytes"
+
+- id: peft-target-modules
+  title: Target Attention and MLP Projections
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft/developer_guides/lora
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+      - field: model.architecture
+        operator: in
+        value: ["llama", "mistral", "gemma", "qwen", "transformer"]
+  recommendation: Include q/k/v/o_proj and gate/up/down_proj in target_modules for stronger adaptation.
+  reason: Attention-only LoRA is cheaper but often weaker than full attention+MLP adapters.
+  confidence: 0.83
+  priority: 5
+  references:
+    - "PEFT target modules"
+
+- id: peft-merge-after-train
+  title: Merge Adapters for Deployment
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    field: training.mode
+    operator: in
+    value: ["lora", "qlora"]
+  recommendation: After eval, merge_and_unload() for single-file inference — keep a separate adapter checkpoint for iteration.
+  reason: Merged weights simplify serving; adapters keep experiments cheap to swap.
+  confidence: 0.80
+  priority: 4
+  references:
+    - "PEFT merge adapters"
+
+- id: peft-dora
+  title: Consider DoRA for Harder Tasks
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: lora
+      - field: training.underfitting
+        operator: eq
+        value: true
+  recommendation: Try DoRA (weight-decomposed LoRA) if standard LoRA underfits the task.
+  reason: DoRA can close more of the gap to full fine-tune on some benchmarks.
+  confidence: 0.72
+  priority: 4
+  references:
+    - "DoRA paper"
+
+- id: peft-lr-higher-than-full
+  title: Use Higher LR for LoRA Than Full FT
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: training
+  condition:
+    field: training.mode
+    operator: in
+    value: ["lora", "qlora"]
+  recommendation: Typical LoRA LR is 1e-4 to 3e-4 — higher than full fine-tune (often 1e-5–5e-5).
+  reason: Adapter matrices are small and tolerate larger steps; copying full-FT LRs undertrains LoRA.
+  confidence: 0.84
+  priority: 6
+  references:
+    - "LoRA fine-tuning guides"
+
+- id: peft-rsLoRA
+  title: Try rsLoRA When Rank Is High
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: eq
+        value: lora
+      - field: training.lora_rank
+        operator: gte
+        value: 64
+  recommendation: Enable rsLoRA scaling so high-rank adapters stay stable.
+  reason: Naive alpha/r scaling can under/over-shoot when rank grows large.
+  confidence: 0.74
+  priority: 4
+  references:
+    - "rsLoRA"
+
+- id: peft-ia3
+  title: Consider IA3 for Ultra-Light Adaptation
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: hardware.vram_gb
+        operator: lt
+        value: 12
+      - field: training.mode
+        operator: in
+        value: ["lora", "full"]
+  recommendation: Try IA3 if even LoRA is tight on VRAM — fewer trainable params than LoRA.
+  reason: IA3 scales activations with tiny vectors; useful on very small GPUs.
+  confidence: 0.72
+  priority: 3
+  references:
+    - "IA3"
+
+- id: peft-save-adapter-only
+  title: Checkpoint Adapters Separately
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: training
+  condition:
+    field: training.mode
+    operator: in
+    value: ["lora", "qlora"]
+  recommendation: Save PEFT adapter weights (MBs) each epoch; do not rewrite the full base model.
+  reason: Adapter checkpoints are cheap to store and swap for A/B experiments.
+  confidence: 0.88
+  priority: 5
+  references:
+    - "PEFT save_pretrained"
+
+- id: peft-rank-ladder-2026
+  title: Follow 2026 LoRA Rank Ladder
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft/conceptual_guides/lora
+  category: optimization
+  condition:
+    field: training.mode
+    operator: in
+    value: ["lora", "qlora"]
+  recommendation: "Start r=16 (alpha=32). Use r=8 for style/format; r=32–64 only if underfit; r≥128 rarely needed."
+  reason: 2026 practitioner guides converge on r=16 as the default; rank is less important than target_modules coverage.
+  confidence: 0.86
+  priority: 6
+  references:
+    - "LoRA/QLoRA practical guides 2026"
+    - "QLoRA paper"
+
+- id: peft-all-linear-targets
+  title: Prefer All-Linear Target Modules
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: optimization
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+      - field: model.architecture
+        operator: in
+        value: ["llama", "mistral", "gemma", "qwen", "transformer"]
+  recommendation: Set target_modules to all linear layers (attention + MLP), not just q/v_proj.
+  reason: Attention-only LoRA underperforms all-linear on most domain tasks at similar VRAM cost.
+  confidence: 0.85
+  priority: 6
+  references:
+    - "QLoRA all-linear finding"
+    - "PEFT target modules"
+
+- id: peft-epochs-cap
+  title: Cap LoRA Epochs to Avoid Forgetting
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/peft
+  category: training
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+      - field: training.epochs
+        operator: gte
+        value: 5
+  recommendation: Prefer 1–3 epochs for SFT; mix 10–20% general data if running longer to limit catastrophic forgetting.
+  reason: Aggressive multi-epoch LoRA on narrow data overwrites general capabilities.
+  confidence: 0.84
+  priority: 7
+  references:
+    - "LoRA forgetting mitigations 2026"
+
+- id: peft-small-data-lr
+  title: Lower LR on Tiny SFT Sets
+  source: Hugging Face PEFT
+  documentation_url: https://huggingface.co/docs/trl
+  category: training
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora"]
+      - field: dataset.sample_count
+        operator: lt
+        value: 2000
+  recommendation: Use LR 5e-5–1e-4 (not 2e-4) and higher lora_dropout (0.1) on <2k examples.
+  reason: Default 2e-4 overfits tiny instruction sets quickly.
+  confidence: 0.83
+  priority: 6
+  references:
+    - "QLoRA Unsloth 2026 guides"
+
+- id: peft-chat-template
+  title: Always Apply Chat Template
+  source: Hugging Face Documentation
+  documentation_url: https://huggingface.co/docs/transformers/chat_templating
+  category: dataset
+  condition:
+    and:
+      - field: training.mode
+        operator: in
+        value: ["lora", "qlora", "full"]
+      - field: dataset.task_type
+        operator: in
+        value: ["instruction", "chat"]
+  recommendation: Format every example with tokenizer.apply_chat_template(); never hand-roll prompt strings.
+  reason: Template mismatch is a top cause of “LoRA did nothing” failures in 2025–2026.
+  confidence: 0.90
+  priority: 8
+  references:
+    - "Chat templating"
+    - "TRL SFTTrainer"

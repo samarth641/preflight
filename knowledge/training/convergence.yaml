@@ -14,6 +14,22 @@
   references:
     - "Early stopping best practices"
 
+- id: monitor-accuracy-excellent
+  title: Accuracy Already Excellent
+  source: Preflight Training Monitor
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: monitor.accuracy
+    operator: gte
+    value: 0.95
+  recommendation: Stop or switch to lighter fine-tuning; risk of overfitting outweighs further gains.
+  reason: 95%+ accuracy on many tasks means remaining error is often label noise or irreducible.
+  confidence: 0.80
+  priority: 5
+  references:
+    - "Diminishing returns in fine-tuning"
+
 - id: monitor-convergence-slow
   title: Slow Convergence for 100M Model
   source: Preflight Training Monitor
@@ -37,6 +53,29 @@
   references:
     - "Learning rate warmup"
 
+- id: monitor-convergence-slow-llm
+  title: Slow Convergence for LLM Fine-Tune
+  source: Preflight Training Monitor
+  documentation_url: https://huggingface.co/docs/transformers
+  category: training
+  condition:
+    all:
+      - field: monitor.params_million
+        operator: gte
+        value: 1000
+      - field: monitor.epoch_progress_percent
+        operator: gte
+        value: 40
+      - field: monitor.train_loss
+        operator: gte
+        value: 2.5
+  recommendation: Check LR (often 1e-4–2e-4 for LoRA), packing, and chat template formatting.
+  reason: LLM SFT loss should drop meaningfully by mid-run; flat high loss suggests data/template issues.
+  confidence: 0.76
+  priority: 7
+  references:
+    - "SFT best practices"
+
 - id: monitor-gpu-underutilized
   title: GPU Underutilized During Training
   source: NVIDIA CUDA Documentation
@@ -52,3 +91,98 @@
   priority: 8
   references:
     - "PyTorch DataLoader performance"
+
+- id: monitor-gpu-idle
+  title: GPU Nearly Idle
+  source: Preflight Training Monitor
+  documentation_url: https://docs.nvidia.com/cuda/
+  category: training
+  condition:
+    field: monitor.gpu_utilization
+    operator: lt
+    value: 30
+  recommendation: Profile the step — likely sync, logging, or single-threaded decode is starving the GPU.
+  reason: <30% util is rarely "normal" for steady training; something is blocking the device.
+  confidence: 0.88
+  priority: 9
+  references:
+    - "PyTorch profiler"
+
+- id: monitor-loss-improving
+  title: Healthy Loss Trajectory
+  source: Preflight Training Monitor
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    all:
+      - field: monitor.train_loss_decreasing
+        operator: eq
+        value: true
+      - field: monitor.overfitting_detected
+        operator: eq
+        value: false
+  recommendation: Continue training; optionally raise batch size if GPU util is low.
+  reason: Decreasing train loss without overfitting is a healthy signal.
+  confidence: 0.70
+  priority: 2
+  references:
+    - "Training curves"
+
+- id: monitor-mfu-low
+  title: Low Model FLOPs Utilization
+  source: Preflight Training Monitor
+  documentation_url: https://docs.nvidia.com/cuda/
+  category: training
+  condition:
+    field: monitor.mfu_percent
+    operator: lt
+    value: 25
+  recommendation: Increase batch/seq length, enable Flash Attention, or reduce host syncs to raise MFU.
+  reason: MFU under ~25% means the GPU is not compute-bound — usually memory or pipeline stalls.
+  confidence: 0.80
+  priority: 7
+  references:
+    - "MFU / HFU metrics"
+
+- id: monitor-tokens-per-sec-low
+  title: Low Tokens/sec Throughput
+  source: Preflight Training Monitor
+  documentation_url: https://huggingface.co/docs/transformers/perf_train_gpu_one
+  category: training
+  condition:
+    and:
+      - field: monitor.tokens_per_second
+        operator: gt
+        value: 0
+      - field: monitor.tokens_per_second
+        operator: lt
+        value: 500
+      - field: monitor.params_million
+        operator: lte
+        value: 8000
+  recommendation: Enable packing, Flash Attention, larger micro-batch, or torch.compile for LLM fine-tunes.
+  reason: Sub-500 tok/s on ≤8B models on modern GPUs usually indicates avoidable overhead.
+  confidence: 0.74
+  priority: 5
+  references:
+    - "HF performance guide"
+
+- id: monitor-early-overfit
+  title: Early Overfitting Signal
+  source: Preflight Training Monitor
+  documentation_url: https://pytorch.org/docs/stable/nn.html
+  category: training
+  condition:
+    all:
+      - field: monitor.epoch_progress_percent
+        operator: lte
+        value: 30
+      - field: monitor.overfitting_detected
+        operator: eq
+        value: true
+  recommendation: Strengthen augmentation/dropout now; do not wait until late epochs.
+  reason: Overfitting in the first third of training rarely self-corrects.
+  confidence: 0.84
+  priority: 8
+  references:
+    - "Regularization"

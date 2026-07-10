@@ -55,6 +55,23 @@ class PricingRegistry:
             return None
         if provider and provider in rates:
             return float(rates[provider])
-        # fallback to cheapest listed provider
+        # fallback to cheapest listed provider with a positive rate
         numeric = [float(v) for v in rates.values() if isinstance(v, (int, float)) and v > 0]
         return min(numeric) if numeric else None
+
+    def resolve_cloud_rate(
+        self, gpu_id: str, provider: str | None
+    ) -> tuple[float | None, str | None]:
+        """Return (hourly_rate, provider_id_used). Falls back to cheapest listed rate."""
+        rates = self.load().get("cloud_hourly_usd", {}).get(gpu_id, {})
+        if not rates:
+            return None, None
+        if provider and provider in rates and float(rates[provider]) > 0:
+            return float(rates[provider]), provider
+        positive = {
+            k: float(v) for k, v in rates.items() if isinstance(v, (int, float)) and float(v) > 0
+        }
+        if not positive:
+            return None, None
+        best = min(positive, key=positive.get)
+        return positive[best], best
