@@ -5,20 +5,20 @@ from fastapi import APIRouter, HTTPException
 from app.core.analyzers import DatasetAnalyzer, TrainingAnalyzer
 from app.core.calculators import CostCalculator
 from app.core.config import settings
-from app.core.recommenders.gpu import GPURecommender
+from app.core.monitors import TrainingMonitor
 from app.core.predictors import DurationPredictor, DurationRequest
+from app.core.recommenders.gpu import GPURecommender
 from app.schemas.common import HealthResponse
-from app.schemas.predict import DurationPredictBody, DurationPredictResponse
 from app.schemas.cost import CostEstimateBody, CostEstimateResponse
 from app.schemas.dataset import DatasetAnalyzeRequest, DatasetAnalyzeResponse
 from app.schemas.gpu import GPURecommendBody, GPURecommendResponse
-from app.schemas.training import TrainingAnalyzeRequest, TrainingAnalyzeResponse
 from app.schemas.monitor import (
     DashboardStatsResponse,
     ExperimentHistoryResponseSchema,
     LiveTrainingMonitorResponse,
 )
-from app.core.monitors import TrainingMonitor
+from app.schemas.predict import DurationPredictBody, DurationPredictResponse
+from app.schemas.training import TrainingAnalyzeRequest, TrainingAnalyzeResponse
 
 router = APIRouter()
 _monitor = TrainingMonitor()

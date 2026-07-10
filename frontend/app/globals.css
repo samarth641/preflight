@@ -1,0 +1,500 @@
+@import "tailwindcss";
+
+:root {
+  /* Colors — Dark Terminal Theme (softened) */
+  --bg: #0d0d0f;
+  --surface: #161618;
+  --surface-hover: #1e1e22;
+  --surface-elevated: #1a1a1d;
+  --border: #262629;
+  --border-hover: #36363a;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-soft: rgba(59, 130, 246, 0.12);
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #06b6d4;
+  --text: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --amd: #ed1c24;
+
+  /* Spacing primitives */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Card radius */
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  /* ─── Responsive Typography Scale ─── */
+  --fs-stat-value: clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
+  --fs-stat-label: clamp(0.8125rem, 0.75rem + 0.3vw, 1rem);
+  --fs-card-title: clamp(0.875rem, 0.825rem + 0.25vw, 1.0625rem);
+  --fs-body: clamp(0.8125rem, 0.775rem + 0.2vw, 0.9375rem);
+  --fs-body-sm: clamp(0.6875rem, 0.66rem + 0.15vw, 0.8125rem);
+  --fs-section-label: clamp(0.6875rem, 0.66rem + 0.15vw, 0.8125rem);
+
+  /* ─── Responsive Spacing ─── */
+  --gap-bento: clamp(0.625rem, 0.5rem + 0.5vw, 1rem);
+  --gap-section: clamp(0.75rem, 0.625rem + 0.6vw, 1.25rem);
+  --pad-card: clamp(1rem, 0.875rem + 0.6vw, 1.5rem);
+
+  /* ─── Responsive Card Radius ─── */
+  --radius-card: clamp(0.625rem, 0.55rem + 0.35vw, 0.875rem);
+
+  /* ─── Layout dimensions ─── */
+  --topbar-h: 4rem;
+  --sidebar-w: 15rem;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Mono font for metrics */
+.font-mono {
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Smooth transitions on interactive elements */
+button, a, input, select {
+  transition: all 150ms ease;
+}
+
+/* Recharts dark theme overrides */
+.recharts-cartesian-grid line {
+  stroke: var(--border);
+}
+.recharts-text {
+  fill: var(--text-muted);
+}
+.recharts-default-tooltip {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+}
+
+/* Active nav accent bar */
+.nav-active-bar {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  border-radius: 0 2px 2px 0;
+  background: var(--primary);
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-hover) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Dashboard Layout
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Root container — fills viewport, but allows scroll when content overflows.
+   Top row and quick actions have FIXED viewport-relative heights.
+   Recent activity fills remaining space — expands within its own slot. */
+.dashboard-root {
+  height: calc(100vh - var(--topbar-h));
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-section);
+  gap: var(--gap-section);
+  overflow-y: auto;
+}
+
+/* ─── Top row: bento grid (left) + System Status (right) ───
+   Fixed viewport-relative height — does NOT change when Recent Activity expands. */
+.dashboard-top-row {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--gap-section);
+  height: clamp(14rem, 10rem + 12vw, 22rem);
+  min-height: 0;
+}
+
+/* Bento 2×2 grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gap-bento);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Bento card — balanced internal layout */
+.bento-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: clamp(0.875rem, 0.75rem + 0.6vw, 1.25rem);
+  min-height: 0;
+  position: relative;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.bento-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Bento card content row — label + icon on top, value below */
+.bento-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Stat label — promoted to be more readable, secondary hierarchy */
+.bento-stat-label {
+  font-size: var(--fs-stat-label);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+/* Stat value — primary hierarchy element, fills remaining card space */
+.bento-stat-value {
+  font-size: var(--fs-stat-value);
+  font-weight: 700;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+  font-feature-settings: "tnum" 1;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+/* Stat icon — bigger, vertically centered on the right, no background chip */
+.bento-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.bento-stat-icon svg {
+  width: clamp(1.5rem, 1.25rem + 0.6vw, 2rem);
+  height: clamp(1.5rem, 1.25rem + 0.6vw, 2rem);
+}
+
+/* ─── System Status card ─── */
+.system-status-card {
+  flex: 0 0 clamp(16rem, 14rem + 5vw, 22rem);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: var(--pad-card);
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.system-status-title {
+  font-size: var(--fs-card-title);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: clamp(0.625rem, 0.5rem + 0.3vw, 0.875rem);
+}
+
+.system-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
+  flex: 1 1 auto;
+}
+
+.system-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.system-status-label {
+  font-size: var(--fs-body-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.system-status-value {
+  font-size: var(--fs-body-sm);
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+  color: var(--text);
+}
+
+/* ─── Section title (shared by Quick Actions and Recent Activity) ─── */
+.section-title {
+  font-size: var(--fs-card-title);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ─── Quick Actions — horizontal strip ─── */
+/* No outer border — buttons are the visual units. Container is just a flex wrapper. */
+.quick-actions-strip {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--gap-bento);
+}
+
+.quick-action-btn {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
+  padding: clamp(0.625rem, 0.5rem + 0.4vw, 0.875rem) clamp(0.75rem, 0.625rem + 0.4vw, 1rem);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background: var(--surface-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quick-action-btn:active {
+  transform: translateY(0);
+}
+
+/* Icon — bare SVG, no background chip. */
+.quick-action-icon {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.quick-action-icon svg {
+  width: clamp(1.25rem, 1rem + 0.5vw, 1.625rem);
+  height: clamp(1.25rem, 1rem + 0.5vw, 1.625rem);
+}
+
+/* Title — dominant visual element */
+.quick-action-label {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* Subtitle — de-emphasized, compact */
+.quick-action-desc {
+  font-size: clamp(0.625rem, 0.6rem + 0.1vw, 0.75rem);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.15;
+  margin-top: 0.125rem;
+}
+
+/* ─── Recent Activity — shrink-fits when collapsed, grows when expanded ───
+   Collapsed: only toggle bar visible, container shrinks to fit it.
+   Expanded: content area scrolls internally up to available viewport space. */
+.recent-activity-container {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.recent-activity-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: clamp(0.625rem, 0.5rem + 0.4vw, 0.875rem) var(--pad-card);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 150ms ease;
+  flex-shrink: 0;
+}
+
+.recent-activity-toggle:hover {
+  background: var(--surface-hover);
+}
+
+.recent-activity-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-body-sm);
+  color: var(--text-muted);
+}
+
+/* Content area — internal scroll when expanded.
+   Collapsed: flex-basis 0, no space.
+   Expanded: grows but capped at remaining viewport via max-height. */
+.recent-activity-content {
+  flex: 0 0 0;
+  overflow: hidden;
+  transition: flex-grow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 0;
+}
+
+.recent-activity-content.expanded {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  max-height: calc(100vh - var(--topbar-h) - 28rem);
+}
+
+.recent-activity-list {
+  padding: 0 var(--pad-card) var(--pad-card);
+}
+
+.recent-activity-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.recent-activity-item:last-child {
+  border-bottom: none;
+}
+
+.recent-activity-item-title {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.recent-activity-item-desc {
+  font-size: var(--fs-body-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-activity-item-time {
+  font-size: var(--fs-body-sm);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Responsive breakpoints
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1023px) {
+  .dashboard-top-row {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .system-status-card {
+    flex: 0 0 auto;
+    max-height: 18rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-root {
+    height: auto;
+    min-height: calc(100vh - var(--topbar-h));
+    overflow: visible;
+  }
+
+  .quick-actions-strip {
+    flex-wrap: wrap;
+  }
+
+  .quick-action-btn {
+    flex: 1 1 calc(50% - var(--gap-bento) / 2);
+  }
+}
+
+/* Short viewports — let page scroll naturally, don't trap content */
+@media (max-height: 700px) {
+  .dashboard-root {
+    height: auto;
+    min-height: calc(100vh - var(--topbar-h));
+    overflow: visible;
+  }
+
+  .recent-activity-content.expanded {
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+
+  .quick-action-desc {
+    display: none;
+  }
+}
