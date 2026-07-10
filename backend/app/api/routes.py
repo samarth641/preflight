@@ -5,12 +5,14 @@ from fastapi import APIRouter, HTTPException
 from app.core.analyzers import DatasetAnalyzer, TrainingAnalyzer
 from app.core.calculators import CostCalculator
 from app.core.config import settings
+from app.core.explainers import ExplanationEngine
 from app.core.recommenders.gpu import GPURecommender
 from app.core.predictors import DurationPredictor, DurationRequest
 from app.schemas.common import HealthResponse
 from app.schemas.predict import DurationPredictBody, DurationPredictResponse
 from app.schemas.cost import CostEstimateBody, CostEstimateResponse
 from app.schemas.dataset import DatasetAnalyzeRequest, DatasetAnalyzeResponse
+from app.schemas.explain import ExplainRequest, ExplainResponse
 from app.schemas.gpu import GPURecommendBody, GPURecommendResponse
 from app.schemas.training import TrainingAnalyzeRequest, TrainingAnalyzeResponse
 
@@ -98,3 +100,10 @@ def predict_duration(body: DurationPredictBody) -> DurationPredictResponse:
         cost_provider=body.cloud_provider if rate else None,
         hourly_rate_usd=rate,
     )
+
+
+@router.post("/explain", response_model=ExplainResponse, tags=["explain"])
+def explain(body: ExplainRequest) -> ExplainResponse:
+    """AI Explanation Engine: turns a KnowledgeEngine result into plain language."""
+    result = ExplanationEngine().explain(body.engine_result, body.context)
+    return ExplainResponse(explanation=result.explanation, backend=result.backend)

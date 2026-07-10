@@ -111,6 +111,9 @@ def analyze_training(
     output_format: OutputFormat = typer.Option(
         OutputFormat.rich, "--format", "-f", help="Output format"
     ),
+    explain: bool = typer.Option(
+        False, "--explain", help="Also print an AI-generated plain-language explanation"
+    ),
 ) -> None:
     """Analyze a training log for health issues and rule-based recommendations."""
     from rich.console import Console
@@ -126,6 +129,16 @@ def analyze_training(
         typer.echo(_training_markdown(result))
     else:
         render_training_analysis(result, Console())
+
+    if explain:
+        from app.core.engine.models import EngineResult
+        from app.core.explainers import ExplanationEngine
+
+        engine_result = EngineResult(recommendations=result.recommendations, warnings=result.warnings)
+        explanation = ExplanationEngine().explain(engine_result)
+        console = Console()
+        console.print(f"\n[bold]AI Explanation[/bold] ([dim]{explanation.backend}[/dim]):")
+        console.print(explanation.explanation, markup=False)
 
 
 def _training_markdown(result) -> str:

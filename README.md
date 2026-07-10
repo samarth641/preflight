@@ -210,6 +210,7 @@ uvicorn app.main:app --reload --port 8000
 | `POST /api/v1/gpu/recommend` | GPU ranking + cost |
 | `POST /api/v1/cost/estimate` | Standalone cost estimate |
 | `POST /api/v1/predict/duration` | **ML** training duration + cost prediction |
+| `POST /api/v1/explain` | **AI** plain-language explanation of a rule-engine result |
 
 Full reference: [docs/api.md](docs/api.md)
 
@@ -303,6 +304,54 @@ python ml/train_duration.py           # -> backend/app/core/predictors/duration/
 ```
 
 Artifact is a ~300 KB JSON loaded at startup — no model server needed.
+
+---
+
+## AI Explanation Engine (Gemma, fine-tuned on AMD ROCm)
+
+**Status: live and verified end-to-end.** The fine-tuned model is trained, converted to GGUF,
+and serving — `trainwise analyze-training <log> --explain` returns `backend: "gemma-finetuned"`,
+confirming the model (not the fallback) is answering.
+
+Turns a rule-engine result (matched recommendations + warnings) into a plain-language
+explanation: an opening sentence, a "because:" bullet list, a "Recommended actions:"
+checklist, and an "Estimated impact:" line — the format the Core Objectives doc specifies.
+
+Training data is generated straight from `knowledge/*.yaml` (`ml/generate_explanation_dataset.py`,
+reuses the real `RuleLoader` — no hand-written gold data, no drift). Fine-tuned with LoRA
+(Unsloth) on an AMD GPU via ROCm (`ml/finetune_gemma_explainer_amd.py`), then merged and exported
+to GGUF for `llama-cpp-python` serving; see
+[docs/explanation-engine-handoff.md](docs/explanation-engine-handoff.md) for the run steps and
+[docs/gguf-conversion-and-serving.md](docs/gguf-conversion-and-serving.md) for the conversion/serving path.
+
+**Always demoable:** if the fine-tuned `.gguf` artifact isn't present, `ExplanationEngine` falls
+back to a deterministic template in the same house style — same graceful-degradation pattern as
+the duration predictor. Check the `backend` field in the response (`"template"` vs
+`"gemma-finetuned"`) to see which one answered.
+
+**On the roadmap (actively improving):** a quantized Q4_K_M build is in the pipeline for faster
+inference, alongside broader explanation coverage across more rule combinations — both in progress
+to make the engine leaner and more general.
+
+### CLI
+
+```bash
+trainwise analyze-training training_log.csv --explain
+```
+
+### API
+
+```bash
+curl -X POST http://localhost:8000/api/v1/explain \
+  -H "Content-Type: application/json" \
+  -d '{"engine_result": {"recommendations": [...], "warnings": [...]}, "context": {}}'
+```
+
+### Run tests
+
+```bash
+pytest ../tests/test_explainer.py -v
+```
 
 ---
 
