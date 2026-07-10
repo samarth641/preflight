@@ -1,0 +1,54 @@
+﻿- id: monitor-accuracy-near-target
+  title: Accuracy Approaching Target
+  source: Preflight Training Monitor
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    field: monitor.accuracy
+    operator: gte
+    value: 0.80
+  recommendation: Accuracy is near target ΓÇö consider early stopping or saving a checkpoint now.
+  reason: Validation accuracy has reached 80%+; further epochs may yield diminishing returns.
+  confidence: 0.82
+  priority: 6
+  references:
+    - "Early stopping best practices"
+
+- id: monitor-convergence-slow
+  title: Slow Convergence for 100M Model
+  source: Preflight Training Monitor
+  documentation_url: https://pytorch.org/docs/stable/optim.html
+  category: training
+  condition:
+    all:
+      - field: monitor.params_million
+        operator: lte
+        value: 150
+      - field: monitor.epoch_progress_percent
+        operator: gte
+        value: 50
+      - field: monitor.accuracy
+        operator: lt
+        value: 0.60
+  recommendation: Past 50% of epochs with accuracy below 60% ΓÇö try higher learning rate or review data quality.
+  reason: 100M-class models typically reach 60%+ accuracy by mid-training when data and LR are well tuned.
+  confidence: 0.78
+  priority: 7
+  references:
+    - "Learning rate warmup"
+
+- id: monitor-gpu-underutilized
+  title: GPU Underutilized During Training
+  source: NVIDIA CUDA Documentation
+  documentation_url: https://docs.nvidia.com/cuda/
+  category: training
+  condition:
+    field: monitor.gpu_utilization
+    operator: lt
+    value: 70
+  recommendation: Increase DataLoader workers, enable pin_memory, or raise batch size to improve GPU utilization.
+  reason: GPU utilization below 70% suggests a data-loading or CPU bottleneck.
+  confidence: 0.85
+  priority: 8
+  references:
+    - "PyTorch DataLoader performance"

@@ -1,91 +1,65 @@
 # Backend Integration
 
-Frontend runs on mock data right now. Swapping to real API is a single-file change — only `lib/api.ts` changes. Everything else stays the same.
+Frontend connects to the Preflight FastAPI backend via `lib/api.ts`.
 
----
+## Setup
 
-## CORS
-
-Add to `app/main.py`:
-
-```python
-from fastapi.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+**Terminal 1 — API:**
+```bash
+cd backend
+uvicorn app.main:app --reload --port 8000
 ```
 
-## Env Var
-
-Create `.env.local` in `frontend/`:
-
-```
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-```
-
-## Swapping Mock for Real
-
-In `lib/api.ts`, each function currently returns mock data. Replace with a real fetch call:
-
-```typescript
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1"
-
-export async function recommendGPU(req: GPURecommendationRequest): Promise<GPURecommendationResult> {
-  const res = await fetch(`${API_URL}/gpu/recommend`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(req),
-  })
-  if (!res.ok) throw new Error(`GPU recommend failed: ${res.status}`)
-  return res.json()
-}
+**Terminal 2 — Frontend:**
+```bash
+cd frontend
+cp .env.local.example .env.local
+npm install
+npm run dev
 ```
 
-Signatures and return types stay identical — components don't change.
+Open http://localhost:3000
+
+## Environment
+
+```env
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000/api/v1
+# NEXT_PUBLIC_USE_MOCK=true   # force mock mode (no backend)
+```
 
 ## Endpoint Status
 
-### Ready to connect (5 endpoints — verified in routes.py)
+### Connected to backend
 
-| Frontend Function | Backend Endpoint | Notes |
-|------------------|------------------|-------|
-| `getHealth()` | `GET /api/v1/health` | Direct match |
-| `analyzeDataset({ path })` | `POST /api/v1/dataset/analyze` | Backend takes `{ path, max_images }`. Manual entry mode (metrics only) has no endpoint — keep mock or add backend support. |
-| `recommendGPU(req)` | `POST /api/v1/gpu/recommend` | Types match. `GPURecommendBody` schema matches `GPURecommendationRequest` in types.ts. |
-| `estimateCost(req)` | `POST /api/v1/cost/estimate` | Types match. `CostEstimateBody` schema matches `CostEstimateRequest`. |
-| `getTrainingHealth(jobId)` | `POST /api/v1/training/analyze` | Backend takes `{ path }` to a log file. Frontend passes `jobId` — needs adaptation. |
+| Frontend | Backend |
+|----------|---------|
+| `getHealth()` | `GET /health` |
+| `getDashboardStats()` | `GET /dashboard/stats` |
+| `listExperiments()` | `GET /experiments` |
+| `getLiveMonitor()` | `GET /training/monitor` |
+| `getRecentActivity()` | derived from `/experiments` |
+| `recommendGPU()` | `POST /gpu/recommend` |
+| `estimateCost()` | `POST /cost/estimate` |
+| `predictDuration()` | `POST /predict/duration` |
+| `analyzeDataset({ path })` | `POST /dataset/analyze` |
+| `getTrainingHealth(demo job)` | `GET /training/monitor` (demo → exp-live-100m) |
+| `getTrainingMetrics(demo job)` | curve from `/training/monitor` |
+| `analyzeTraining()` | composed from GPU + duration + cost APIs |
 
-### No backend endpoint (stay mock)
+### Still mock / client-side
 
-| Frontend Function | Issue | Action |
-|------------------|-------|--------|
-| `predictDuration(req)` | No `/predict/duration` endpoint in routes.py | XGBoost model exists in CLI but no API route. Add endpoint or keep mock. |
-| `getDashboardStats()` | No `/dashboard/stats` endpoint | Keep mock or add endpoint |
-| `listExperiments()` | No `/experiments` endpoint | Keep mock or add endpoint |
-| `getLiveMonitor(id?)` | No `/training/monitor` endpoint | Keep mock or add endpoint |
-| `getRecentActivity()` | No endpoint | Derive from experiment list or keep mock |
-| `analyzeTraining(req)` | No `/analyze` endpoint | Fabricated PredictionResult fields. Use `predictDuration()` + `estimateCost()` instead. |
-| `startTraining()` / `stopTraining()` | No endpoint | Frontend-only controls, keep mock |
-| `getTrainingMetrics()` | No endpoint | Keep mock |
-| `exportAnalysis()` | No endpoint | Keep mock |
-| `listGPUs()` / `listGPUBenchmarks()` / `listCloudOfferings()` | No dedicated endpoint | Add to backend or embed in GPU response |
+| Frontend | Reason |
+|----------|--------|
+| `analyzeDataset(manual metrics)` | No backend endpoint for manual entry |
+| `listGPUBenchmarks()` | No dedicated API (embedded in knowledge YAML) |
+| `startTraining()` / `stopTraining()` | Demo controls only |
+| `exportAnalysis()` | No backend export endpoint |
+| Pre-training `oom_probability`, `carbon_footprint_kg`, etc. | Heuristic estimates — labeled in UI |
 
-### Known type mismatch
+## Dataset path mode
 
-- `CostEstimateResult` in frontend types has `gpu_hours` field that the backend `CostEstimateResult` Pydantic model does not include. When swapping to real fetch, this field will be `undefined`. The cost page reads it for display — either add it to the backend model or handle the missing field in the page.
+`analyzeDataset({ path })` requires a path the **backend server** can read (local dev: absolute path like `F:/PREFLIIGHT/tests/_cli_sample`).
 
-## Fabricated Fields (no backend support)
+## Demo training job
 
-The pre-training page has fields with NO backend implementation:
-- `oom_probability`, `convergence_probability`, `expected_accuracy_min/max`
-- `gpu_utilization_estimate`, `carbon_footprint_kg`, `bottlenecks`
-
-These are clearly labeled in the page as estimates. They should be removed or labeled as "Roadmap" for production.
-
-## Error Handling
-
-Backend returns `{ "detail": "..." }` on errors. Frontend currently shows a generic message — can parse `error.detail` later for better UX. Low priority.
+The training page demo job `demo-vit-base-live` maps to experiment `exp-live-100m` and uses rule-based monitor fixtures in `tests/fixtures/experiments/`.

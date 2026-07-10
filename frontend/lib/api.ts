@@ -1,6 +1,4 @@
-// API client — all functions return mock data
-// When backend is ready, replace mock implementations with real fetch() calls
-// Function signatures and return types stay identical
+// API client — calls Preflight backend with mock fallback for frontend-only features
 
 import type {
   GPUSpec, CloudOffering, GPURecommendationRequest, GPURecommendationResult,
@@ -10,7 +8,7 @@ import type {
   DurationPredictRequest, DurationPredictResult,
   CostEstimateRequest, CostEstimateResult, GPUBenchmark,
   ExperimentHistoryResponse, DashboardStats,
-  LiveTrainingMonitor,
+  LiveTrainingMonitor, EpochPoint,
 } from "./types"
 
 import {
@@ -22,276 +20,406 @@ import {
   MOCK_EXPERIMENT_HISTORY, MOCK_LIVE_MONITOR,
 } from "./mock-data"
 
-// Simulated network delay
-function delay(ms: number = 800): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1"
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "true"
+
+/** Map demo training job ids to backend experiment ids */
+const DEMO_JOB_TO_EXPERIMENT: Record<string, string> = {
+  "demo-vit-base-live": "exp-live-100m",
 }
 
-function randomDelay(): Promise<void> {
-  return delay(500 + Math.random() * 1000)
+class ApiError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = "ApiError"
+  }
+}
+
+async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`${API_URL}${path}`, {
+    ...init,
+    headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
+  })
+  const body = await res.json().catch(() => ({})) as { detail?: string | unknown }
+  if (!res.ok) {
+    const detail = typeof body.detail === "string" ? body.detail : JSON.stringify(body.detail ?? res.statusText)
+    throw new ApiError(detail || `Request failed (${res.status})`)
+  }
+  return body as T
+}
+
+async function withBackend<T>(path: string, init: RequestInit | undefined, mockFn: () => Promise<T>): Promise<T> {
+  if (USE_MOCK) return mockFn()
+  try {
+    return await apiFetch<T>(path, init)
+  } catch (err) {
+    if (process.env.NODE_ENV === "development") {
+      console.warn(`[api] ${path} failed, using mock:`, err)
+      return mockFn()
+    }
+    throw err
+  }
+}
+
+function enrichCostResult(data: CostEstimateResult, gpuCount: number): CostEstimateResult {
+  return {
+    ...data,
+    gpu_hours: data.gpu_hours ?? parseFloat((data.estimated_hours * gpuCount).toFixed(2)),
+  }
+}
+
+function liveMonitorToTrainingResult(live: LiveTrainingMonitor): TrainingAnalysisResult {
+  return {
+    log_path: null,
+    metrics: {
+      epoch_count: live.total_epochs,
+      current_epoch: live.epoch,
+      latest_train_loss: live.train_loss,
+      latest_val_loss: live.val_loss,
+      best_val_loss: live.val_loss,
+      best_epoch: live.epoch,
+      validation_loss_increasing: live.convergence_status === "diverging",
+      train_loss_stagnant: live.convergence_status === "stagnant",
+      overfitting_gap: 0,
+      overfitting_detected: live.convergence_status === "plateau",
+      loss_diverging: live.convergence_status === "diverging",
+      accuracy_plateau: live.convergence_status === "plateau",
+      gpu_utilization: live.gpu_utilization,
+      cpu_utilization: null,
+      avg_gpu_utilization: live.gpu_utilization,
+      vram_usage_percent: null,
+      vram_near_limit: false,
+    },
+    trends: [],
+    score: live.health_score,
+    grade: live.health_grade,
+    warnings: live.warnings,
+    recommendations: live.recommendations,
+    sources: [],
+  }
+}
+
+function curveToEpochMetrics(curve: EpochPoint[]): EpochMetrics[] {
+  return curve.map((p) => ({
+    epoch: p.epoch,
+    train_loss: p.train_loss,
+    val_loss: p.val_loss,
+    accuracy: p.accuracy,
+    gpu_utilization: p.gpu_utilization,
+    cpu_utilization: null,
+    vram_gb: null,
+    vram_percent: null,
+    power_watts: null,
+  }))
+}
+
+function experimentsToActivity(history: ExperimentHistoryResponse): ActivityItem[] {
+  return history.experiments.map((exp) => ({
+    id: exp.id,
+    type: exp.status === "running" ? "training" as const : "analysis" as const,
+    title: exp.name,
+    description: `${exp.params_million}M params · ${exp.gpu} · ${exp.status}${exp.final_accuracy != null ? ` · ${(exp.final_accuracy * 100).toFixed(1)}% acc` : ""}`,
+    timestamp: exp.started_at || new Date().toISOString(),
+  }))
 }
 
 // ─── Health & System ───
 
 export async function getHealth(): Promise<HealthStatus> {
-  await delay(300)
-  return { ...MOCK_HEALTH }
+  return withBackend("/health", { method: "GET" }, async () => ({ ...MOCK_HEALTH }))
 }
 
 export async function getDashboardStats(): Promise<DashboardStats> {
-  await randomDelay()
-  return { ...MOCK_DASHBOARD_STATS }
+  return withBackend("/dashboard/stats", { method: "GET" }, async () => ({ ...MOCK_DASHBOARD_STATS }))
 }
 
 export async function getRecentActivity(): Promise<ActivityItem[]> {
-  await randomDelay()
-  return [...MOCK_ACTIVITY]
+  if (USE_MOCK) return [...MOCK_ACTIVITY]
+  try {
+    const history = await apiFetch<ExperimentHistoryResponse>("/experiments", { method: "GET" })
+    return experimentsToActivity(history)
+  } catch {
+    return [...MOCK_ACTIVITY]
+  }
 }
 
-// ─── Analysis (PLACEHOLDER — no backend /analyze endpoint) ───
+// ─── Pre-training analysis (composed from real GPU + cost + duration APIs) ───
 
 export async function analyzeTraining(req: AnalysisRequest): Promise<AnalysisResult> {
-  await randomDelay()
-  const result = JSON.parse(JSON.stringify(MOCK_ANALYSIS_RESULT)) as AnalysisResult
-  const vramMultiplier = req.parameter_count_billion / 7.0
-  result.predictions.peak_vram_gb = parseFloat((18.5 * vramMultiplier).toFixed(1))
-  result.predictions.estimated_cost_usd = parseFloat((12.5 * vramMultiplier).toFixed(2))
-  result.predictions.estimated_runtime_hours = parseFloat((4.5 * vramMultiplier).toFixed(1))
-  return result
+  if (USE_MOCK) {
+    const result = JSON.parse(JSON.stringify(MOCK_ANALYSIS_RESULT)) as AnalysisResult
+    const vramMultiplier = req.parameter_count_billion / 7.0
+    result.predictions.peak_vram_gb = parseFloat((18.5 * vramMultiplier).toFixed(1))
+    result.predictions.estimated_cost_usd = parseFloat((12.5 * vramMultiplier).toFixed(2))
+    result.predictions.estimated_runtime_hours = parseFloat((4.5 * vramMultiplier).toFixed(1))
+    return result
+  }
+
+  const gpuId = req.gpu_id ?? "rtx-4090"
+  const [gpu, duration, cost] = await Promise.all([
+    recommendGPU({
+      parameter_count_billion: req.parameter_count_billion,
+      batch_size: req.batch_size,
+      precision: req.precision,
+      training_mode: req.training_mode,
+      model_type: req.model_type,
+      image_size: req.image_size ?? 224,
+      sequence_length: req.sequence_length ?? 512,
+      budget_tier: null,
+      preferred_vendor: null,
+      max_results: 3,
+      include_cloud: true,
+      include_cost: true,
+      epochs: req.epochs,
+      dataset_samples: req.dataset_size,
+      dataset_size_gb: null,
+      deployment: "cloud",
+    }),
+    predictDuration({
+      parameter_count_billion: req.parameter_count_billion,
+      dataset_tokens: req.dataset_size,
+      gpu_id: gpuId,
+      n_gpus: 1,
+      epochs: req.epochs,
+      domain: req.model_type === "transformer" ? "language" : "vision",
+      cloud_provider: "runpod",
+    }),
+    estimateCost({
+      parameter_count_billion: req.parameter_count_billion,
+      gpu_id: gpuId,
+      epochs: req.epochs,
+      dataset_samples: req.dataset_size,
+      dataset_size_gb: null,
+      batch_size: req.batch_size,
+      model_type: req.model_type,
+      deployment: "cloud",
+      cloud_provider: "runpod",
+      electricity_usd_per_kwh: null,
+      gpu_count: 1,
+    }),
+  ])
+
+  const peakVram = gpu.required_vram_gb
+  const headroomRisk = gpu.best_pick?.vram_utilization ?? 0.5
+
+  return {
+    predictions: {
+      estimated_cost_usd: cost.total_usd,
+      estimated_runtime_hours: duration.estimated_hours,
+      peak_vram_gb: peakVram,
+      oom_probability: parseFloat(Math.min(0.95, Math.max(0.02, headroomRisk - 0.5)).toFixed(2)),
+      convergence_probability: parseFloat(Math.min(0.95, 0.55 + (duration.estimated_hours < 24 ? 0.2 : 0)).toFixed(2)),
+      expected_accuracy_min: 0.65,
+      expected_accuracy_max: 0.92,
+      gpu_utilization_estimate: 0.85,
+      carbon_footprint_kg: parseFloat((duration.estimated_hours * 0.4).toFixed(2)),
+      bottlenecks: headroomRisk > 0.9 ? ["VRAM near limit — reduce batch size or use LoRA"] : [],
+    },
+    recommendations: gpu.knowledge_recommendations,
+    warnings: gpu.warnings,
+    explanation: {
+      summary: `Estimated ${duration.estimated_duration_human} on ${gpuId} for ${req.parameter_count_billion}B params (${req.training_mode}).`,
+      reasoning: [
+        { factor: "GPU fit", impact: gpu.best_pick ? `${gpu.best_pick.gpu.name} — ${gpu.best_pick.fit_rating}` : "See recommendations" },
+        { factor: "Duration (ML)", impact: `${duration.estimated_hours.toFixed(1)}h (${duration.model_version})` },
+        { factor: "Cost", impact: `$${cost.total_usd.toFixed(2)} on runpod` },
+      ],
+      recommendations_savings: "Use LoRA and a smaller cloud GPU for prototyping.",
+      action_checklist: ["Run dataset quality check", "Confirm GPU recommendation", "Monitor training with live dashboard"],
+    },
+    sources: gpu.sources,
+  }
 }
 
 // ─── Dataset ───
 
 export async function analyzeDataset(input: DatasetManualInput | { path: string }): Promise<DatasetAnalysisResult> {
-  await randomDelay()
-  if ("path" in input) {
-    return JSON.parse(JSON.stringify(MOCK_DATASET_RESULT))
+  if ("path" in input && !USE_MOCK) {
+    return apiFetch("/dataset/analyze", {
+      method: "POST",
+      body: JSON.stringify({ path: input.path }),
+    })
   }
-  const result = JSON.parse(JSON.stringify(MOCK_DATASET_RESULT)) as DatasetAnalysisResult
-  result.metrics.image_count = input.image_count
-  result.metrics.class_count = input.class_count
-  result.metrics.class_imbalance_ratio = input.class_imbalance_ratio
-  result.metrics.duplicate_percent = input.duplicate_percent
-  result.metrics.blur_percent = input.blur_percent
-  result.metrics.missing_label_percent = input.missing_label_percent
-  result.metrics.median_resolution = input.median_resolution
 
-  let score = 100
-  if (input.class_imbalance_ratio >= 5) score -= 15
-  else if (input.class_imbalance_ratio >= 3) score -= 8
-  if (input.duplicate_percent >= 5) score -= 12
-  else if (input.duplicate_percent >= 3) score -= 6
-  if (input.blur_percent >= 10) score -= 10
-  else if (input.blur_percent >= 5) score -= 5
-  if (input.missing_label_percent >= 5) score -= 15
-  else if (input.missing_label_percent >= 2) score -= 5
-  if (input.median_resolution < 224) score -= 8
-  if (input.image_count < 500) score -= 10
-  result.score = Math.max(0, score)
-  result.grade = score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : score >= 60 ? "D" : "F"
+  // Manual metrics mode — client-side scoring (no backend endpoint)
+  const result = JSON.parse(JSON.stringify(MOCK_DATASET_RESULT)) as DatasetAnalysisResult
+  if (!("path" in input)) {
+    result.metrics.image_count = input.image_count
+    result.metrics.class_count = input.class_count
+    result.metrics.class_imbalance_ratio = input.class_imbalance_ratio
+    result.metrics.duplicate_percent = input.duplicate_percent
+    result.metrics.blur_percent = input.blur_percent
+    result.metrics.missing_label_percent = input.missing_label_percent
+    result.metrics.median_resolution = input.median_resolution
+    let score = 100
+    if (input.class_imbalance_ratio >= 5) score -= 15
+    else if (input.class_imbalance_ratio >= 3) score -= 8
+    if (input.duplicate_percent >= 5) score -= 12
+    else if (input.duplicate_percent >= 3) score -= 6
+    if (input.blur_percent >= 10) score -= 10
+    else if (input.blur_percent >= 5) score -= 5
+    if (input.missing_label_percent >= 5) score -= 15
+    else if (input.missing_label_percent >= 2) score -= 5
+    if (input.median_resolution < 224) score -= 8
+    if (input.image_count < 500) score -= 10
+    result.score = Math.max(0, score)
+    result.grade = score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : score >= 60 ? "D" : "F"
+  }
   return result
 }
 
 // ─── GPU ───
 
 export async function recommendGPU(req: GPURecommendationRequest): Promise<GPURecommendationResult> {
-  await randomDelay()
-  const result = JSON.parse(JSON.stringify(MOCK_GPU_RESULT)) as GPURecommendationResult
-  const vramMultiplier = req.parameter_count_billion / 7.0
-  result.required_vram_gb = parseFloat((18.5 * vramMultiplier).toFixed(1))
-  result.request = req
-  if (req.preferred_vendor) {
-    result.candidates = result.candidates.filter(c => c.gpu.vendor === req.preferred_vendor)
-    result.best_pick = result.candidates[0] || null
-  }
-  result.candidates = result.candidates.map(c => {
-    const benchmark = GPU_BENCHMARKS[c.gpu.id]
-    if (benchmark) {
-      const existingReasons = c.reasons.filter(r => !r.includes("benchmark"))
-      const benchmarkReason = `Benchmark: ${benchmark.relative_training_throughput}x A100 throughput`
-      return { ...c, reasons: [...existingReasons, benchmarkReason] }
-    }
-    return c
+  return withBackend("/gpu/recommend", { method: "POST", body: JSON.stringify(req) }, async () => {
+    const result = JSON.parse(JSON.stringify(MOCK_GPU_RESULT)) as GPURecommendationResult
+    result.request = req
+    return result
   })
-  if (result.best_pick) {
-    const benchmark = GPU_BENCHMARKS[result.best_pick.gpu.id]
-    if (benchmark) {
-      const existingReasons = result.best_pick.reasons.filter(r => !r.includes("benchmark"))
-      result.best_pick = { ...result.best_pick, reasons: [...existingReasons, `Benchmark: ${benchmark.relative_training_throughput}x A100 throughput`] }
-    }
-  }
-  const candidateIds = new Set(result.candidates.slice(0, 3).map(c => c.gpu.id))
-  result.cloud_offerings = MOCK_CLOUD.filter(c => candidateIds.has(c.gpu_id)).slice(0, 5)
-  return result
 }
 
 export async function listGPUs(): Promise<GPUSpec[]> {
-  await delay(300)
+  if (!USE_MOCK) {
+    try {
+      const rec = await recommendGPU({
+        parameter_count_billion: 7,
+        batch_size: 8,
+        precision: "fp16",
+        training_mode: "lora",
+        model_type: "transformer",
+        image_size: 224,
+        sequence_length: 512,
+        budget_tier: null,
+        preferred_vendor: null,
+        max_results: 20,
+        include_cloud: true,
+        include_cost: false,
+        epochs: 5,
+        dataset_samples: 10_000,
+        dataset_size_gb: null,
+        deployment: "cloud",
+      })
+      const seen = new Set<string>()
+      return rec.candidates.map((c) => c.gpu).filter((g) => {
+        if (seen.has(g.id)) return false
+        seen.add(g.id)
+        return true
+      })
+    } catch { /* fall through */ }
+  }
   return [...MOCK_GPUS]
 }
 
 export async function listCloudOfferings(): Promise<CloudOffering[]> {
-  await delay(300)
+  if (!USE_MOCK) {
+    try {
+      const rec = await recommendGPU({
+        parameter_count_billion: 7,
+        batch_size: 8,
+        precision: "fp16",
+        training_mode: "lora",
+        model_type: "transformer",
+        image_size: 224,
+        sequence_length: 512,
+        budget_tier: null,
+        preferred_vendor: null,
+        max_results: 5,
+        include_cloud: true,
+        include_cost: false,
+        epochs: 5,
+        dataset_samples: 10_000,
+        dataset_size_gb: null,
+        deployment: "cloud",
+      })
+      return rec.cloud_offerings
+    } catch { /* fall through */ }
+  }
   return [...MOCK_CLOUD]
 }
 
 // ─── Training Log Analysis ───
 
 export async function getTrainingHealth(jobId: string): Promise<TrainingAnalysisResult> {
-  await randomDelay()
+  const experimentId = DEMO_JOB_TO_EXPERIMENT[jobId]
+  if (experimentId && !USE_MOCK) {
+    try {
+      const q = `?experiment_id=${encodeURIComponent(experimentId)}`
+      const live = await apiFetch<LiveTrainingMonitor>(`/training/monitor${q}`, { method: "GET" })
+      return liveMonitorToTrainingResult(live)
+    } catch { /* fall through */ }
+  }
   return JSON.parse(JSON.stringify(MOCK_TRAINING_RESULT))
 }
 
 // ─── Duration Prediction (ML) ───
 
 export async function predictDuration(req: DurationPredictRequest): Promise<DurationPredictResult> {
-  await randomDelay()
-  const result = JSON.parse(JSON.stringify(MOCK_DURATION_PREDICTION)) as DurationPredictResult
-  const paramFactor = Math.pow(req.parameter_count_billion / 7.0, 0.75)
-  const tokenFactor = req.dataset_tokens / 2_000_000
-  const gpuBenchmark = GPU_BENCHMARKS[req.gpu_id]
-  const throughputFactor = gpuBenchmark ? 1.0 / gpuBenchmark.relative_training_throughput : 1.0
-  const multiGpuFactor = Math.pow(req.n_gpus, 0.95)
-  const baseHours = 3.2 * paramFactor * tokenFactor * throughputFactor / multiGpuFactor * req.epochs
-  result.estimated_hours = parseFloat(baseHours.toFixed(2))
-  result.theoretical_hours = parseFloat((baseHours * 1.28).toFixed(2))
-  result.gpu_id = req.gpu_id
-  result.n_gpus = req.n_gpus
-  const h = result.estimated_hours
-  result.estimated_duration_human = h < 1 ? `${Math.round(h * 60)}m` : h < 48 ? `${h.toFixed(1)}h` : `${(h / 24).toFixed(1)} days`
-  if (req.cloud_provider) {
-    const rates: Record<string, number> = {
-      "mi300x-azure": 6.00, "a100-80gb-aws": 32.77, "a100-80gb-gcp": 30.00,
-      "a100-80gb-lambda": 1.10, "a100-80gb-runpod": 1.89,
-      "h100-80gb-aws": 98.32, "h100-80gb-gcp": 90.00,
-      "rtx-4090-runpod": 0.44, "rtx-4090-lambda": 0.50, "rtx-4090-vast": 0.35,
-      "rtx-4080-runpod": 0.34,
-    }
-    const rateKey = `${req.gpu_id}-${req.cloud_provider}`
-    const rate = rates[rateKey]
-    if (rate) {
-      result.estimated_cost_usd = parseFloat((baseHours * req.n_gpus * rate).toFixed(2))
-      result.cost_provider = req.cloud_provider
-      result.hourly_rate_usd = rate
-    } else {
-      result.estimated_cost_usd = null
-      result.cost_provider = null
-      result.hourly_rate_usd = null
-    }
-  } else {
-    result.estimated_cost_usd = null
-    result.cost_provider = null
-    result.hourly_rate_usd = null
-  }
-  return result
+  return withBackend("/predict/duration", { method: "POST", body: JSON.stringify(req) }, async () => {
+    const result = JSON.parse(JSON.stringify(MOCK_DURATION_PREDICTION)) as DurationPredictResult
+    result.gpu_id = req.gpu_id
+    result.n_gpus = req.n_gpus
+    return result
+  })
 }
 
 // ─── Cost Estimation ───
 
 export async function estimateCost(req: CostEstimateRequest): Promise<CostEstimateResult> {
-  await randomDelay()
-  const result = JSON.parse(JSON.stringify(MOCK_COST_ESTIMATE)) as CostEstimateResult
-  const paramFactor = Math.pow(req.parameter_count_billion / 7.0, 0.75)
-  const datasetFactor = req.dataset_samples / 10_000
-  const gpuBenchmark = GPU_BENCHMARKS[req.gpu_id]
-  const throughputFactor = gpuBenchmark ? 1.0 / gpuBenchmark.relative_training_throughput : 1.0
-  const multiGpuFactor = Math.pow(req.gpu_count, 0.95)
-  const singleGpuSeconds = 3600 * paramFactor * datasetFactor * throughputFactor
-  const parallelism = multiGpuFactor
-  const wallClockSeconds = singleGpuSeconds / parallelism
-  const wallClockHours = (wallClockSeconds * req.epochs) / 3600
-  const gpuHours = wallClockHours * req.gpu_count
-  result.gpu_id = req.gpu_id
-  result.estimated_hours = parseFloat(wallClockHours.toFixed(2))
-  result.estimated_days = parseFloat((wallClockHours / 24).toFixed(2))
-  result.gpu_hours = parseFloat(gpuHours.toFixed(2))
-  result.seconds_per_epoch = parseFloat(wallClockSeconds.toFixed(1))
-  result.deployment = req.deployment
-  result.cloud_provider = req.cloud_provider ?? null
-  if (req.deployment === "cloud" && req.cloud_provider) {
-    const rates: Record<string, number> = {
-      "mi300x-azure": 6.00, "a100-80gb-aws": 32.77, "a100-80gb-gcp": 30.00,
-      "a100-80gb-azure": 3.67, "a100-80gb-lambda": 1.10, "a100-80gb-runpod": 1.89,
-      "h100-80gb-aws": 98.32, "h100-80gb-gcp": 90.00, "h100-80gb-azure": 6.98,
-      "rtx-4090-runpod": 0.44, "rtx-4090-lambda": 0.50, "rtx-4090-vast": 0.35,
-      "rtx-4080-runpod": 0.34,
-    }
-    const rate = rates[`${req.gpu_id}-${req.cloud_provider}`]
-    if (rate) {
-      result.hourly_rate_usd = rate
-      result.breakdown.cloud_usd = parseFloat((gpuHours * rate).toFixed(2))
-      result.total_usd = parseFloat((result.breakdown.cloud_usd + result.breakdown.storage_usd + result.breakdown.bandwidth_usd).toFixed(2))
-      result.notes = gpuBenchmark && !gpuBenchmark.approximate
-        ? ["Training speed from benchmark (MLPerf A100 baseline)."]
-        : gpuBenchmark
-          ? [`Training speed from benchmark (${gpuBenchmark.source}).`]
-          : ["Training speed estimated from peak TFLOPS (no benchmark data)."]
-      if (req.gpu_count > 1) {
-        result.notes.push(`${req.gpu_count} GPUs at ~0.95 scaling — wall-clock ${wallClockHours.toFixed(1)}h, billed as ${gpuHours.toFixed(1)} GPU-hours.`)
-      }
-    } else {
-      result.hourly_rate_usd = null
-      result.breakdown.cloud_usd = 0
-      result.total_usd = parseFloat((result.breakdown.storage_usd + result.breakdown.bandwidth_usd).toFixed(2))
-      result.notes = ["No cloud pricing for this GPU — using electricity estimate only."]
-    }
-  } else {
-    result.hourly_rate_usd = null
-    result.breakdown.cloud_usd = 0
-    const powerWatts = GPU_BENCHMARKS[req.gpu_id] ? 750 : 400
-    result.breakdown.electricity_usd = parseFloat(((powerWatts / 1000) * gpuHours * 0.12).toFixed(2))
-    result.total_usd = parseFloat((result.breakdown.electricity_usd + result.breakdown.storage_usd + result.breakdown.bandwidth_usd).toFixed(2))
-    result.notes = ["Local deployment — cloud cost is zero."]
-  }
-  return result
+  const data = await withBackend<CostEstimateResult>("/cost/estimate", {
+    method: "POST",
+    body: JSON.stringify(req),
+  }, async () => JSON.parse(JSON.stringify(MOCK_COST_ESTIMATE)))
+  return enrichCostResult(data, req.gpu_count)
 }
 
-// ─── GPU Benchmarks ───
+// ─── GPU Benchmarks (from mock knowledge base — no dedicated API) ───
 
 export async function listGPUBenchmarks(): Promise<Record<string, GPUBenchmark>> {
-  await delay(200)
   return { ...GPU_BENCHMARKS }
 }
 
-// ─── Experiment History (matches GET /api/v1/experiments) ───
+// ─── Experiment History ───
 
 export async function listExperiments(): Promise<ExperimentHistoryResponse> {
-  await randomDelay()
-  return JSON.parse(JSON.stringify(MOCK_EXPERIMENT_HISTORY))
+  return withBackend("/experiments", { method: "GET" }, async () =>
+    JSON.parse(JSON.stringify(MOCK_EXPERIMENT_HISTORY)))
 }
 
-// ─── Live Training Monitor (matches GET /api/v1/training/monitor) ───
+// ─── Live Training Monitor ───
 
 export async function getLiveMonitor(experimentId?: string): Promise<LiveTrainingMonitor> {
-  await randomDelay()
-  const result = JSON.parse(JSON.stringify(MOCK_LIVE_MONITOR)) as LiveTrainingMonitor
-  if (experimentId) {
-    result.experiment_id = experimentId
-  }
-  return result
+  const q = experimentId ? `?experiment_id=${encodeURIComponent(experimentId)}` : ""
+  return withBackend(`/training/monitor${q}`, { method: "GET" }, async () => {
+    const result = JSON.parse(JSON.stringify(MOCK_LIVE_MONITOR)) as LiveTrainingMonitor
+    if (experimentId) result.experiment_id = experimentId
+    return result
+  })
 }
 
-// ─── Training Controls (frontend-only — no backend) ───
+// ─── Training Controls (demo — uses live monitor data when available) ───
 
-export async function startTraining(req: { model: string; dataset: string; gpu: string }): Promise<{ job_id: string }> {
-  await randomDelay()
-  return { job_id: `job-${Date.now()}` }
+export async function startTraining(_req: { model: string; dataset: string; gpu: string }): Promise<{ job_id: string }> {
+  return { job_id: "demo-vit-base-live" }
 }
 
 export async function getTrainingMetrics(jobId: string): Promise<EpochMetrics[]> {
-  await randomDelay()
+  const experimentId = DEMO_JOB_TO_EXPERIMENT[jobId]
+  if (experimentId && !USE_MOCK) {
+    try {
+      const live = await getLiveMonitor(experimentId)
+      return curveToEpochMetrics(live.curve)
+    } catch { /* fall through */ }
+  }
   return [...MOCK_EPOCH_DATA]
 }
 
-export async function stopTraining(jobId: string): Promise<{ status: string }> {
-  await delay(500)
+export async function stopTraining(_jobId: string): Promise<{ status: string }> {
   return { status: "stopped" }
 }
 
-// ─── Settings ───
+// ─── Settings (localStorage) ───
 
 export async function getSettings(): Promise<Settings> {
-  await delay(200)
   if (typeof window !== "undefined") {
     const saved = localStorage.getItem("preflight-settings")
     if (saved) {
@@ -302,17 +430,15 @@ export async function getSettings(): Promise<Settings> {
 }
 
 export async function updateSettings(settings: Settings): Promise<Settings> {
-  await delay(300)
   if (typeof window !== "undefined") {
     localStorage.setItem("preflight-settings", JSON.stringify(settings))
   }
   return { ...settings }
 }
 
-// ─── Export (PLACEHOLDER) ───
+// ─── Export (frontend-only placeholder) ───
 
-export async function exportAnalysis(id: string, format: "pdf" | "json"): Promise<Blob> {
-  await delay(1000)
+export async function exportAnalysis(_id: string, format: "pdf" | "json"): Promise<Blob> {
   const data = JSON.stringify(MOCK_ANALYSIS_RESULT, null, 2)
   return new Blob([data], { type: format === "json" ? "application/json" : "application/pdf" })
 }

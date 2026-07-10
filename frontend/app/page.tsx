@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/Badge"
 import { FullSpinner } from "@/components/ui/Spinner"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { FlaskConical, FolderSearch, Cpu, Activity, TrendingUp, ChevronDown, ChevronUp, Target } from "lucide-react"
-import { getDashboardStats, getRecentActivity } from "@/lib/api"
+import { getDashboardStats, getRecentActivity, getHealth } from "@/lib/api"
 import { formatRelativeTime } from "@/lib/utils"
 import type { DashboardStats, ActivityItem } from "@/lib/types"
 import Link from "next/link"
@@ -14,12 +14,21 @@ import Link from "next/link"
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [activity, setActivity] = useState<ActivityItem[]>([])
+  const [backendOnline, setBackendOnline] = useState(false)
+  const [apiVersion, setApiVersion] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [activityExpanded, setActivityExpanded] = useState(false)
 
   useEffect(() => {
-    Promise.all([getDashboardStats(), getRecentActivity()])
-      .then(([s, a]) => { setStats(s); setActivity(a) })
+    Promise.all([getDashboardStats(), getRecentActivity(), getHealth().catch(() => null)])
+      .then(([s, a, h]) => {
+        setStats(s)
+        setActivity(a)
+        if (h?.status === "ok") {
+          setBackendOnline(true)
+          setApiVersion(h.version)
+        }
+      })
       .finally(() => setLoading(false))
   }, [])
 
@@ -73,7 +82,9 @@ export default function DashboardPage() {
             <div className="system-status-list">
               <div className="system-status-row">
                 <span className="system-status-label">Backend</span>
-                <Badge variant="warning">Mock Mode</Badge>
+                <Badge variant={backendOnline ? "success" : "warning"}>
+                  {backendOnline ? `Online v${apiVersion ?? ""}` : "Offline / Mock"}
+                </Badge>
               </div>
               <div className="system-status-row">
                 <span className="system-status-label">ML Duration Predictor</span>
