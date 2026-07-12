@@ -49,14 +49,22 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return body as T
 }
 
+function mockDelay(): Promise<void> {
+  const ms = 400 + Math.random() * 400
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 async function withBackend<T>(path: string, init: RequestInit | undefined, mockFn: () => Promise<T>): Promise<T> {
-  if (USE_MOCK) return mockFn()
+  if (USE_MOCK) {
+    await mockDelay()
+    return mockFn()
+  }
   try {
     return await apiFetch<T>(path, init)
   } catch (err) {
-    // Fall back to mocks in local dev or hackathon demo mode when backend is unreachable
     if (process.env.NODE_ENV === "development" || DEMO_MODE) {
       console.warn(`[api] ${path} failed, using mock:`, err)
+      await mockDelay()
       return mockFn()
     }
     throw err
@@ -136,11 +144,15 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 }
 
 export async function getRecentActivity(): Promise<ActivityItem[]> {
-  if (USE_MOCK) return [...MOCK_ACTIVITY]
+  if (USE_MOCK) {
+    await mockDelay()
+    return [...MOCK_ACTIVITY]
+  }
   try {
     const history = await apiFetch<ExperimentHistoryResponse>("/experiments", { method: "GET" })
     return experimentsToActivity(history)
   } catch {
+    await mockDelay()
     return [...MOCK_ACTIVITY]
   }
 }
@@ -149,6 +161,7 @@ export async function getRecentActivity(): Promise<ActivityItem[]> {
 
 export async function analyzeTraining(req: AnalysisRequest): Promise<AnalysisResult> {
   if (USE_MOCK) {
+    await mockDelay()
     const result = JSON.parse(JSON.stringify(MOCK_ANALYSIS_RESULT)) as AnalysisResult
     const vramMultiplier = req.parameter_count_billion / 7.0
     result.predictions.peak_vram_gb = parseFloat((18.5 * vramMultiplier).toFixed(1))
@@ -244,6 +257,7 @@ export async function analyzeDataset(input: DatasetManualInput | { path: string 
   }
 
   // Manual metrics mode — client-side scoring (no backend endpoint)
+  await mockDelay()
   const result = JSON.parse(JSON.stringify(MOCK_DATASET_RESULT)) as DatasetAnalysisResult
   if (!("path" in input)) {
     result.metrics.image_count = input.image_count
@@ -309,6 +323,7 @@ export async function listGPUs(): Promise<GPUSpec[]> {
       })
     } catch { /* fall through */ }
   }
+  await mockDelay()
   return [...MOCK_GPUS]
 }
 
@@ -336,6 +351,7 @@ export async function listCloudOfferings(): Promise<CloudOffering[]> {
       return rec.cloud_offerings
     } catch { /* fall through */ }
   }
+  await mockDelay()
   return [...MOCK_CLOUD]
 }
 
@@ -350,6 +366,7 @@ export async function getTrainingHealth(jobId: string): Promise<TrainingAnalysis
       return liveMonitorToTrainingResult(live)
     } catch { /* fall through */ }
   }
+  await mockDelay()
   return JSON.parse(JSON.stringify(MOCK_TRAINING_RESULT))
 }
 
@@ -412,6 +429,7 @@ export async function getTrainingMetrics(jobId: string): Promise<EpochMetrics[]>
       return curveToEpochMetrics(live.curve)
     } catch { /* fall through */ }
   }
+  await mockDelay()
   return [...MOCK_EPOCH_DATA]
 }
 
