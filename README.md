@@ -15,12 +15,6 @@ docker compose up --build
 
 Full instructions: [docs/DEPLOY.md](docs/DEPLOY.md)
 
-## Status
-
-**Phase 1 complete:** Foundation architecture, knowledge engine, rule loader, and plugin system.
-
-**Phase 2 complete:** Dataset Analyzer, GPU Recommender, Training Log Analyzer.
-
 ## Quick Start
 
 ```bash
@@ -40,9 +34,9 @@ pytest ../tests -v
 ```
 preflight/
 ├── backend/          # FastAPI + Knowledge Engine
-├── frontend/         # Next.js dashboard (future)
+├── frontend/         # Next.js dashboard
 ├── knowledge/        # YAML rule knowledge base
-├── packages/         # Shared packages (future)
+├── packages/         # Shared packages
 ├── docs/             # Documentation
 └── tests/            # Test suite
 ```
@@ -218,11 +212,15 @@ uvicorn app.main:app --reload --port 8000
 
 | Endpoint | Description |
 |----------|-------------|
+| `GET /api/v1/health` | Engine health check |
 | `POST /api/v1/dataset/analyze` | Dataset quality analysis |
 | `POST /api/v1/training/analyze` | Training log health |
 | `POST /api/v1/gpu/recommend` | GPU ranking + cost |
 | `POST /api/v1/cost/estimate` | Standalone cost estimate |
 | `POST /api/v1/predict/duration` | **ML** training duration + cost prediction |
+| `GET /api/v1/dashboard/stats` | Aggregate experiment dashboard stats |
+| `GET /api/v1/experiments` | Experiment history list |
+| `GET /api/v1/training/monitor` | Live training monitor snapshot |
 
 Full reference: [docs/api.md](docs/api.md)
 
