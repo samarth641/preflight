@@ -1,5 +1,7 @@
 # Deploy frontend to Vercel
 
+**Production URL:** [https://preflight-eta.vercel.app](https://preflight-eta.vercel.app)
+
 The **Next.js UI** deploys to Vercel. The **FastAPI backend** does not — host it on DigitalOcean/Docker (or similar) and set `NEXT_PUBLIC_API_URL`.
 
 ## One-time setup

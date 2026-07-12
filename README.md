@@ -2,6 +2,9 @@
 
 AI Training Intelligence Platform — a rule-based expert system for ML training recommendations.
 
+**Live demo:** [https://preflight-eta.vercel.app](https://preflight-eta.vercel.app)  
+(Frontend on Vercel · mock/demo mode until a backend URL is wired — see [docs/VERCEL.md](docs/VERCEL.md))
+
 ## Hackathon deploy (judges)
 
 One command — no Python/Node install:
